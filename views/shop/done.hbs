@@ -1,0 +1,91 @@
+ <!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Done</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- End Banner Area -->
+<section class="order_details section_gap">
+    <div class="container">
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <span class="icon-check_circle display-3 text-success"></span>
+                            <h2 class="display-3 text-black">Thank You!</h2>
+                        <p class="lead mb-5">Đơn hàng của bạn đã đặt thành công.</p>
+                        <div class="order_details_table">
+				            <h2>Chi tiết đặt hàng</h2>
+				                <div class="table-responsive">
+					                <table class="table">
+						                <thead>
+							            <tr>
+								            <th scope="col">Sản phẩm</th>
+								            <th scope="col">Số lượng</th>
+								            <th scope="col">Thành tiền</th>
+							            </tr>
+						            </thead>
+						    <tbody>
+                                 {{# each products}}
+							<tr>
+								<td>
+									<p>{{this.item.title}}</p>
+								</td>
+								<td>
+									<h5>x {{this.sl}}</h5>
+								</td>
+								<td>
+									<p>${{this.tien}}</p>
+								</td>
+							</tr>
+                            {{/each}}
+							<tr>
+								<td>
+									<h4>Tổng thanh toán</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>{{Tong}} VND</p>
+								</td>
+							</tr>
+							{{!-- <tr>
+								<td>
+									<h4>Shipping</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>Flat rate: $50.00</p>
+								</td>
+							</tr> --}}
+							{{!-- <tr>
+								<td>
+									<h4>Total</h4>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p>$2210.00</p>
+								</td>
+							</tr> --}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+              <hr>
+                    <p><a href="/" class="btn btn-sm height-auto px-4 py-3 btn-primary">Quay trở lại shop</a></p>
+                </div>
+            </div>
+        </div>
+     </div>
+  </div>
+</section>
+     

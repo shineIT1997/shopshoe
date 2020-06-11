@@ -1,0 +1,78 @@
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Thanh toán</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- End Banner Area -->
+
+<section class="checkout_area section_gap">
+        <div class="container">
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Thông tin nhận hàng</h3>
+                      
+                        <form class="row contact_form" action="./thanh-toan" method="post" >
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Họ</label>
+                                <input type="text" class="form-control" id="first" name="ho" required>
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Tên đệm và tên</label>
+                                <input type="text" class="form-control" id="last" name="ten" required >
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Số điện thoại</label>
+                                <input type="number" class="form-control" id="number" name="number" required>
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Email</label>
+                                <input type="text" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="col-md-12 form-group p_star">
+                                  <label class="control-label">Địa chỉ nhận hàng</label>
+                                <input type="text" class="form-control" id="add" name="add" required>
+                         
+                            </div>
+                        
+                            <div class="col-md-12 form-group p_star">
+                               <label class="control-label">Thành phố</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                            </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            <h2>Chi tiết đơn hàng</h2>
+                            <ul class="list">
+                                <li><a >Sản phẩm <span>Giá</span></a></li>
+                                  {{# each products}}
+                                   
+                                <li><a >{{this.item.title}} <span class="middle">x {{this.sl}}</span>  <span class="last">${{this.tien}}</span></a></li>
+                                {{/ each}}
+                            </ul>
+                            <ul class="list list_2">
+                             
+                                <li><a>Tổng <span>{{Tien}} VND</span></a></li>
+                            </ul>
+                
+                            <div class="creat_account">
+                                
+                            </div>
+                            <button type="submit" class="primary-btn">Đặt hàng</button>
+                        </div>
+                    </div>
+                       </form>
+                </div>
+            </div>
+        </div>
+    </section>

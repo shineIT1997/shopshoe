@@ -1,0 +1,127 @@
+<section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Giỏ Hàng</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                            <th scope="col">Xóa</th>
+                            <th scope="col">Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{# each products}}
+                            <tr>
+                                 <form action="/update/{{this.item._id}}" method="post">
+                            <td>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <img width="150px" height=" 150px" src="/upload/{{this.item.imagePath}}" alt="">
+                                    </div>
+                                        <div class="media-body">
+                                            <p>{{this.item.title}}</p>
+                                        </div>
+                                </div>
+                            </td>
+                                <td>
+                                    <h5>{{this.item.price}} VND</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                         
+                                        <div class="quantity">
+                                            <input id="{{this.item._id}}" name="sl" type="number" size="1" min="1"
+                                              style="width: 50px; padding: 3px 6px" value="{{this.sl}}">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{this.tien}} VND</h5>
+                                </td>
+                                <td>
+                                    <div class= "btn-group">
+                                        <button class="btn btn-info  height-auto btn-sm updateCart dropdown-toggle" data-toggle="dropdown" type="button">Xóa <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/remove/{{this.item._id}}">Xóa 1</a></li>
+                                             <li><a href="/delcart/{{this.item._id}}">Xóa hết</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                             <button type="submit" class=" btn btn-info height-auto btn-sm updateCart">Cập nhật</button>
+                             {{!-- <a href="/update/{{this.item._id}}"><img class="tooltip-test delCart" id="" data-original-title="Remove"  src="/img/remove.png" alt=""></a></td> --}}
+                                   </form>                  
+                            </tr>
+
+                     
+                                   {{/ each}}   
+                          <tr class="bottom_button">
+                                <td>
+                                    
+                                    </td>
+                                    <td>
+
+                                    </td>
+                          
+                                    <td>
+                                 <h5>Tổng thanh toán: </h5>
+                                    </td>
+                                    <td>
+                                     <h5>{{Tien}} VND</h5>
+                                    </td>
+
+                                    <td>
+                                  
+                                    </td>
+                                    
+                                    <td>
+                                    </td>
+                            </tr>
+                              <tr class="out_button_area">
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" href="/">Tiếp tục mua sắm</a>
+                                        {{# if login}}
+                                        <a class="primary-btn" href="/thanh-toan">Thanh toán</a>
+                                        {{else}}
+                                        <a class="primary-btn" href="../user/login">Thanh toán</a>
+                                        {{/if}}
+                                    </div>
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+   

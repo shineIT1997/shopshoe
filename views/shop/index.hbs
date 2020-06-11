@@ -1,0 +1,115 @@
+	{{> banner}}
+	{{> features}}
+	    {{#if succsess_msg }}
+				<div class="container">
+            <div class="alert alert-danger">
+                  <p>{{succsess_msg}}</p>
+            </div>
+						</div>
+          {{/if}}
+
+<input type="hidden" value="{{login}}" id="islogin">
+<section class="owl-carousel active-product-area section_gap">
+	<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>Sản phẩm nổi bật </h1>
+						</div>
+					</div>
+				</div>
+
+		<div class="row">
+			{{#each products}}
+			<div class="col-lg-3 col-md-6">
+				<div class="single-product">
+					<img  width="250px" height=" 250px" src="/upload/{{this.imagePath}}" alt="">
+						<div class="product-details">
+							<h6>{{this.title}}</h6>
+								<div class="price">
+									<h6>Giá: {{this.price}} vnd</h6>
+								</div>
+								<div class="prd-bottom">
+									{{#if this.sl}}
+										<a href="/them-vao-gio-hang/{{this._id}}" class="social-info islogin">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Thêm vào giỏ</p>
+										</a>
+										<a href="/chi-tiet/{{this._id}}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">Xem chi tiết</p>
+										</a>
+									{{else}}
+										<a href="#" class="social-info islogin">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Hết hàng</p>
+										</a>
+										<a href="/chi-tiet/{{this._id}}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">Xem chi tiết</p>
+										</a>
+									{{/if}}
+										{{!-- <a href="/them-vao-gio-hang/{{this._id}}" class="social-info islogin">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Thêm vào giỏ</p>
+										</a>
+										<a href="/chi-tiet/{{this._id}}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">Xem chi tiết</p>
+										</a> --}}
+								</div>
+							</div>
+						</div>
+			</div>
+					{{/each}}
+		</div>
+	
+		</div>
+	</div>
+	<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>Sản phẩm sắp tới</h1>
+							<p></p>
+						</div>
+					</div>
+				</div>
+		<div class="row">
+			{{# products}}
+			<div class="col-lg-3 col-md-6">
+				<div class="single-product">
+					<img  width="250px" height=" 250px" src="/upload/{{this.imagePath}}" alt="">
+						<div class="product-details">
+							<h6>{{this.title}}</h6>
+								<div class="price">
+									<h6>Giá: {{this.price}} vnd</h6>
+								</div>
+								<div class="prd-bottom">
+										<a href="/them-vao-gio-hang/{{this._id}}" class="social-info islogin">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Thêm vào giỏ</p>
+										</a>
+										<a href="/chi-tiet/{{this._id}}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">Xem chi tiết</p>
+										</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{{/ products}}
+		</div>
+		</div>
+	</div>
+
+	</section>
+	<script src="js/jquery.js"></script>
+	<script>
+		var islogin = $('#islogin').val();
+		if(islogin === 'false')  {
+			$('.islogin').attr('href','../user/login');
+		}
+	</script>

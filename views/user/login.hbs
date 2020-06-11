@@ -1,0 +1,49 @@
+ 	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Đăng Nhập/Đăng Ký</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+ <section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="/img/login.jpg" alt="">
+						<div class="hover">
+							<h4>Bạn chưa có tài khoản?</h4>
+							<p>Vui lòng ấn vào nút đăng ký để tạo tài khoản mới!!</p>
+							<a class="primary-btn" href="registration">Đăng ký</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Đăng nhập</h3>
+						 {{#if hasErrors}}
+                        <div class="alert alert-danger">
+                            {{# each messages}}
+                            <p>{{this}}</p>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+						<form class="row login_form" action="login" method="post" id="contactForm" novalidate="novalidate">
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="email" name="email" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'email'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="hidden", name="_csrf" value="{{csrfToken}}">
+								<button type="submit"  class="primary-btn">Đăng nhập</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
