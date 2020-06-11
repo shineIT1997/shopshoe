@@ -19,7 +19,7 @@
     "express-validator": "^5.3.1",
     "hbs": "~4.0.1",
     "http-errors": "~1.6.2",
-    "mongoose": "^5.5.2",
+    "mongoose": "^5.7.5",
     "mongose": "0.0.2-security",
     "morgan": "~1.9.0",
     "multer": "^1.4.1",
