@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 var Giohang= require('../models/giohang');
 var Cart= require('../models/cart');
 var Product = require('../models/product');
 var Cate = require('../models/cate');
+var User = require('../models/user')
 
 
 /* GET home page. */
@@ -87,6 +89,9 @@ router.post('/chi-tiet/:id', function (req, res) {
 
 //tiến hành thanh toán
 router.post('/thanh-toan', function (req, res) {
+
+  console.log(typeof req.user._id);
+
 	var giohang = new Cart(req.session.cart );
 	var data = giohang.convertArray();
   var Tong = giohang.Tien;
@@ -103,6 +108,7 @@ router.post('/thanh-toan', function (req, res) {
     }
   }
 	var cart = new Giohang({
+    userID      :  req.user._id,
     firstname		:  req.body.ho,
     lastname    :  req.body.ten,
 		email 	    :  req.body.email,
@@ -175,6 +181,14 @@ router.post('/gio-hang', function (req, res) {
 			res.render('shop/san-pham',{product: result, cate: cate});
 		});
   });
+});
+
+// tìm sản phẩm theo tên
+router.post('/search', function (req, res) {
+    console.log(req.body);
+    Product.find({title: new RegExp(req.body.find, 'i')}, (err, result) => {
+      res.render('shop/search',{product: result});
+    })
 });
 
 //del 1 product

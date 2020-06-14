@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var csrf = require('csurf');
 var passport = require('passport');
+var giohang = require('../models/giohang.js');
 
 var csrfProtec = csrf();
 router.use(csrfProtec);
@@ -11,6 +12,24 @@ router.use(csrfProtec);
 // =====================================
 router.get('/profile', isLoggedIn, function(req, res){
   res.render('user/profile');
+});
+
+// danh sách đơn hàng
+router.get('/don-hang', isLoggedIn, function(req, res){
+  giohang.find({userID: req.user._id}).populate('userID').exec(
+    (err, result) => {
+      result = result.map((el, index) => {
+        el.cart = el.cart.map((element, index) => {
+          console.log(element.sl);
+          let sl = element.sl
+          let tien = element.tien
+          return Object.assign({}, element.item, {tien, sl})
+        })
+        return el
+      })
+      res.render('user/don-hang', {cart: result});
+    }
+  ) 
 });
 
 

@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
+const { schema } = require('./product');
 var Schema = mongoose.Schema;
 
 var Cart = new Schema({
+
     firstname		: String,
     lastname        : String,
     phone           : Number,
@@ -10,7 +12,11 @@ var Cart = new Schema({
     thanhpho        : String,
     cart 		    : Object,
     st              : Number,
-    Tien            : Number
+    Tien            : Number,
+    userID: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
 },
 {
     collection: 'Giohang',

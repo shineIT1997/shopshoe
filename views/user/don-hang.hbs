@@ -1,0 +1,70 @@
+<section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Danh sách đơn hàng</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                {{# each cart}}
+                <div>
+                    <h4>Đơn hàng: {{this._id}}/{{this.updatedAt}}</h4>
+                    <h6>Họ và tên: {{this.userID.firstname}} {{this.userID.lastname}}</h6>
+                    <h6>Địa chỉ giao: {{this.diachi}} {{this.thanhpho}}</h6>
+                    <h6>email: {{this.email}}</h6>
+                    <h6>phone: {{this.phone}}</h6>
+                    <h6>Sản phẩm:</h6>
+                       <table id="example" class="display table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên</th>
+                                    <th>Hình</th>
+                                    <th>Số Lượng</th>
+                                    <th>Giá Tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {{# each this.cart}}
+                                <tr>
+                                    <td>1</td>
+                                    <td>{{this.title}}</td>
+                                    <td><img src="/upload/{{this.imagePath}}" width="100px" alt=""></td>
+                                    <td>{{this.sl}}</td>
+                                    <td>{{this.tien}} VND</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <tr>
+                            <td colspan="5">
+                                {{#if pro.st}}
+                                    <span>Đã Thanh Toán</span>
+                                    
+                                {{else}}
+                                    <a href="/admin/cart/{{pro._id}}/thanh-toan-cart.html">Thanh Toán</a>
+                                {{/if}}  | 
+                                <a href="/admin/cart/{{pro._id}}/xoa-cart.html">Xoá</a> | 
+                                <a href="/admin/cart/danh-sach.html">Quay Lại</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                {{# pro}}
+                                <p><strong style="color:red">Tồng Tiền: </strong>{{this.Tien}} VND</p>
+                                {{/pro}}
+                            </td>
+                        </tr>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>
+
+   
