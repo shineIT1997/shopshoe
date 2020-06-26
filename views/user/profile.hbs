@@ -14,16 +14,25 @@
         <div class="col-sm-6 col-sm-offset-3 ">
             <div class="well">
                 <h3><span class="fa fa-user"></span>Tài khoản</h3>
-
+									<form action="/admin/user/{{user._id}}/sua-user-by-user.html" method="post">
                     <p>
                         <strong>Id</strong>: {{user._id }}<br>
-                        <strong>Email</strong>: {{user.email }}<br>
-						<strong>Họ</strong>: {{user.firstname }}<br>
-						<strong>Tên đệm và tên</strong>: {{user.lastname }}<br>
-                        <strong>Tên đăng nhập</strong>: {{user.username}} <br>
-						<strong>Số điện thoại</strong>: {{user.phone}}<br>
-						<strong>Chức vụ</strong>: {{user.roles}}
+                        <strong>Email</strong>:
+												{{user.email}}
+												 <br>
+												<strong>Họ</strong>:
+													<input class="form-control" style="border: none;" type="text" name="hovachulot" id="hovachulot" value="{{user.firstname}}"> <br>
+												<strong>Tên đệm và tên</strong>:
+													<input class="form-control" style="border: none;" type="text" name="ten" id="ten" value="{{user.lastname }}"> <br> 
+												<strong>Tên đăng nhập</strong>: 
+													<input class="form-control" style="border: none;" type="text" name="tendangnhap" id="tendangnhap" value="{{user.username}}"> <br>
+												<strong>Số điện thoại</strong>: 
+													<input class="form-control" style="border: none;" type="text" name="sodienthoai" id="sodienthoai" value="{{user.phone}}"><br>
+												<strong>Chức vụ</strong>: {{user.roles}}
                     </p>
+										<button class="btn btn-info" type="submit">Lưu</button>
+									</form>
+
 
             </div>
         </div>

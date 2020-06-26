@@ -21,33 +21,32 @@
 
                             <div class="col-md-6 form-group p_star">
                                  <label class="control-label">Họ</label>
-                                <input type="text" class="form-control" id="first" name="ho" required>
+                                <input type="text" class="form-control" id="first" name="ho" required value="{{user.firstname}}">
                             </div>
 
                             <div class="col-md-6 form-group p_star">
                                  <label class="control-label">Tên đệm và tên</label>
-                                <input type="text" class="form-control" id="last" name="ten" required >
+                                <input type="text" class="form-control" id="last" name="ten" required  value="{{user.lastname}}">
                             </div>
 
                             <div class="col-md-6 form-group p_star">
                                  <label class="control-label">Số điện thoại</label>
-                                <input type="number" class="form-control" id="number" name="number" required>
+                                <input type="number" class="form-control" id="number" name="number" required value="{{user.phone}}">
                             </div>
 
                             <div class="col-md-6 form-group p_star">
                                  <label class="control-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email" required>
+                                <input type="text" class="form-control" id="email" name="email" required value="{{user.email}}">
                             </div>
-
                             <div class="col-md-12 form-group p_star">
                                   <label class="control-label">Địa chỉ nhận hàng</label>
-                                <input type="text" class="form-control" id="add" name="add" required>
+                                <input type="text" class="form-control" id="add" name="add" value="{{user.address}}" required>
                          
                             </div>
                         
                             <div class="col-md-12 form-group p_star">
                                <label class="control-label">Thành phố</label>
-                                <input type="text" class="form-control" id="city" name="city" required>
+                                <input type="text" class="form-control" id="city" name="city" value="{{user.city}}" required>
                             </div>
                     </div>
                     <div class="col-lg-4">
@@ -56,7 +55,6 @@
                             <ul class="list">
                                 <li><a >Sản phẩm <span>Giá</span></a></li>
                                   {{# each products}}
-                                   
                                 <li><a >{{this.item.title}} <span class="middle">x {{this.sl}}</span></a></li>
                                 {{/ each}}
                             </ul>

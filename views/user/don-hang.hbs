@@ -9,16 +9,68 @@
     </section>
 <section class="cart_area">
     <div class="container">
+        {{#if succsess_msg }}
+        <div class="alert alert-info">
+            <p>{{succsess_msg}}</p>
+        </div>
+    
+        {{/if}}
         <div class="cart_inner">
             <div class="table-responsive">
                 {{# each cart}}
                 <div>
-                    <h4>Đơn hàng: {{this._id}}/{{this.updatedAt}}</h4>
-                    <h6>Họ và tên: {{this.userID.firstname}} {{this.userID.lastname}}</h6>
-                    <h6>Địa chỉ giao: {{this.diachi}} {{this.thanhpho}}</h6>
-                    <h6>email: {{this.email}}</h6>
-                    <h6>phone: {{this.phone}}</h6>
-                    <h6>Sản phẩm:</h6>
+                    {{#ifCond this.st 2}}
+                        <div class="col-lg-8">
+                        <h3>Đơn hàng: {{this._id}}/{{this.updatedAt}}</h3>
+                        <form class="row contact_form" action="/admin/cart/{{this._id}}/sua-cart.html" method="post" >
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Họ</label>
+                                <input value="{{this.firstname}}" type="text" class="form-control" id="first" name="ho" required>
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Tên đệm và tên</label>
+                                <input value="{{this.lastname}}" type="text" class="form-control" id="last" name="ten" required >
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Số điện thoại</label>
+                                <input value="{{this.phone}}" type="number" class="form-control" id="number" name="number" required>
+                            </div>
+
+                            <div class="col-md-6 form-group p_star">
+                                 <label class="control-label">Email</label>
+                                <input value="{{this.email}}" type="text" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="col-md-12 form-group p_star">
+                                  <label class="control-label">Địa chỉ nhận hàng</label>
+                                <input value="{{this.diachi}}" type="text" class="form-control" id="add" name="add" required>
+                         
+                            </div>
+                        
+                            <div class="col-md-12 form-group p_star">
+                               <label class="control-label">Thành phố</label>
+                                <input value="{{this.thanhpho}}" type="text" class="form-control" id="city" name="city" required>
+                            </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            {{!-- <input type="hidden", name="_csrf" value="{{csrfToken}}"> --}}
+                            <button type="submit" class="primary-btn">Sửa thông tin</button>
+                        </div>
+                    </div>
+                       </form>
+                    </div>
+                    {{else}}
+                        <h3>Đơn hàng: {{this._id}}/{{this.updatedAt}}</h3>
+                        <h6>Họ và tên: {{this.firstname}} {{this.lastname}}</h6>
+                        <h6>Địa chỉ giao: {{this.diachi}} {{this.thanhpho}}</h6>
+                        <h6>email: {{this.email}}</h6>
+                        <h6>phone: {{this.phone}}</h6>
+                        <h6>Sản phẩm:</h6> 
+                    {{/ifCond}} 
+
                        <table id="example" class="display table table-hover table-condensed">
                             <thead>
                                 <tr>
@@ -43,24 +95,27 @@
                         </table>
                         <tr>
                             <td colspan="5">
-                                {{#if pro.st}}
+                                {{#ifCond this.st 2}}
+                                    <span style="color:rgb(77, 160, 238)">Chưa Thanh Toán</span>
+                                    || <a style="color:red" href="./{{this._id}}/xoa-cart.html">Xoá</a>  
+                                {{/ifCond}}  
+                                {{#ifCond this.st 1}}
+                                    <span style="color:rgb(66, 147, 240)">Đang Vận chuyển</span>
+                                {{/ifCond}} 
+                                {{#ifCond this.st 0}}
                                     <span>Đã Thanh Toán</span>
-                                    
-                                {{else}}
-                                    <a href="/admin/cart/{{pro._id}}/thanh-toan-cart.html">Thanh Toán</a>
-                                {{/if}}  | 
-                                <a href="/admin/cart/{{pro._id}}/xoa-cart.html">Xoá</a> | 
-                                <a href="/admin/cart/danh-sach.html">Quay Lại</a>
+                                {{/ifCond}} 
+
+                                {{!-- <a href="/admin/cart/danh-sach.html">Quay Lại</a> --}}
                             </td>
                         </tr>
                         <tr>
                             <td colspan="5">
-                                {{# pro}}
-                                <p><strong style="color:red">Tồng Tiền: </strong>{{this.Tien}} VND</p>
-                                {{/pro}}
+                                    <p><strong style="color:red">Tồng Tiền: </strong>{{this.Tien}} VND</p>
                             </td>
                         </tr>
                 </div>
+                <hr>
                 {{/each}}
             </div>
         </div>

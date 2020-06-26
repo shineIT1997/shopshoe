@@ -39,12 +39,33 @@ router.get('/:id/xem-cart.html', isLoggedIn, function(req, res, next) {
 router.get('/:id/thanh-toan-cart.html', isLoggedIn, function(req, res, next) {
     var id = req.params.id;
     giohang.findById(id, function(err, data){
-        data.st = 1;
+        data.st -= 1;
         data.save();
         req.flash('succsess_msg', 'Đã Đặt Sản Phẩm');
        res.redirect('/admin/cart/'+id+'/xem-cart.html');
     });
 });
+
+
+router.post('/:id/sua-cart.html', check, function(req, res, next) {
+
+    var id = req.params.id;
+    
+    giohang.findByIdAndUpdate(id, { 
+      firstname: req.body.ho,
+      lastname: req.body.ten,
+      phone: req.body.number,
+      email: req.body.email,
+      diachi: req.body.add,
+      thanhpho: req.body.city,
+    }, (err, result) => {
+      if(result) {
+          req.flash('succsess_msg', `Đã Sửa đơn hàng ${id}`);
+         res.redirect('/user/don-hang');
+      }
+    })
+  });
+
 
 
 router.get('/:id/xoa-cart.html', isLoggedIn, function(req, res, next) {
@@ -60,6 +81,13 @@ module.exports = router;
 // Hàm được sử dụng để kiểm tra đã login hay chưa
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated() && req.user.roles === 'ADMIN' ){
+      return next();
+    } else
+    res.redirect('/admin/login');
+  };
+
+  function check(req, res, next){
+    if(req.isAuthenticated()){
       return next();
     } else
     res.redirect('/admin/login');

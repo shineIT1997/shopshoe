@@ -45,6 +45,8 @@ passport.use('local.registration', new LocalStrategy({
         newUser.lastname = req.body.lastname;
         newUser.username = req.body.username;
         newUser.phone = req.body.phone;
+        newUser.address = req.body.address;
+        newUser.city = req.body.city;
         newUser.email = req.body.email;
         newUser.password = newUser.encryptPassword(req.body.password);
         newUser.roles = 'MEMBER';

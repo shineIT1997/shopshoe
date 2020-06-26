@@ -3,6 +3,7 @@ var router = express.Router();
 
 
 var Sources = require('../models/sources.js');
+const Cate = require('../models/cate.js')
 
 function bodauTV(str) {
   str = str.toLowerCase();
@@ -19,13 +20,13 @@ function bodauTV(str) {
 }
 
 
-router.get('/', isLoggedIn, function(req, res, next) {
-  res.redirect('/admin/cate/danh-sach.html', {layout: false});
-});
+// router.get('/', isLoggedIn, function(req, res, next) {
+//   res.redirect('/admin/cate/danh-sach.html', {layout: false});
+// });
 
 router.get('/danh-sach.html', isLoggedIn, function(req, res, next) {
-  Cate.find().then(function(cate){
-    res.render('admin/cate/danh-sach', {layout: false, cate: cate});
+  Cate.find().then(function(cates){
+    res.render('admin/cate/danh-sach', {layout: false, cates});
   });
 });
 
@@ -33,21 +34,46 @@ router.get('/them-cate.html', isLoggedIn, function(req, res, next) {
   res.render('admin/cate/them-cate', {layout: false});
 });
 
-router.post('/them-cate.html', isLoggedIn,  function(req, res, next) {
-  console.log(req.body , 'cate');
+router.post('/them-cate.html', isLoggedIn, (req, res, next) => {
+  req.checkBody('tentheloai', 'Tên không được trống').notEmpty();
+  console.log(req.body);
+  Cate.find({MaTL: req.body.MaTL}).then(result => {
+      console.log();
+      if(!Array.isArray(result) || !result.length) {
+        let cate = new Cate({
+          tentheloai: req.body.tentheloai,
+          MaTL: req.body.MaTL
+        })
+        cate.save().then(() => {
+          req.flash('succsess_msg', 'Đã thêm Thể loại');
+          res.redirect('/admin/cate/them-cate.html', );
+        })
+
+      }
+      else {
+        req.flash('succsess_msg', 'Thể loại đã tồn tại');
+        res.redirect('/admin/cate/them-cate.html', );
+      }
+    }
+    )
+})
+
+///Nhà cung cấp
+// router.post('/them-cate.html', isLoggedIn,  function(req, res, next) {
+//   console.log(req.body , 'cate');
   
-  var source = new Sources({
-    name   : req.body.name,
-    address  : req.body.address,
-    email  : req.body.email,
-    phone  : req.body.phone,
-    description  : req.body.description
-  });
-	source.save().then(function(){
-		req.flash('succsess_msg', 'Đã Thêm Thành Công');
-		res.redirect('/admin/cate/them-cate.html'); 
-	});
-});
+//   var source = new Sources({
+//     name   : req.body.name,
+//     address  : req.body.address,
+//     email  : req.body.email,
+//     phone  : req.body.phone,
+//     description  : req.body.description
+//   });
+// 	source.save().then(function(){
+// 		req.flash('succsess_msg', 'Đã Thêm Thành Công');
+// 		res.redirect('/admin/cate/them-cate.html'); 
+// 	});
+// });
 
 router.get('/:id/sua-cate.html', isLoggedIn,  function(req, res, next) {
 	Cate.findById(req.params.id, function(err, data){
@@ -57,8 +83,7 @@ router.get('/:id/sua-cate.html', isLoggedIn,  function(req, res, next) {
 
 router.post('/:id/sua-cate.html', isLoggedIn,  function(req, res, next) {
   		Cate.findById(req.params.id, function(err, data){
-			data.ten 			      = req.body.name;
-			data.nameKhongDau 	= bodauTV(req.body.name);
+			data.tentheloai 	    = req.body.tentheloai;
 			data.save();
 			req.flash('succsess_msg', 'Đã Sửa Thành Công');
 			res.redirect('/admin/cate/'+req.params.id+'/sua-cate.html');

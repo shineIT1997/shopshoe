@@ -31,12 +31,15 @@ router.get('/danh-sach.html', isLoggedIn,function (req, res) {
 
 //thêm sản phẩm
 router.get('/them-product.html', isLoggedIn, function (req, res) {
-	Cate.find().then(function(cate){
-		res.render('admin/product/them',{errors: null, cate: cate, layout: false});
+	Cate.find().then(function(cates){
+		console.log(cates);
+		
+		res.render('admin/product/them',{errors: null, cates: cates, layout: false});
 	});
 });
 router.post('/them-product.html', isLoggedIn, upload.single('hinh'), function (req, res) {
-	
+		console.log(req.body);
+		
 	req.checkBody('name', 'Tên không được trống').notEmpty();
 	req.checkBody('gia', 'giá phải là số').isInt();
 	req.checkBody('soluong', 'soluong là số').isInt();
@@ -56,7 +59,8 @@ router.post('/them-product.html', isLoggedIn, upload.single('hinh'), function (r
       description		    : req.body.des,
 			price 			    : req.body.gia,
 			cateId				: req.body.cate,
-			single				: req.body.soluong
+			soluong				: req.body.soluong,
+			theloai				:req.body.theloai
 		});
 	pro.save().then(function(){
       req.flash('succsess_msg', 'Đã Thêm Thành Công');
@@ -68,9 +72,8 @@ router.post('/them-product.html', isLoggedIn, upload.single('hinh'), function (r
 //Sửa sản phẩm
 router.get('/:id/sua-product.html', function (req, res) {
 	Product.findById(req.params.id).then(function(data){
-		Cate.find().then(function(cate){
-		console.log(data)
-		res.render('admin/product/sua',{errors: null, product: data, cate: cate, layout: false});
+		Cate.find().then(function(cates){
+		res.render('admin/product/sua',{errors: null, product: data, cates: cates, layout: false});
 		});
 	});
 });
@@ -101,7 +104,7 @@ router.post('/:id/sua-product.html',  upload.single('hinh'), function (req, res)
 			data.imagePath  		  = req.file.filename,
 			data.description		  = req.body.des,
 			data.price 			      = req.body.gia,
-			data.cateId				  = req.body.cate
+			data.theloai				  = req.body.theloai 
 
 			data.save();
 				req.flash('succsess_msg', 'Đã Sửa Thành Công');
@@ -134,5 +137,7 @@ function isLoggedIn(req, res, next){
       return next();
     } else
     res.redirect('/admin/login');
-  };
+	};
+	
+
   

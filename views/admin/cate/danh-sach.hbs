@@ -112,18 +112,18 @@
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
-                                                    <th>Tên</th>
-                                                    <th>Tên không dấu</th>
+                                                    <th>Mã thể loại</th>
+                                                    <th>Tên Thể loại</th>
                                                     <th>Hành động</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                             {{# each cate}}
+                                             {{# each cates}}
                                                 <tr>
                                                    
                                                     <td>1</td>
-                                                    <td>{{this.ten}}</td>
-                                                    <td>{{this.tenkhongdau}}</td>
+                                                    <td>{{this.MaTL}}</td>
+                                                    <td>{{this.tentheloai}}</td>
                                                   
                                                     <td>
                                                         <a href="/admin/cate/{{this._id}}/xoa-cate.html">Xoá</a> | 

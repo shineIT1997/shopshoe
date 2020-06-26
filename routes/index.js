@@ -12,7 +12,7 @@ var User = require('../models/user')
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // var login  = req.session.user ? true : false
-  Product.find().limit(6).then(function(product){
+  Product.find().limit(8). populate({ path: 'theloai'}).then(function(product){
     res.render('shop/index', { products: product });
   });
   
@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function (req, res) {
   var find = req.body.find;
   Cate.find().then(function(cate){
-		Product.find({title: {$regex: find}}, function(err, result){
+		Product.find({title: {$regex: find}}).populate('theloai').then(function(result){
       console.log(result)
 			res.render('shop/san-pham',{product: result, cate: cate});
 		});
@@ -31,10 +31,11 @@ router.post('/', function (req, res) {
 
 //category
 router.get('/cate/:name.:id.html', function (req, res) {
+  console.log(req.params.id);
   // var login  = req.session.user ? true : false
-	Product.find({cateId: req.params.id}, function(err, data){
-		Cate.find().then(function(cate){
-			res.render('shop/san-pham',{product: data, cate: cate});
+	Product.find({ theloai: { $elemMatch: { $eq: req.params.id }}}).populate('theloai').then(function(data){
+		Cate.find().then(function(cates){
+			res.render('shop/san-pham',{product: data, cates: cates});
 		});
 	});
 });
@@ -42,19 +43,18 @@ router.get('/cate/:name.:id.html', function (req, res) {
 // tìm sản phẩm category
 router.post('/cate/:name.:id.html', function (req, res) {
   var find = req.body.find;
-  Cate.find().then(function(cate){
-		Product.find({title: {$regex: find}}, function(err, result){
-			res.render('shop/san-pham',{product: result, cate: cate});
-
+  Cate.find().then(function(cates){
+		Product.find({title: {$regex: find}}).populate('theloai').then(function(result){
+			res.render('shop/san-pham',{product: result, cates: cates});
 		});
   });
 });
 
 //trang category
 router.get('/san-pham.html', function (req, res) {
-	Product.find().then(function(product){
-		Cate.find().then(function(cate){
-			res.render('shop/san-pham',{product: product, cate: cate});
+	Product.find().populate('theloai').then(function(product){
+		Cate.find().then(function(cates){
+			res.render('shop/san-pham',{product: product, cates: cates});
 		});
 	});
 });
@@ -71,7 +71,7 @@ router.post('/san-pham.html', function (req, res) {
 
 //trang chi tiết sp
 router.get('/chi-tiet/:id', function (req, res) {
-      Product.findById(req.params.id).then(function(data){
+      Product.findById(req.params.id).populate('theloai').then(function(data){
         console.log(data);
         res.render('shop/chi-tiet', { products: data });
       });
@@ -92,8 +92,12 @@ router.post('/thanh-toan', function (req, res) {
 
   console.log(typeof req.user._id);
 
-	var giohang = new Cart(req.session.cart );
-	var data = giohang.convertArray();
+  var giohang = new Cart(req.session.cart );
+  console.log(req.session.cart , 'req.session.cart');
+  
+  console.log(giohang, 'giohang');
+  
+  var data = giohang.convertArray();
   var Tong = giohang.Tien;
   
   for ( let element of data) {
@@ -116,7 +120,7 @@ router.post('/thanh-toan', function (req, res) {
     diachi      :  req.body.add,
     thanhpho    :  req.body.city,
     cart 		    :  data, 
-    st          :   0,
+    st          :   2,
     Tien        :  Tong
   });
   
@@ -129,11 +133,14 @@ router.post('/thanh-toan', function (req, res) {
 });
 
 router.get('/thanh-toan', function(req, res, next){
+  
   if(!req.session.cart){
     return res.render('shop/gio-hang', {products: null});
   }
   var cart = new Cart(req.session.cart);
-  res.render('shop/thanh-toan', {products: cart.convertArray(), Tien: cart.Tien});
+  console.log(req.user);
+  
+  res.render('shop/thanh-toan', {products: cart.convertArray(), Tien: cart.Tien, user: req.user});
   
 });
 
@@ -152,6 +159,8 @@ router.get('/them-vao-gio-hang/:id', function(req, res, next){
   var productId = req.params.id;
   var cart = new Cart( (req.session.cart) ? req.session.cart : {} );
 
+  console.log();
+  
   Product.findById(productId, function(err, product){
     if(err) {
       return res.redirect('/');
@@ -159,7 +168,7 @@ router.get('/them-vao-gio-hang/:id', function(req, res, next){
     cart.add(product, product.id);
     req.session.cart = cart;
     console.log(req.session.cart);
-    res.redirect('/gio-hang');
+    res.redirect(req.headers.referer);
   });
 });
 
@@ -186,8 +195,10 @@ router.post('/gio-hang', function (req, res) {
 // tìm sản phẩm theo tên
 router.post('/search', function (req, res) {
     console.log(req.body);
-    Product.find({title: new RegExp(req.body.find, 'i')}, (err, result) => {
-      res.render('shop/search',{product: result});
+    Cate.find().then(function(cates){
+      Product.find({title: new RegExp(req.body.find, 'i')}, (err, result) => {
+        res.render('shop/search',{product: result, cates});
+      })
     })
 });
 

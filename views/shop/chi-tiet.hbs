@@ -24,6 +24,11 @@
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
 						<h3>{{this.title}}</h3>
+						<div class="tag">
+							{{# each this.theloai}}
+							<a href="/cate/{{this.MaTL}}.{{this._id}}.html" aria-expanded="true" aria-controls="fruitsVegetable"><i>#{{this.tentheloai}}</i></a>
+							{{/each}}
+						</div>
 						<h2>Giá: {{this.price}} vnd</h2>
 						<ul class="list">
 							<li><a href="#"><span>Tình trạng</span> : {{this.sl}} sản phẩm</a></li>

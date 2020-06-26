@@ -16,6 +16,8 @@ router.get('/profile', isLoggedIn, function(req, res){
 
 // danh sách đơn hàng
 router.get('/don-hang', isLoggedIn, function(req, res){
+  console.log(req.session.csrfSecret);
+  csrfToken = req.session.csrfSecret
   giohang.find({userID: req.user._id}).populate('userID').exec(
     (err, result) => {
       result = result.map((el, index) => {
@@ -27,12 +29,43 @@ router.get('/don-hang', isLoggedIn, function(req, res){
         })
         return el
       })
-      res.render('user/don-hang', {cart: result});
+      res.render('user/don-hang', {csrfToken, cart: result.reverse()});
     }
   ) 
 });
 
 
+// xóa đơn hàng
+
+
+router.get('/:id/xoa-cart.html', function(req, res, next) {
+  var id = req.params.id;
+  giohang.findOneAndRemove({_id: id}, function(err, offer){
+      req.flash('succsess_msg', 'Đã Xoá Thành Công');
+     res.redirect('/user/don-hang'); 
+  });
+});
+
+// sửa giỏ hàng
+router.post('/:id/sua-cart.html', isLoggedIn, function(req, res, next) {
+  console.log(req.session);
+  
+  var id = req.params.id;
+  
+  giohang.findByIdAndUpdate(id, { 
+    firstname: req.body.ho,
+    lastname: req.body.ten,
+    phone: req.body.number,
+    email: req.body.email,
+    diachi: req.body.add,
+    thanhpho: req.body.city,
+  }, (err, result) => {
+    if(result) {
+        req.flash('succsess_msg', `Đã Sửa đơn hàng ${id}`);
+       res.redirect('/user/don-hang');
+    }
+  })
+});
 // =====================================
 // Đăng xuất ==============================
 // =====================================
@@ -75,7 +108,8 @@ router.get('/login', function(req, res, next){
   var messages = req.flash('error');
   res.render('user/login', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
-router.post('/login', passport.authenticate('local.login',{
+
+router.post('/login', passport.authenticate('local.login', {
   successRedirect: '/admin',
   failureRedirect: '/user/login',
   failureFlash: true
@@ -86,6 +120,8 @@ module.exports = router;
 
 // Hàm được sử dụng để kiểm tra đã login hay chưa
 function isLoggedIn(req, res, next){
+  console.log(req.isAuthenticated());
+  
   if(req.isAuthenticated()){
     return next();
   }

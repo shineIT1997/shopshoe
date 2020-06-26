@@ -19,9 +19,9 @@
 				<div class="sidebar-categories">
 					<div class="head">Danh mục</div>
 					<ul class="main-categories">
-						{{# each cate}}
+						{{# each cates}}
 						<li class="main-nav-list">
-							<a href="/cate/{{this.tenkhongdau}}.{{this._id}}.html" aria-expanded="true" aria-controls="fruitsVegetable"> {{this.ten}}</a>
+							<a href="/cate/{{this.MaTL}}.{{this._id}}.html" aria-expanded="true" aria-controls="fruitsVegetable"> {{this.tentheloai}}</a>
 						{{/each}}	
 						</li>
 					</ul>
@@ -42,6 +42,11 @@
 								<img class="img-fluid" src="/upload/{{this.imagePath}}" alt="">
 								<div class="product-details">
 									<h6>{{this.title}}</h6>
+									<div class="tag">
+										{{# each this.theloai}}
+										<a href="/cate/{{this.MaTL}}.{{this._id}}.html" aria-expanded="true" aria-controls="fruitsVegetable"><i>#{{this.tentheloai}}</i></a>
+										{{/each}}
+									</div>
 									<div class="price">
 										<h6>Giá: {{this.price}} vnd</h6>
 									</div>

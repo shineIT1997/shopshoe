@@ -39,7 +39,7 @@ var products = [
         price : 250000,
         sl: 20
       }),
-      new Product({
+    new Product({
         imagePath : "p6.jpg" ,
         title : "Giày Addidas cho người chơi thể thao",
         description : "Thiết kế năng động trẻ trung",

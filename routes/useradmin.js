@@ -32,7 +32,20 @@ router.post('/:id/sua-user.html', isLoggedIn,  function(req, res, next) {
       res.redirect('/admin/user/'+req.params.id+'/sua-user.html');
   });
 });
-
+router.post('/:id/sua-user-by-user.html', isLoggedInWithoutAdmin,  function(req, res, next) {
+  user.findById(req.params.id, function(err, data){
+    data.firstname = req.body.hovachulot;
+    data.lastname  = req.body.ten;
+    data.phone     = Number(req.body.sodienthoai)
+    data.username  = req.body.tendangnhap
+    
+     data.save();
+      req.flash('succsess_msg', 'Đã Sửa Thành Công');
+      res.redirect('/user/profile');
+  });
+  console.log('ddasdas');
+  
+});
 router.get('/:id/xoa-user.html', isLoggedIn, function(req, res, next) {
     var id = req.params.id;
         user.findOneAndRemove({_id: id}, function(err, offer){
@@ -49,4 +62,12 @@ function isLoggedIn(req, res, next){
       return next();
     } else
     res.redirect('/admin/login');
+  };
+
+
+  function isLoggedInWithoutAdmin(req, res, next){
+    if(req.isAuthenticated() ){
+      return next();
+    } else
+    res.redirect('/login');
   };

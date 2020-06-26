@@ -149,12 +149,21 @@
                                                   </table>
                                                   <tr>
                                                     <td colspan="5">
-                                                        {{#if pro.st}}
+                                                        {{#ifCond pro.st 2 }}
+                                                            <a href="/admin/cart/{{pro._id}}/thanh-toan-cart.html">Vận chuyển |</a>
+                                                        {{/ifCond}}
+                                                        {{#ifCond pro.st 1 }}
+                                                            <a href="/admin/cart/{{pro._id}}/thanh-toan-cart.html">Thanh Toán |</a>
+                                                        {{/ifCond}}
+                                                        {{#ifCond pro.st 0 }}
+                                                            <span> Đã thanh đoán | </span>
+                                                       
+                                                        {{/ifCond}}
+                                                        {{!-- {{#if pro.st}}
                                                             <span>Đã Thanh Toán</span>
-                                                            
                                                         {{else}}
                                                             <a href="/admin/cart/{{pro._id}}/thanh-toan-cart.html">Thanh Toán</a>
-                                                        {{/if}}  | 
+                                                        {{/if}}  |  --}}
                                                         <a href="/admin/cart/{{pro._id}}/xoa-cart.html">Xoá</a> | 
                                                         <a href="/admin/cart/danh-sach.html">Quay Lại</a>
                                                     </td>

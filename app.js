@@ -24,8 +24,34 @@ var app = express();
 mongodb.connect('mongodb://localhost:27017/shopping', {useNewUrlParser: true});
 require('./config/passport');
 
+
+var hbs = expressHbs.create({ 
+  defaultLayout: 'layout',
+  extname:'hbs',
+  helpers: {
+    ifCond: function(v1, v2, options) {
+      if(v1 == v2) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    },
+    findInArray: function(v1, array, options) {
+      if(!Array.isArray(array)|| !array.length) {
+        console.log(array , 'array');
+        
+        return options.inverse(this)
+      }
+      else {
+        for (let el of array) {
+          console.log(el==v1, 'compare');
+          if(el==v1) return options.fn(this)
+        }
+      }
+    }
+  }
+  /* config */ });
 // view engine setup
-app.engine('.hbs', expressHbs({defaultLayout:'layout', extname:'hbs'}));
+app.engine('.hbs', hbs.engine);
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 

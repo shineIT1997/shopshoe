@@ -27,6 +27,11 @@
 					<img  width="250px" height=" 250px" src="/upload/{{this.imagePath}}" alt="">
 						<div class="product-details">
 							<h6>{{this.title}}</h6>
+									<div class="tag">
+										{{# each this.theloai}}
+										<a href="/cate/{{this.MaTL}}.{{this._id}}.html" aria-expanded="true" aria-controls="fruitsVegetable"><i>#{{this.tentheloai}}</i></a>
+										{{/each}}
+									</div>
 								<div class="price">
 									<h6>Giá: {{this.price}} vnd</h6>
 								</div>
@@ -84,6 +89,11 @@
 					<img  width="250px" height=" 250px" src="/upload/{{this.imagePath}}" alt="">
 						<div class="product-details">
 							<h6>{{this.title}}</h6>
+									<div class="tag">
+										{{# each this.theloai}}
+										<a href="/cate/{{this.MaTL}}.{{this._id}}.html" aria-expanded="true" aria-controls="fruitsVegetable"><i>#{{this.tentheloai}}</i></a>
+										{{/each}}
+									</div>
 								<div class="price">
 									<h6>Giá: {{this.price}} vnd</h6>
 								</div>

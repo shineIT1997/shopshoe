@@ -7,7 +7,11 @@ var schema = new Schema({
     description : String,
     price       :  Number,
     cateId      : String,
-    sl          : Number
+    sl          : Number,
+    theloai     : [{
+        type: Schema.Types.ObjectId,
+        ref: 'cate',
+    }]
  
 });
 
