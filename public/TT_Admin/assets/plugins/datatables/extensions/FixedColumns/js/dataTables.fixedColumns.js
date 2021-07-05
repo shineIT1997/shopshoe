@@ -47,7 +47,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 /**
@@ -75,13 +75,13 @@ var DataTable = $.fn.dataTable;
  *  @requires DataTables 1.8.0+
  *
  *  @example
- *      var table = $('#example').dataTable( {
+ *      const table = $('#example').dataTable( {
  *        "scrollX": "100%"
  *      } );
  *      new $.fn.dataTable.fixedColumns( table );
  */
-var FixedColumns = function ( dt, init ) {
-	var that = this;
+const FixedColumns = function ( dt, init ) {
+	const that = this;
 
 	/* Sanity check - you just know it will happen */
 	if ( ! ( this instanceof FixedColumns ) ) {
@@ -95,14 +95,14 @@ var FixedColumns = function ( dt, init ) {
 
 	// Use the DataTables Hungarian notation mapping method, if it exists to
 	// provide forwards compatibility for camel case variables
-	var camelToHungarian = $.fn.dataTable.camelToHungarian;
+	const camelToHungarian = $.fn.dataTable.camelToHungarian;
 	if ( camelToHungarian ) {
 		camelToHungarian( FixedColumns.defaults, FixedColumns.defaults, true );
 		camelToHungarian( FixedColumns.defaults, init );
 	}
 
 	// v1.10 allows the settings object to be got form a number of sources
-	var dtSettings = new $.fn.dataTable.Api( dt ).settings()[0];
+	const dtSettings = new $.fn.dataTable.Api( dt ).settings()[0];
 
 	/**
 	 * Settings object which contains customisable information for FixedColumns instance
@@ -315,10 +315,10 @@ $.extend( FixedColumns.prototype , {
 	 * automatically update the display whenever the host DataTable redraws.
 	 *  @returns {void}
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
-	 *      var fc = new $.fn.dataTable.fixedColumns( table );
+	 *      const fc = new $.fn.dataTable.fixedColumns( table );
 	 *
 	 *      // at some later point when the table has been manipulated....
 	 *      fc.fnUpdate();
@@ -335,10 +335,10 @@ $.extend( FixedColumns.prototype , {
 	 * perform this function automatically when the window.resize event is fired.
 	 *  @returns {void}
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
-	 *      var fc = new $.fn.dataTable.fixedColumns( table );
+	 *      const fc = new $.fn.dataTable.fixedColumns( table );
 	 *
 	 *      // Resize the table container and then have FixedColumns adjust its layout....
 	 *      $('#content').width( 1200 );
@@ -359,10 +359,10 @@ $.extend( FixedColumns.prototype , {
 	 *  @param   {Node} nTr TR element that should have it's height recalculated
 	 *  @returns {void}
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
-	 *      var fc = new $.fn.dataTable.fixedColumns( table );
+	 *      const fc = new $.fn.dataTable.fixedColumns( table );
 	 *
 	 *      // manipulate the table - mark the row as needing an update then update the table
 	 *      // this allows the redraw performed by DataTables fnUpdate to recalculate the row
@@ -383,10 +383,10 @@ $.extend( FixedColumns.prototype , {
 	 *  @param   {int} iHeight Height in pixels to set
 	 *  @returns {void}
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
-	 *      var fc = new $.fn.dataTable.fixedColumns( table );
+	 *      const fc = new $.fn.dataTable.fixedColumns( table );
 	 *
 	 *      // You may want to do this after manipulating a row in the fixed column
 	 *      fc.fnSetRowHeight( $('#example tbody tr:eq(0)')[0], 50 );
@@ -412,8 +412,8 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"fnGetPosition": function ( node )
 	{
-		var idx;
-		var inst = this.s.dt.oInstance;
+		const idx;
+		const inst = this.s.dt.oInstance;
 
 		if ( ! $(node).parents('.DTFC_Cloned').length )
 		{
@@ -429,9 +429,9 @@ $.extend( FixedColumns.prototype , {
 			}
 			else
 			{
-				var colIdx = $(node).index();
+				const colIdx = $(node).index();
 				idx = $(node.parentNode).index();
-				var row = inst.fnGetPosition( $('tr', this.s.dt.nTBody)[ idx ] );
+				const row = inst.fnGetPosition( $('tr', this.s.dt.nTBody)[ idx ] );
 
 				return [
 					row,
@@ -456,7 +456,7 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnConstruct": function ( oInit )
 	{
-		var i, iLen, iWidth,
+		const i, iLen, iWidth,
 			that = this;
 
 		/* Sanity checking */
@@ -480,7 +480,7 @@ $.extend( FixedColumns.prototype , {
 		this.s = $.extend( true, this.s, FixedColumns.defaults, oInit );
 
 		/* Set up the DOM as we need it and cache nodes */
-		var classes = this.s.dt.oClasses;
+		const classes = this.s.dt.oClasses;
 		this.dom.grid.dt = $(this.s.dt.nTable).parents('div.'+classes.sScrollWrapper)[0];
 		this.dom.scroller = $('div.'+classes.sScrollBody, this.dom.grid.dt )[0];
 
@@ -489,7 +489,7 @@ $.extend( FixedColumns.prototype , {
 		this._fnGridSetup();
 
 		/* Event handlers */
-		var mouseController;
+		const mouseController;
 
 		// When the body is scrolled - scroll the left and right columns
 		$(this.dom.scroller)
@@ -511,7 +511,7 @@ $.extend( FixedColumns.prototype , {
 				}
 			} );
 
-		var wheelType = 'onwheel' in document.createElement('div') ?
+		const wheelType = 'onwheel' in document.createElement('div') ?
 			'wheel.DTFC' :
 			'mousewheel.DTFC';
 
@@ -535,7 +535,7 @@ $.extend( FixedColumns.prototype , {
 				} )
 				.on( wheelType, function(e) {
 					// Pass horizontal scrolling through
-					var xDelta = e.type === 'wheel' ?
+					const xDelta = e.type === 'wheel' ?
 						-e.originalEvent.deltaX :
 						e.originalEvent.wheelDeltaX;
 					that.dom.scroller.scrollLeft -= xDelta;
@@ -562,7 +562,7 @@ $.extend( FixedColumns.prototype , {
 				} )
 				.on( wheelType, function(e) {
 					// Pass horizontal scrolling through
-					var xDelta = e.type === 'wheel' ?
+					const xDelta = e.type === 'wheel' ?
 						-e.originalEvent.deltaX :
 						e.originalEvent.wheelDeltaX;
 					that.dom.scroller.scrollLeft -= xDelta;
@@ -573,8 +573,8 @@ $.extend( FixedColumns.prototype , {
 			that._fnGridLayout.call( that );
 		} );
 
-		var bFirstDraw = true;
-		var jqTable = $(this.s.dt.nTable);
+		const bFirstDraw = true;
+		const jqTable = $(this.s.dt.nTable);
 
 		jqTable
 			.on( 'draw.dt.DTFC', function () {
@@ -620,16 +620,16 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnColCalc": function ()
 	{
-		var that = this;
-		var iLeftWidth = 0;
-		var iRightWidth = 0;
+		const that = this;
+		const iLeftWidth = 0;
+		const iRightWidth = 0;
 
 		this.s.aiInnerWidths = [];
 		this.s.aiOuterWidths = [];
 
 		$.each( this.s.dt.aoColumns, function (i, col) {
-			var th = $(col.nTh);
-			var border;
+			const th = $(col.nTh);
+			const border;
 
 			if ( ! th.filter(':visible').length ) {
 				that.s.aiInnerWidths.push( 0 );
@@ -639,7 +639,7 @@ $.extend( FixedColumns.prototype , {
 			{
 				// Inner width is used to assign widths to cells
 				// Outer width is used to calculate the container
-				var iWidth = th.outerWidth();
+				const iWidth = th.outerWidth();
 
 				// When working with the left most-cell, need to add on the
 				// table's border to the outerWidth, since we need to take
@@ -686,15 +686,15 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnGridSetup": function ()
 	{
-		var that = this;
-		var oOverflow = this._fnDTOverflow();
-		var block;
+		const that = this;
+		const oOverflow = this._fnDTOverflow();
+		const block;
 
 		this.dom.body = this.s.dt.nTable;
 		this.dom.header = this.s.dt.nTHead.parentNode;
 		this.dom.header.parentNode.parentNode.style.position = "relative";
 
-		var nSWrapper =
+		const nSWrapper =
 			$('<div class="DTFC_ScrollWrapper" style="position:relative; clear:both;">'+
 				'<div class="DTFC_LeftWrapper" style="position:absolute; top:0; left:0;">'+
 					'<div class="DTFC_LeftHeadWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div>'+
@@ -715,8 +715,8 @@ $.extend( FixedColumns.prototype , {
 					'</div>'+
 				'</div>'+
 			'</div>')[0];
-		var nLeft = nSWrapper.childNodes[0];
-		var nRight = nSWrapper.childNodes[1];
+		const nLeft = nSWrapper.childNodes[0];
+		const nRight = nSWrapper.childNodes[1];
 
 		this.dom.grid.dt.parentNode.insertBefore( nSWrapper, this.dom.grid.dt );
 		nSWrapper.appendChild( this.dom.grid.dt );
@@ -775,16 +775,16 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnGridLayout": function ()
 	{
-		var oGrid = this.dom.grid;
-		var iWidth = $(oGrid.wrapper).width();
-		var iBodyHeight = $(this.s.dt.nTable.parentNode).outerHeight();
-		var iFullHeight = $(this.s.dt.nTable.parentNode.parentNode).outerHeight();
-		var oOverflow = this._fnDTOverflow();
+		const oGrid = this.dom.grid;
+		const iWidth = $(oGrid.wrapper).width();
+		const iBodyHeight = $(this.s.dt.nTable.parentNode).outerHeight();
+		const iFullHeight = $(this.s.dt.nTable.parentNode.parentNode).outerHeight();
+		const oOverflow = this._fnDTOverflow();
 		var
 			iLeftWidth = this.s.iLeftWidth,
 			iRightWidth = this.s.iRightWidth,
 			iRight;
-		var scrollbarAdjust = function ( node, width ) {
+		const scrollbarAdjust = function ( node, width ) {
 			if ( ! oOverflow.bar ) {
 				// If there is no scrollbar (Macs) we need to hide the auto scrollbar
 				node.style.width = (width+20)+"px";
@@ -852,9 +852,9 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnDTOverflow": function ()
 	{
-		var nTable = this.s.dt.nTable;
-		var nTableScrollBody = nTable.parentNode;
-		var out = {
+		const nTable = this.s.dt.nTable;
+		const nTableScrollBody = nTable.parentNode;
+		const out = {
 			"x": false,
 			"y": false,
 			"bar": this.s.dt.oScroll.iBarWidth
@@ -912,7 +912,7 @@ $.extend( FixedColumns.prototype , {
 			return;
 		}
 
-		var that = this,
+		const that = this,
 			i, jq,
 			aiColumns = [];
 
@@ -938,7 +938,7 @@ $.extend( FixedColumns.prototype , {
 			return;
 		}
 
-		var that = this,
+		const that = this,
 			i, jq,
 			aiColumns = [];
 
@@ -963,26 +963,26 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnCopyLayout": function ( aoOriginal, aiColumns, events )
 	{
-		var aReturn = [];
-		var aClones = [];
-		var aCloned = [];
+		const aReturn = [];
+		const aClones = [];
+		const aCloned = [];
 
-		for ( var i=0, iLen=aoOriginal.length ; i<iLen ; i++ )
+		for ( const i=0, iLen=aoOriginal.length ; i<iLen ; i++ )
 		{
-			var aRow = [];
+			const aRow = [];
 			aRow.nTr = $(aoOriginal[i].nTr).clone(events, false)[0];
 
-			for ( var j=0, jLen=this.s.iTableColumns ; j<jLen ; j++ )
+			for ( const j=0, jLen=this.s.iTableColumns ; j<jLen ; j++ )
 			{
 				if ( $.inArray( j, aiColumns ) === -1 )
 				{
 					continue;
 				}
 
-				var iCloned = $.inArray( aoOriginal[i][j].cell, aCloned );
+				const iCloned = $.inArray( aoOriginal[i][j].cell, aCloned );
 				if ( iCloned === -1 )
 				{
-					var nClone = $(aoOriginal[i][j].cell).clone(events, false)[0];
+					const nClone = $(aoOriginal[i][j].cell).clone(events, false)[0];
 					aClones.push( nClone );
 					aCloned.push( aoOriginal[i][j].cell );
 
@@ -1019,7 +1019,7 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnClone": function ( oClone, oGrid, aiColumns, bAll )
 	{
-		var that = this,
+		const that = this,
 			i, iLen, j, jLen, jq, nTarget, iColumn, nClone, iIndex, aoCloneLayout,
 			jqCloneThead, aoFixedHeader,
 			dt = this.s.dt;
@@ -1106,7 +1106,7 @@ $.extend( FixedColumns.prototype , {
 		$('>thead>tr', oClone.body).empty();
 		$('>tfoot', oClone.body).remove();
 
-		var nBody = $('tbody', oClone.body)[0];
+		const nBody = $('tbody', oClone.body)[0];
 		$(nBody).empty();
 		if ( dt.aiDisplay.length > 0 )
 		{
@@ -1114,7 +1114,7 @@ $.extend( FixedColumns.prototype , {
 			 * same way that DataTables does it - have the header element, apply the width and
 			 * colapse it down
 			 */
-			var nInnerThead = $('>thead>tr', oClone.body)[0];
+			const nInnerThead = $('>thead>tr', oClone.body)[0];
 			for ( iIndex=0 ; iIndex<aiColumns.length ; iIndex++ )
 			{
 				iColumn = aiColumns[iIndex];
@@ -1122,7 +1122,7 @@ $.extend( FixedColumns.prototype , {
 				nClone = $(dt.aoColumns[iColumn].nTh).clone(true)[0];
 				nClone.innerHTML = "";
 
-				var oStyle = nClone.style;
+				const oStyle = nClone.style;
 				oStyle.paddingTop = "0";
 				oStyle.paddingBottom = "0";
 				oStyle.borderTopWidth = "0";
@@ -1135,11 +1135,11 @@ $.extend( FixedColumns.prototype , {
 
 			/* Add in the tbody elements, cloning form the master table */
 			$('>tbody>tr', that.dom.body).each( function (z) {
-				var n = this.cloneNode(false);
+				const n = this.cloneNode(false);
 				n.removeAttribute('id');
-				var i = that.s.dt.oFeatures.bServerSide===false ?
+				const i = that.s.dt.oFeatures.bServerSide===false ?
 					that.s.dt.aiDisplay[ that.s.dt._iDisplayStart+z ] : z;
-				var aTds = that.s.dt.aoData[ i ].anCells || $(this).children('td, th');
+				const aTds = that.s.dt.aoData[ i ].anCells || $(this).children('td, th');
 
 				for ( iIndex=0 ; iIndex<aiColumns.length ; iIndex++ )
 				{
@@ -1172,7 +1172,7 @@ $.extend( FixedColumns.prototype , {
 		// scrolling area in the same way that Scroller does in the body scroll.
 		if ( dt.oScroller !== undefined )
 		{
-			var scrollerForcer = dt.oScroller.dom.force;
+			const scrollerForcer = dt.oScroller.dom.force;
 
 			if ( ! oGrid.forcer ) {
 				oGrid.forcer = scrollerForcer.cloneNode( true );
@@ -1205,7 +1205,7 @@ $.extend( FixedColumns.prototype , {
 
 				/* Copy the footer just like we do for the header */
 				aoCloneLayout = this._fnCopyLayout( dt.aoFooter, aiColumns, true );
-				var jqCloneTfoot = $('>tfoot', oClone.footer);
+				const jqCloneTfoot = $('>tfoot', oClone.footer);
 				jqCloneTfoot.empty();
 
 				for ( i=0, iLen=aoCloneLayout.length ; i<iLen ; i++ )
@@ -1217,7 +1217,7 @@ $.extend( FixedColumns.prototype , {
 			else
 			{
 				aoCloneLayout = this._fnCopyLayout( dt.aoFooter, aiColumns, false );
-				var aoCurrFooter=[];
+				const aoCurrFooter=[];
 
 				dt.oApi._fnDetectHeader( aoCurrFooter, $('>tfoot', oClone.footer)[0] );
 
@@ -1233,7 +1233,7 @@ $.extend( FixedColumns.prototype , {
 		}
 
 		/* Equalise the column widths between the header footer and body - body get's priority */
-		var anUnique = dt.oApi._fnGetUniqueThs( dt, $('>thead', oClone.header)[0] );
+		const anUnique = dt.oApi._fnGetUniqueThs( dt, $('>thead', oClone.header)[0] );
 		$(anUnique).each( function (i) {
 			iColumn = aiColumns[i];
 			this.style.width = that.s.aiInnerWidths[iColumn]+"px";
@@ -1258,8 +1258,8 @@ $.extend( FixedColumns.prototype , {
 	 */
 	"_fnGetTrNodes": function ( nIn )
 	{
-		var aOut = [];
-		for ( var i=0, iLen=nIn.childNodes.length ; i<iLen ; i++ )
+		const aOut = [];
+		for ( const i=0, iLen=nIn.childNodes.length ; i<iLen ; i++ )
 		{
 			if ( nIn.childNodes[i].nodeName.toUpperCase() == "TR" )
 			{
@@ -1285,7 +1285,7 @@ $.extend( FixedColumns.prototype , {
 			return;
 		}
 
-		var that = this,
+		const that = this,
 			i, iLen, iHeight, iHeight2, iHeightOriginal, iHeightClone,
 			rootOriginal = original.getElementsByTagName(nodeName)[0],
 			rootClone    = clone.getElementsByTagName(nodeName)[0],
@@ -1336,7 +1336,7 @@ FixedColumns.defaults = /** @lends FixedColumns.defaults */{
 	 *  @default  1
 	 *  @static
 	 *  @example
-	 *      var  = $('#example').dataTable( {
+	 *      const  = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
 	 *      new $.fn.dataTable.fixedColumns( table, {
@@ -1351,7 +1351,7 @@ FixedColumns.defaults = /** @lends FixedColumns.defaults */{
 	 *  @default  0
 	 *  @static
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
 	 *      new $.fn.dataTable.fixedColumns( table, {
@@ -1366,7 +1366,7 @@ FixedColumns.defaults = /** @lends FixedColumns.defaults */{
 	 *  @default  null
 	 *  @static
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
 	 *      new $.fn.dataTable.fixedColumns( table, {
@@ -1387,7 +1387,7 @@ FixedColumns.defaults = /** @lends FixedColumns.defaults */{
 	 *  @default  semiauto
 	 *  @static
 	 *  @example
-	 *      var table = $('#example').dataTable( {
+	 *      const table = $('#example').dataTable( {
 	 *          "scrollX": "100%"
 	 *      } );
 	 *      new $.fn.dataTable.fixedColumns( table, {
@@ -1459,15 +1459,15 @@ DataTable.Api.register( 'fixedColumns().cellIndex()', function ( cell ) {
 	cell = $(cell);
 
 	if ( cell.parents('.DTFC_Cloned').length ) {
-		var rowClonedIdx = cell.parent().index();
-		var rowIdx = this.rows( { page: 'current' } ).indexes()[ rowClonedIdx ];
-		var columnIdx;
+		const rowClonedIdx = cell.parent().index();
+		const rowIdx = this.rows( { page: 'current' } ).indexes()[ rowClonedIdx ];
+		const columnIdx;
 
 		if ( cell.parents('.DTFC_LeftWrapper').length ) {
 			columnIdx = cell.index();
 		}
 		else {
-			var columns = this.columns().flatten().length;
+			const columns = this.columns().flatten().length;
 			columnIdx = columns - this.context[0]._oFixedColumns.s.iRightColumns + cell.index();
 		}
 
@@ -1496,11 +1496,11 @@ $(document).on( 'init.dt.fixedColumns', function (e, settings) {
 		return;
 	}
 
-	var init = settings.oInit.fixedColumns;
-	var defaults = DataTable.defaults.fixedColumns;
+	const init = settings.oInit.fixedColumns;
+	const defaults = DataTable.defaults.fixedColumns;
 
 	if ( init || defaults ) {
-		var opts = $.extend( {}, init, defaults );
+		const opts = $.extend( {}, init, defaults );
 
 		if ( init !== false ) {
 			new FixedColumns( settings, opts );

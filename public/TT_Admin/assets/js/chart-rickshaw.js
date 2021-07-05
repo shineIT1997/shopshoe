@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Chart Js Chart
@@ -22,7 +22,7 @@ jQuery(function($) {
 
         // set up our data series with 100 random data points
 if($("#chart").length){
-        var seriesData = [
+        const seriesData = [
             [],
             [],
             [],
@@ -33,15 +33,15 @@ if($("#chart").length){
             [],
             []
         ];
-        var random = new Rickshaw.Fixtures.RandomData(150);
+        const random = new Rickshaw.Fixtures.RandomData(150);
 
-        for (var i = 0; i < 100; i++) {
+        for (const i = 0; i < 100; i++) {
             random.addData(seriesData);
         }
 
         // instantiate our graph!
 
-        var graph = new Rickshaw.Graph({
+        const graph = new Rickshaw.Graph({
             element: document.getElementById("chart"),
             width: 700,
             height: 500,
@@ -73,52 +73,52 @@ if($("#chart").length){
 
         graph.render();
 
-        var preview = new Rickshaw.Graph.RangeSlider({
+        const preview = new Rickshaw.Graph.RangeSlider({
             graph: graph,
             element: document.getElementById('preview'),
         });
 
-        var hoverDetail = new Rickshaw.Graph.HoverDetail({
+        const hoverDetail = new Rickshaw.Graph.HoverDetail({
             graph: graph,
             xFormatter: function(x) {
                 return new Date(x * 1000).toString();
             }
         });
 
-        var annotator = new Rickshaw.Graph.Annotate({
+        const annotator = new Rickshaw.Graph.Annotate({
             graph: graph,
             element: document.getElementById('timeline')
         });
 
-        var legend = new Rickshaw.Graph.Legend({
+        const legend = new Rickshaw.Graph.Legend({
             graph: graph,
             element: document.getElementById('legend')
 
         });
 
-        var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+        const shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
             graph: graph,
             legend: legend
         });
 
-        var order = new Rickshaw.Graph.Behavior.Series.Order({
+        const order = new Rickshaw.Graph.Behavior.Series.Order({
             graph: graph,
             legend: legend
         });
 
-        var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+        const highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
             graph: graph,
             legend: legend
         });
 
-        var smoother = new Rickshaw.Graph.Smoother({
+        const smoother = new Rickshaw.Graph.Smoother({
             graph: graph,
             element: document.querySelector('#smoother')
         });
 
-        var ticksTreatment = 'glow';
+        const ticksTreatment = 'glow';
 
-        var xAxis = new Rickshaw.Graph.Axis.Time({
+        const xAxis = new Rickshaw.Graph.Axis.Time({
             graph: graph,
             ticksTreatment: ticksTreatment,
             timeFixture: new Rickshaw.Fixtures.Time.Local()
@@ -126,7 +126,7 @@ if($("#chart").length){
 
         xAxis.render();
 
-        var yAxis = new Rickshaw.Graph.Axis.Y({
+        const yAxis = new Rickshaw.Graph.Axis.Y({
             graph: graph,
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
             ticksTreatment: ticksTreatment
@@ -135,14 +135,14 @@ if($("#chart").length){
         yAxis.render();
 
 
-        var controls = new RenderControls({
+        const controls = new RenderControls({
             element: document.querySelector('form#rickshaw_side_panel'),
             graph: graph
         });
 
         // add some data every so often
 
-        var messages = [
+        const messages = [
             "Changed home page welcome message",
             "Minified JS and CSS",
             "Changed button color from blue to green",
@@ -172,7 +172,7 @@ if($("#chart").length){
             setInterval(addAnnotation, 6000)
         }, 6000);
 
-        var previewXAxis = new Rickshaw.Graph.Axis.Time({
+        const previewXAxis = new Rickshaw.Graph.Axis.Time({
             graph: graph,
             timeFixture: new Rickshaw.Fixtures.Time.Local(),
             ticksTreatment: ticksTreatment
@@ -192,7 +192,7 @@ if($("#chart").length){
 if($("#serchart").length){
 
         // instantiate our graph!
-        var sergraph = new Rickshaw.Graph({
+        const sergraph = new Rickshaw.Graph({
             element: document.getElementById("serchart"),
             width: $(".serchart_container").width(),
             height: 400,
@@ -209,26 +209,26 @@ if($("#serchart").length){
             }])
         });
 
-        var serslider = new Rickshaw.Graph.RangeSlider({
+        const serslider = new Rickshaw.Graph.RangeSlider({
             graph: sergraph,
             element: $('#serslider')
         });
 
-        var hoverDetail = new Rickshaw.Graph.HoverDetail({
+        const hoverDetail = new Rickshaw.Graph.HoverDetail({
             graph: sergraph
         });
 
-        var annotator = new Rickshaw.Graph.Annotate({
+        const annotator = new Rickshaw.Graph.Annotate({
             graph: sergraph,
             element: document.getElementById('sertimeline')
         });
 
-        var serlegend = new Rickshaw.Graph.Legend({
+        const serlegend = new Rickshaw.Graph.Legend({
             graph: sergraph,
             element: document.getElementById('serlegend')
         });
 
-        var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+        const shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
             graph: sergraph,
             legend: serlegend
         });
@@ -237,31 +237,31 @@ if($("#serchart").length){
         serlegend.shelving = shelving;
         sergraph.series.legend = serlegend;
 
-        var order = new Rickshaw.Graph.Behavior.Series.Order({
+        const order = new Rickshaw.Graph.Behavior.Series.Order({
             graph: sergraph,
             legend: serlegend
         });
 
-        var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+        const highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
             graph: sergraph,
             legend: serlegend
         });
 
-        var axes = new Rickshaw.Graph.Axis.Time({
+        const axes = new Rickshaw.Graph.Axis.Time({
             graph: sergraph
         });
         axes.render();
 
-        var sersmoother = new Rickshaw.Graph.Smoother({
+        const sersmoother = new Rickshaw.Graph.Smoother({
             graph: sergraph,
             element: $('#sersmoother')
         });
 
-        var seroffset_form = document.getElementById('seroffset_form');
+        const seroffset_form = document.getElementById('seroffset_form');
 
         seroffset_form.addEventListener("change", function(e) {
 
-            var seroffsetMode = e.target.value;
+            const seroffsetMode = e.target.value;
 
             if (seroffsetMode == 'lines') {
                 sergraph.setRenderer('line');
@@ -275,14 +275,14 @@ if($("#serchart").length){
         }, false);
 
         // add some data every so often
-        var tv = 1000;
+        const tv = 1000;
         sergraph.series.setTimeInterval(tv);
 
         setInterval(function() {
-            var data = {
+            const data = {
                 Paris: 3
             };
-            var randInt = Math.floor(Math.random() * 100);
+            const randInt = Math.floor(Math.random() * 100);
             if (randInt > 10) {
                 data.Chicago = randInt;
             }
@@ -308,20 +308,20 @@ if($("#scatterchart").length){
 
         // set up our data series with 50 random data points
 
-        var seriesData = [
+        const seriesData = [
             [],
             [],
             []
         ];
-        var random = new Rickshaw.Fixtures.RandomData(150);
+        const random = new Rickshaw.Fixtures.RandomData(150);
 
-        for (var i = 0; i < 100; i++) {
+        for (const i = 0; i < 100; i++) {
             random.addData(seriesData);
         }
 
         // instantiate our graph!
 
-        var scattergraph = new Rickshaw.Graph({
+        const scattergraph = new Rickshaw.Graph({
             element: document.getElementById("scatterchart"),
             width: $(".scatterchart_container").width(),
             height: 300,
@@ -358,20 +358,20 @@ if($("#millichart").length){
         /*milliseconds*/
         // set up our data series with 50 random data points
 
-        var seriesData = [
+        const seriesData = [
             [],
             [],
             []
         ];
-        var random = new Rickshaw.Fixtures.RandomData(0.01);
+        const random = new Rickshaw.Fixtures.RandomData(0.01);
 
-        for (var i = 0; i < 150; i++) {
+        for (const i = 0; i < 150; i++) {
             random.addData(seriesData);
         }
 
         // instantiate our graph!
 
-        var milligraph = new Rickshaw.Graph({
+        const milligraph = new Rickshaw.Graph({
             element: document.getElementById("millichart"),
             width: $(".millichart_container").width(),
             height: 400,
@@ -393,11 +393,11 @@ if($("#millichart").length){
 
         milligraph.render();
 
-        var hoverDetail = new Rickshaw.Graph.HoverDetail({
+        const hoverDetail = new Rickshaw.Graph.HoverDetail({
             graph: milligraph
         });
 
-        var axes = new Rickshaw.Graph.Axis.Time({
+        const axes = new Rickshaw.Graph.Axis.Time({
             graph: milligraph,
             timeFixture: new Rickshaw.Fixtures.Time.Local()
         });

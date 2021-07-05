@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Sparkline Chart
@@ -157,7 +157,7 @@ jQuery(function($) {
 
         /*Line Graph*/
         /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-        var day_data = [{
+        const day_data = [{
             "period": "2012-10-01",
             "pageviews": 3407,
             "unique": 660
@@ -266,7 +266,7 @@ jQuery(function($) {
 
         // set up our data series with 100 random data points
 
-        var seriesData = [
+        const seriesData = [
             [],
             [],
             [],
@@ -277,15 +277,15 @@ jQuery(function($) {
             [],
             []
         ];
-        var random = new Rickshaw.Fixtures.RandomData(150);
+        const random = new Rickshaw.Fixtures.RandomData(150);
 
-        for (var i = 0; i < 50; i++) {
+        for (const i = 0; i < 50; i++) {
             random.addData(seriesData);
         }
 
         // instantiate our graph!
 
-        var graph = new Rickshaw.Graph({
+        const graph = new Rickshaw.Graph({
             element: document.getElementById("chart"),
             width: $(".rickshaw_ext").width(),
             height: 235,
@@ -309,52 +309,52 @@ jQuery(function($) {
 
         graph.render();
 
-        var preview = new Rickshaw.Graph.RangeSlider({
+        const preview = new Rickshaw.Graph.RangeSlider({
             graph: graph,
             element: document.getElementById('preview'),
         });
 
-        var hoverDetail = new Rickshaw.Graph.HoverDetail({
+        const hoverDetail = new Rickshaw.Graph.HoverDetail({
             graph: graph,
             xFormatter: function(x) {
                 return new Date(x * 1000).toString();
             }
         });
 
-        var annotator = new Rickshaw.Graph.Annotate({
+        const annotator = new Rickshaw.Graph.Annotate({
             graph: graph,
             element: document.getElementById('timeline')
         });
 
-        var legend = new Rickshaw.Graph.Legend({
+        const legend = new Rickshaw.Graph.Legend({
             graph: graph,
             element: document.getElementById('legend')
 
         });
 
-        var shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
+        const shelving = new Rickshaw.Graph.Behavior.Series.Toggle({
             graph: graph,
             legend: legend
         });
 
-        var order = new Rickshaw.Graph.Behavior.Series.Order({
+        const order = new Rickshaw.Graph.Behavior.Series.Order({
             graph: graph,
             legend: legend
         });
 
-        var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+        const highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
             graph: graph,
             legend: legend
         });
 
-        var smoother = new Rickshaw.Graph.Smoother({
+        const smoother = new Rickshaw.Graph.Smoother({
             graph: graph,
             element: document.querySelector('#smoother')
         });
 
-        var ticksTreatment = 'glow';
+        const ticksTreatment = 'glow';
 
-        var xAxis = new Rickshaw.Graph.Axis.Time({
+        const xAxis = new Rickshaw.Graph.Axis.Time({
             graph: graph,
             ticksTreatment: ticksTreatment,
             timeFixture: new Rickshaw.Fixtures.Time.Local()
@@ -362,7 +362,7 @@ jQuery(function($) {
 
         xAxis.render();
 
-        var yAxis = new Rickshaw.Graph.Axis.Y({
+        const yAxis = new Rickshaw.Graph.Axis.Y({
             graph: graph,
             tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
             ticksTreatment: ticksTreatment
@@ -371,14 +371,14 @@ jQuery(function($) {
         yAxis.render();
 
 
-        var controls = new RenderControls({
+        const controls = new RenderControls({
             element: document.querySelector('form#rickshaw_side_panel'),
             graph: graph
         });
 
         // add some data every so often
 
-        var messages = [
+        const messages = [
             "Changed home page welcome message",
             "Minified JS and CSS",
             "Changed button color from blue to green",
@@ -408,7 +408,7 @@ jQuery(function($) {
             setInterval(addAnnotation, 6000)
         }, 6000);
 
-        var previewXAxis = new Rickshaw.Graph.Axis.Time({
+        const previewXAxis = new Rickshaw.Graph.Axis.Time({
             graph: graph,
             timeFixture: new Rickshaw.Fixtures.Time.Local(),
             ticksTreatment: ticksTreatment
@@ -433,7 +433,7 @@ jQuery(function($) {
     CMPLTADMIN_SETTINGS.dbGaugemeter = function() {
 
         if ($("#gauge-meter").length) {
-            var opts = {
+            const opts = {
                 lines: 1, // The number of lines to draw
                 angle: 0.05, // The length of each line
                 lineWidth: 0.30, // The line thickness
@@ -448,8 +448,8 @@ jQuery(function($) {
                 strokeColor: '#ffffff', // to see which ones work best for you
                 generateGradient: false
             };
-            var target = document.getElementById('gauge-meter'); // your canvas element
-            var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+            const target = document.getElementById('gauge-meter'); // your canvas element
+            const gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
             gauge.maxValue = 100; // set max gauge value
             gauge.animationSpeed = 90; // set animation speed (32 is default value)
 
@@ -461,7 +461,7 @@ jQuery(function($) {
 
         function randomGauge() {
             setTimeout(function() {
-                var val = Math.random() * 99;
+                const val = Math.random() * 99;
                 gauge.set(val); // set actual va{lue
                 AnimationUpdater.run();
                 randomGauge();

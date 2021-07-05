@@ -37,7 +37,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -51,7 +51,7 @@ var DataTable = $.fn.dataTable;
  *
  * Copyright (c) 2012 Joseph Huckaby
  */
-var ZeroClipboard_TableTools = {
+const ZeroClipboard_TableTools = {
 	version: "1.0.4-TableTools2",
 	clients: {}, // registered upload clients on page, indexed by id
 	moviePath: '', // URL to movie
@@ -84,7 +84,7 @@ var ZeroClipboard_TableTools = {
 
 	dispatch: function(id, eventName, args) {
 		// receive event from flash movie, send to client
-		var client = this.clients[id];
+		const client = this.clients[id];
 		if (client) {
 			client.receiveEvent(eventName, args);
 		}
@@ -97,7 +97,7 @@ var ZeroClipboard_TableTools = {
 
 	getDOMObjectPosition: function(obj) {
 		// get absolute coordinates for dom element
-		var info = {
+		const info = {
 			left: 0,
 			top: 0,
 			width: obj.width ? obj.width : obj.offsetWidth,
@@ -158,17 +158,17 @@ ZeroClipboard_TableTools.Client.prototype = {
 		this.domElement = ZeroClipboard_TableTools.$(elem);
 
 		// float just above object, or zIndex 99 if dom element isn't set
-		var zIndex = 99;
+		const zIndex = 99;
 		if (this.domElement.style.zIndex) {
 			zIndex = parseInt(this.domElement.style.zIndex, 10) + 1;
 		}
 
 		// find X/Y position of domElement
-		var box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
+		const box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
 
 		// create floating DIV above element
 		this.div = document.createElement('div');
-		var style = this.div.style;
+		const style = this.div.style;
 		style.position = 'absolute';
 		style.left = '0px';
 		style.top = '0px';
@@ -191,8 +191,8 @@ ZeroClipboard_TableTools.Client.prototype = {
 	},
 
 	positionElement: function() {
-		var box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
-		var style = this.div.style;
+		const box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
+		const style = this.div.style;
 
 		style.position = 'absolute';
 		//style.left = (this.domElement.offsetLeft)+'px';
@@ -206,21 +206,21 @@ ZeroClipboard_TableTools.Client.prototype = {
 			return;
 		}
 
-		var flash = this.div.childNodes[0];
+		const flash = this.div.childNodes[0];
 		flash.width = box.width;
 		flash.height = box.height;
 	},
 
 	getHTML: function(width, height) {
 		// return HTML for movie
-		var html = '';
-		var flashvars = 'id=' + this.id +
+		const html = '';
+		const flashvars = 'id=' + this.id +
 			'&width=' + width +
 			'&height=' + height;
 
 		if (navigator.userAgent.match(/MSIE/)) {
 			// IE gets an OBJECT tag
-			var protocol = location.href.match(/^https/i) ? 'https://' : 'http://';
+			const protocol = location.href.match(/^https/i) ? 'https://' : 'http://';
 			html += '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="'+protocol+'download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="'+width+'" height="'+height+'" id="'+this.movieId+'" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="false" /><param name="movie" value="'+ZeroClipboard_TableTools.moviePath+'" /><param name="loop" value="false" /><param name="menu" value="false" /><param name="quality" value="best" /><param name="bgcolor" value="#ffffff" /><param name="flashvars" value="'+flashvars+'"/><param name="wmode" value="transparent"/></object>';
 		}
 		else {
@@ -244,7 +244,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 
 	destroy: function() {
 		// destroy control and floater
-		var that = this;
+		const that = this;
 
 		if (this.domElement && this.div) {
 			$(this.div).remove();
@@ -271,8 +271,8 @@ ZeroClipboard_TableTools.Client.prototype = {
 		}
 
 		if (this.domElement && this.div) {
-			var box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
-			var style = this.div.style;
+			const box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
+			const style = this.div.style;
 			style.left = '' + box.left + 'px';
 			style.top = '' + box.top + 'px';
 		}
@@ -338,7 +338,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 	},
 
 	receiveEvent: function(eventName, args) {
-		var self;
+		const self;
 
 		// receive event from flash
 		eventName = eventName.toString().toLowerCase().replace(/^on/, '');
@@ -406,8 +406,8 @@ ZeroClipboard_TableTools.Client.prototype = {
 		} // switch eventName
 
 		if (this.handlers[eventName]) {
-			for (var idx = 0, len = this.handlers[eventName].length; idx < len; idx++) {
-				var func = this.handlers[eventName][idx];
+			for (const idx = 0, len = this.handlers[eventName].length; idx < len; idx++) {
+				const func = this.handlers[eventName][idx];
 
 				if (typeof(func) == 'function') {
 					// actual function reference
@@ -429,7 +429,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 ZeroClipboard_TableTools.hasFlash = function ()
 {
 	try {
-		var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+		const fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
 		if (fo) {
 			return true;
 		}
@@ -465,9 +465,9 @@ window.ZeroClipboard_TableTools = ZeroClipboard_TableTools;
  * @param {ZeroClipboard} flash ZeroClipboard instance
  * @param {jQuery} node  Button
  */
-var _glue = function ( flash, node )
+const _glue = function ( flash, node )
 {
-	var id = node.attr('id');
+	const id = node.attr('id');
 
 	if ( node.parents('html').length ) {
 		flash.glue( node[0], '' );
@@ -485,10 +485,10 @@ var _glue = function ( flash, node )
  * @param {object}  config       Button configuration
  * @param {boolean} incExtension Include the file name extension
  */
-var _filename = function ( config, incExtension )
+const _filename = function ( config, incExtension )
 {
 	// Backwards compatibility
-	var filename = config.filename === '*' && config.title !== '*' && config.title !== undefined ?
+	const filename = config.filename === '*' && config.title !== '*' && config.title !== undefined ?
 		config.title :
 		config.filename;
 
@@ -509,9 +509,9 @@ var _filename = function ( config, incExtension )
  *
  * @param {object}  config  Button configuration
  */
-var _title = function ( config )
+const _title = function ( config )
 {
-	var title = config.title;
+	const title = config.title;
 
 	return title.indexOf( '*' ) !== -1 ?
 		title.replace( '*', $('title').text() ) :
@@ -528,12 +528,12 @@ var _title = function ( config )
  * @param {ZeroClipboard} flash ZeroClipboard instance
  * @param {string}        data  Data to send to Flash
  */
-var _setText = function ( flash, data )
+const _setText = function ( flash, data )
 {
-	var parts = data.match(/[\s\S]{1,8192}/g) || [];
+	const parts = data.match(/[\s\S]{1,8192}/g) || [];
 
 	flash.clearText();
-	for ( var i=0, len=parts.length ; i<len ; i++ )
+	for ( const i=0, len=parts.length ; i<len ; i++ )
 	{
 		flash.appendText( parts[i] );
 	}
@@ -545,7 +545,7 @@ var _setText = function ( flash, data )
  * @param {object}  config Button configuration
  * @return {string}        Newline character
  */
-var _newLine = function ( config )
+const _newLine = function ( config )
 {
 	return config.newline ?
 		config.newline :
@@ -562,22 +562,22 @@ var _newLine = function ( config )
  * @param  {object}        config Button configuration
  * @return {object}               The data to export
  */
-var _exportData = function ( dt, config )
+const _exportData = function ( dt, config )
 {
-	var newLine = _newLine( config );
-	var data = dt.buttons.exportData( config.exportOptions );
-	var boundary = config.fieldBoundary;
-	var separator = config.fieldSeparator;
-	var reBoundary = new RegExp( boundary, 'g' );
-	var escapeChar = config.escapeChar !== undefined ?
+	const newLine = _newLine( config );
+	const data = dt.buttons.exportData( config.exportOptions );
+	const boundary = config.fieldBoundary;
+	const separator = config.fieldSeparator;
+	const reBoundary = new RegExp( boundary, 'g' );
+	const escapeChar = config.escapeChar !== undefined ?
 		config.escapeChar :
 		'\\';
-	var join = function ( a ) {
-		var s = '';
+	const join = function ( a ) {
+		const s = '';
 
 		// If there is a field boundary, then we might need to escape it in
 		// the source data
-		for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=a.length ; i<ien ; i++ ) {
 			if ( i > 0 ) {
 				s += separator;
 			}
@@ -590,11 +590,11 @@ var _exportData = function ( dt, config )
 		return s;
 	};
 
-	var header = config.header ? join( data.header )+newLine : '';
-	var footer = config.footer ? newLine+join( data.footer ) : '';
-	var body = [];
+	const header = config.header ? join( data.header )+newLine : '';
+	const footer = config.footer ? newLine+join( data.footer ) : '';
+	const body = [];
 
-	for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+	for ( const i=0, ien=data.body.length ; i<ien ; i++ ) {
 		body.push( join( data.body[i] ) );
 	}
 
@@ -606,7 +606,7 @@ var _exportData = function ( dt, config )
 
 
 // Basic initialisation for the buttons is common between them
-var flashButton = {
+const flashButton = {
 	available: function () {
 		return ZeroClipboard_TableTools.hasFlash();
 	},
@@ -614,7 +614,7 @@ var flashButton = {
 	init: function ( dt, button, config ) {
 		// Insert the Flash movie
 		ZeroClipboard_TableTools.moviePath = DataTable.Buttons.swfPath;
-		var flash = new ZeroClipboard_TableTools.Client();
+		const flash = new ZeroClipboard_TableTools.Client();
 
 		flash.setHandCursor( true );
 		flash.addEventListener('mouseDown', function(client) {
@@ -686,8 +686,8 @@ DataTable.ext.buttons.copyFlash = $.extend( {}, flashButton, {
 			return;
 		}
 
-		var flash = config._flash;
-		var data = _exportData( dt, config );
+		const flash = config._flash;
+		const data = _exportData( dt, config );
 
 		flash.setAction( 'copy' );
 		_setText( flash, data.str ); 
@@ -717,8 +717,8 @@ DataTable.ext.buttons.csvFlash = $.extend( {}, flashButton, {
 
 	action: function ( e, dt, button, config ) {
 		// Set the text
-		var flash = config._flash;
-		var data = _exportData( dt, config );
+		const flash = config._flash;
+		const data = _exportData( dt, config );
 
 		flash.setAction( 'csv' );
 		flash.setFileName( _filename( config ) );
@@ -738,13 +738,13 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 
 	action: function ( e, dt, button, config ) {
 		// Set the text
-		var xml = '';
-		var flash = config._flash;
-		var data = dt.buttons.exportData( config.exportOptions );
-		var addRow = function ( row ) {
-			var cells = [];
+		const xml = '';
+		const flash = config._flash;
+		const data = dt.buttons.exportData( config.exportOptions );
+		const addRow = function ( row ) {
+			const cells = [];
 
-			for ( var i=0, ien=row.length ; i<ien ; i++ ) {
+			for ( const i=0, ien=row.length ; i<ien ; i++ ) {
 				if ( row[i] === null || row[i] === undefined ) {
 					row[i] = '';
 				}
@@ -768,7 +768,7 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 			xml += addRow( data.header );
 		}
 
-		for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=data.body.length ; i<ien ; i++ ) {
 			xml += addRow( data.body[i] );
 		}
 
@@ -794,12 +794,12 @@ DataTable.ext.buttons.pdfFlash = $.extend( {}, flashButton, {
 
 	action: function ( e, dt, button, config ) {
 		// Set the text
-		var flash = config._flash;
-		var data = dt.buttons.exportData( config.exportOptions );
-		var totalWidth = dt.table().node().offsetWidth;
+		const flash = config._flash;
+		const data = dt.buttons.exportData( config.exportOptions );
+		const totalWidth = dt.table().node().offsetWidth;
 
 		// Calculate the column width ratios for layout of the table in the PDF
-		var ratios = dt.columns( config.columns ).indexes().map( function ( idx ) {
+		const ratios = dt.columns( config.columns ).indexes().map( function ( idx ) {
 			return dt.column( idx ).header().offsetWidth / totalWidth;
 		} );
 

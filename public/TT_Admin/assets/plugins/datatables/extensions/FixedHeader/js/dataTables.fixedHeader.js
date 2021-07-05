@@ -49,12 +49,12 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
-var _instCounter = 0;
+const _instCounter = 0;
 
-var FixedHeader = function ( dt, config ) {
+const FixedHeader = function ( dt, config ) {
 	// Sanity check - you just know it will happen
 	if ( ! (this instanceof FixedHeader) ) {
 		throw "FixedHeader must be initialised with the 'new' keyword.";
@@ -114,7 +114,7 @@ var FixedHeader = function ( dt, config ) {
 	this.dom.header.host = this.dom.thead.parent();
 	this.dom.footer.host = this.dom.tfoot.parent();
 
-	var dtSettings = dt.settings()[0];
+	const dtSettings = dt.settings()[0];
 	if ( dtSettings._fixedHeader ) {
 		throw "FixedHeader already initialised on table "+dtSettings.nTable.id;
 	}
@@ -208,8 +208,8 @@ $.extend( FixedHeader.prototype, {
 	 */
 	_constructor: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		$(window)
 			.on( 'scroll'+this.s.namespace, function () {
@@ -250,9 +250,9 @@ $.extend( FixedHeader.prototype, {
 	 */
 	_clone: function ( item, force )
 	{
-		var dt = this.s.dt;
-		var itemDom = this.dom[ item ];
-		var itemElement = item === 'header' ?
+		const dt = this.s.dt;
+		const itemDom = this.dom[ item ];
+		const itemElement = item === 'header' ?
 			this.dom.thead :
 			this.dom.tfoot;
 
@@ -293,8 +293,8 @@ $.extend( FixedHeader.prototype, {
 	 * @private
 	 */
 	_matchWidths: function ( from, to ) {
-		var type = function ( name ) {
-			var toWidths = $(name, from)
+		const type = function ( name ) {
+			const toWidths = $(name, from)
 				.map( function () {
 					return $(this).width();
 				} ).toArray();
@@ -318,7 +318,7 @@ $.extend( FixedHeader.prototype, {
 	 * @private
 	 */
 	_unsize: function ( item ) {
-		var el = this.dom[ item ].floating;
+		const el = this.dom[ item ].floating;
 
 		if ( el && (item === 'footer' || (item === 'header' && ! this.s.autoWidth)) ) {
 			$('th, td', el).css( 'width', '' );
@@ -335,9 +335,9 @@ $.extend( FixedHeader.prototype, {
 	 */
 	_horizontal: function ( item, scrollLeft )
 	{
-		var itemDom = this.dom[ item ];
-		var position = this.s.position;
-		var lastScrollLeft = this.s.scrollLeft;
+		const itemDom = this.dom[ item ];
+		const position = this.s.position;
+		const lastScrollLeft = this.s.scrollLeft;
 
 		if ( itemDom.floating && lastScrollLeft[ item ] !== scrollLeft ) {
 			itemDom.floating.css( 'left', position.left - scrollLeft );
@@ -363,9 +363,9 @@ $.extend( FixedHeader.prototype, {
 	 */
 	_modeChange: function ( mode, item, forceChange )
 	{
-		var dt = this.s.dt;
-		var itemDom = this.dom[ item ];
-		var position = this.s.position;
+		const dt = this.s.dt;
+		const itemDom = this.dom[ item ];
+		const position = this.s.position;
 
 		if ( mode === 'in-place' ) {
 			// Insert the header back into the table's real header
@@ -435,18 +435,18 @@ $.extend( FixedHeader.prototype, {
 	 */
 	_positions: function ()
 	{
-		var dt = this.s.dt;
-		var table = dt.table();
-		var position = this.s.position;
-		var dom = this.dom;
-		var tableNode = $(table.node());
+		const dt = this.s.dt;
+		const table = dt.table();
+		const position = this.s.position;
+		const dom = this.dom;
+		const tableNode = $(table.node());
 
 		// Need to use the header and footer that are in the main table,
 		// regardless of if they are clones, since they hold the positions we
 		// want to measure from
-		var thead = tableNode.children('thead');
-		var tfoot = tableNode.children('tfoot');
-		var tbody = dom.tbody;
+		const thead = tableNode.children('thead');
+		const tfoot = tableNode.children('tfoot');
+		const tbody = dom.tbody;
 
 		position.visible = tableNode.is(':visible');
 		position.width = tableNode.outerWidth();
@@ -478,10 +478,10 @@ $.extend( FixedHeader.prototype, {
 	 */
 	_scroll: function ( forceChange )
 	{
-		var windowTop = $(document).scrollTop();
-		var windowLeft = $(document).scrollLeft();
-		var position = this.s.position;
-		var headerMode, footerMode;
+		const windowTop = $(document).scrollTop();
+		const windowLeft = $(document).scrollLeft();
+		const position = this.s.position;
+		const headerMode, footerMode;
 
 		if ( ! this.s.enable ) {
 			return;
@@ -562,7 +562,7 @@ $(document).on( 'init.dt.dtb', function (e, settings, json) {
 		return;
 	}
 
-	var opts = settings.oInit.fixedHeader || DataTable.defaults.fixedHeader;
+	const opts = settings.oInit.fixedHeader || DataTable.defaults.fixedHeader;
 
 	if ( opts && ! settings._fixedHeader ) {
 		new FixedHeader( settings, opts );
@@ -574,7 +574,7 @@ DataTable.Api.register( 'fixedHeader()', function () {} );
 
 DataTable.Api.register( 'fixedHeader.adjust()', function () {
 	return this.iterator( 'table', function ( ctx ) {
-		var fh = ctx._fixedHeader;
+		const fh = ctx._fixedHeader;
 
 		if ( fh ) {
 			fh.update();
@@ -584,7 +584,7 @@ DataTable.Api.register( 'fixedHeader.adjust()', function () {
 
 DataTable.Api.register( 'fixedHeader.enable()', function ( flag ) {
 	return this.iterator( 'table', function ( ctx ) {
-		var fh = ctx._fixedHeader;
+		const fh = ctx._fixedHeader;
 
 		if ( fh ) {
 			fh.enable( flag !== undefined ? flag : true );
@@ -594,7 +594,7 @@ DataTable.Api.register( 'fixedHeader.enable()', function ( flag ) {
 
 DataTable.Api.register( 'fixedHeader.disable()', function ( ) {
 	return this.iterator( 'table', function ( ctx ) {
-		var fh = ctx._fixedHeader;
+		const fh = ctx._fixedHeader;
 
 		if ( fh ) {
 			fh.enable( false );
@@ -604,7 +604,7 @@ DataTable.Api.register( 'fixedHeader.disable()', function ( ) {
 
 $.each( ['header', 'footer'], function ( i, el ) {
 	DataTable.Api.register( 'fixedHeader.'+el+'Offset()', function ( offset ) {
-		var ctx = this.context;
+		const ctx = this.context;
 
 		if ( offset === undefined ) {
 			return ctx.length && ctx[0]._fixedHeader ?
@@ -613,7 +613,7 @@ $.each( ['header', 'footer'], function ( i, el ) {
 		}
 
 		return this.iterator( 'table', function ( ctx ) {
-			var fh = ctx._fixedHeader;
+			const fh = ctx._fixedHeader;
 
 			if ( fh ) {
 				fh[ el +'Offset' ]( offset );

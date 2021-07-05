@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Sparkline Chart
@@ -145,7 +145,7 @@ jQuery(function($) {
 
         /*Line Graph*/
         /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-        var day_data = [{
+        const day_data = [{
             "period": "2012-10-01",
             "pageviews": 3407,
             "unique": 660

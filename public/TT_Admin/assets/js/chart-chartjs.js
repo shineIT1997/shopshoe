@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Chart Js Chart
@@ -21,11 +21,11 @@ jQuery(function($) {
 
  if($("#bar-chartjs").length){
         /*Bar Chart*/
-        var randomScalingFactor = function() {
+        const randomScalingFactor = function() {
             return Math.round(Math.random() * 100)
         };
 
-        var barChartData = {
+        const barChartData = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [{
                 fillColor: "rgba(63,81,181,1)",
@@ -43,7 +43,7 @@ jQuery(function($) {
 
         }
 
-        var ctxb = document.getElementById("bar-chartjs").getContext("2d");
+        const ctxb = document.getElementById("bar-chartjs").getContext("2d");
         window.myBar = new Chart(ctxb).Bar(barChartData, {
             responsive: true
         });
@@ -51,10 +51,10 @@ jQuery(function($) {
 
         /*Line Chart*/
  if($("#line-chartjs").length){
-        var randomScalingFactor = function() {
+        const randomScalingFactor = function() {
             return Math.round(Math.random() * 100)
         };
-        var lineChartData = {
+        const lineChartData = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [{
                 label: "My First dataset",
@@ -78,7 +78,7 @@ jQuery(function($) {
 
         }
 
-        var ctx = document.getElementById("line-chartjs").getContext("2d");
+        const ctx = document.getElementById("line-chartjs").getContext("2d");
         window.myLine = new Chart(ctx).Line(lineChartData, {
             responsive: true
         });
@@ -89,7 +89,7 @@ jQuery(function($) {
         /*PIE Chart*/
 
 
-        var pieData = [{
+        const pieData = [{
                 value: 300,
                 color: "#E91E63",
                 highlight: "rgba(250,133,100,0.8)",
@@ -113,7 +113,7 @@ jQuery(function($) {
 
         ];
 
-        var ctx = document.getElementById("pie-chartjs").getContext("2d");
+        const ctx = document.getElementById("pie-chartjs").getContext("2d");
         window.myPie = new Chart(ctx).Pie(pieData);
 
 }
@@ -122,7 +122,7 @@ jQuery(function($) {
 
         /* Donut Chart*/
 
-        var doughnutData = [{
+        const doughnutData = [{
                 value: 300,
                 color: "#E91E63",
                 highlight: "rgba(250,133,100,0.8)",
@@ -146,7 +146,7 @@ jQuery(function($) {
 
         ];
 
-        var ctxd = document.getElementById("donut-chartjs").getContext("2d");
+        const ctxd = document.getElementById("donut-chartjs").getContext("2d");
         window.myDoughnut = new Chart(ctxd).Doughnut(doughnutData, {
             responsive: true
         });
@@ -157,7 +157,7 @@ jQuery(function($) {
  if($("#polar-chartjs").length){
         /*Polar Chart*/
 
-        var polarData = [{
+        const polarData = [{
                 value: 300,
                 color: "#E91E63",
                 highlight: "rgba(250,133,100,0.8)",
@@ -181,7 +181,7 @@ jQuery(function($) {
 
         ];
 
-        var ctxp = document.getElementById("polar-chartjs").getContext("2d");
+        const ctxp = document.getElementById("polar-chartjs").getContext("2d");
         window.myPolarArea = new Chart(ctxp).PolarArea(polarData, {
             responsive: true
         });
@@ -195,7 +195,7 @@ jQuery(function($) {
 
 
         /*Radar Chart*/
-        var radarChartData = {
+        const radarChartData = {
             labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
             datasets: [{
                 label: "My First dataset",

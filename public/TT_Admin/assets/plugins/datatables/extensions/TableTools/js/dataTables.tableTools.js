@@ -28,12 +28,12 @@
 /* Global scope for TableTools for backwards compatibility.
  * Will be removed in 2.3
  */
-var TableTools;
+const TableTools;
 
 (function(window, document, undefined) {
 
 
-var factory = function( $, DataTable ) {
+const factory = function( $, DataTable ) {
 "use strict";
 
 
@@ -42,7 +42,7 @@ var factory = function( $, DataTable ) {
  * Author: Joseph Huckaby
  */
 
-var ZeroClipboard_TableTools = {
+const ZeroClipboard_TableTools = {
 
 	version: "1.0.4-TableTools2",
 	clients: {}, // registered upload clients on page, indexed by id
@@ -76,7 +76,7 @@ var ZeroClipboard_TableTools = {
 
 	dispatch: function(id, eventName, args) {
 		// receive event from flash movie, send to client
-		var client = this.clients[id];
+		const client = this.clients[id];
 		if (client) {
 			client.receiveEvent(eventName, args);
 		}
@@ -89,7 +89,7 @@ var ZeroClipboard_TableTools = {
 
 	getDOMObjectPosition: function(obj) {
 		// get absolute coordinates for dom element
-		var info = {
+		const info = {
 			left: 0,
 			top: 0,
 			width: obj.width ? obj.width : obj.offsetWidth,
@@ -150,17 +150,17 @@ ZeroClipboard_TableTools.Client.prototype = {
 		this.domElement = ZeroClipboard_TableTools.$(elem);
 
 		// float just above object, or zIndex 99 if dom element isn't set
-		var zIndex = 99;
+		const zIndex = 99;
 		if (this.domElement.style.zIndex) {
 			zIndex = parseInt(this.domElement.style.zIndex, 10) + 1;
 		}
 
 		// find X/Y position of domElement
-		var box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
+		const box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
 
 		// create floating DIV above element
 		this.div = document.createElement('div');
-		var style = this.div.style;
+		const style = this.div.style;
 		style.position = 'absolute';
 		style.left = '0px';
 		style.top = '0px';
@@ -183,8 +183,8 @@ ZeroClipboard_TableTools.Client.prototype = {
 	},
 
 	positionElement: function() {
-		var box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
-		var style = this.div.style;
+		const box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
+		const style = this.div.style;
 
 		style.position = 'absolute';
 		//style.left = (this.domElement.offsetLeft)+'px';
@@ -198,21 +198,21 @@ ZeroClipboard_TableTools.Client.prototype = {
 			return;
 		}
 
-		var flash = this.div.childNodes[0];
+		const flash = this.div.childNodes[0];
 		flash.width = box.width;
 		flash.height = box.height;
 	},
 
 	getHTML: function(width, height) {
 		// return HTML for movie
-		var html = '';
-		var flashvars = 'id=' + this.id +
+		const html = '';
+		const flashvars = 'id=' + this.id +
 			'&width=' + width +
 			'&height=' + height;
 
 		if (navigator.userAgent.match(/MSIE/)) {
 			// IE gets an OBJECT tag
-			var protocol = location.href.match(/^https/i) ? 'https://' : 'http://';
+			const protocol = location.href.match(/^https/i) ? 'https://' : 'http://';
 			html += '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="'+protocol+'download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="'+width+'" height="'+height+'" id="'+this.movieId+'" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="false" /><param name="movie" value="'+ZeroClipboard_TableTools.moviePath+'" /><param name="loop" value="false" /><param name="menu" value="false" /><param name="quality" value="best" /><param name="bgcolor" value="#ffffff" /><param name="flashvars" value="'+flashvars+'"/><param name="wmode" value="transparent"/></object>';
 		}
 		else {
@@ -240,7 +240,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 			this.hide();
 			this.div.innerHTML = '';
 
-			var body = document.getElementsByTagName('body')[0];
+			const body = document.getElementsByTagName('body')[0];
 			try { body.removeChild( this.div ); } catch(e) {}
 
 			this.domElement = null;
@@ -259,8 +259,8 @@ ZeroClipboard_TableTools.Client.prototype = {
 		}
 
 		if (this.domElement && this.div) {
-			var box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
-			var style = this.div.style;
+			const box = ZeroClipboard_TableTools.getDOMObjectPosition(this.domElement);
+			const style = this.div.style;
 			style.left = '' + box.left + 'px';
 			style.top = '' + box.top + 'px';
 		}
@@ -338,7 +338,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 	},
 
 	receiveEvent: function(eventName, args) {
-		var self;
+		const self;
 
 		// receive event from flash
 		eventName = eventName.toString().toLowerCase().replace(/^on/, '');
@@ -408,8 +408,8 @@ ZeroClipboard_TableTools.Client.prototype = {
 		} // switch eventName
 
 		if (this.handlers[eventName]) {
-			for (var idx = 0, len = this.handlers[eventName].length; idx < len; idx++) {
-				var func = this.handlers[eventName][idx];
+			for (const idx = 0, len = this.handlers[eventName].length; idx < len; idx++) {
+				const func = this.handlers[eventName][idx];
 
 				if (typeof(func) == 'function') {
 					// actual function reference
@@ -467,7 +467,7 @@ TableTools = function( oDT, oOpts )
 
 	// In 1.10 we can use the API to get the settings object from a number of
 	// sources
-	var dtSettings = $.fn.dataTable.Api ?
+	const dtSettings = $.fn.dataTable.Api ?
 		new $.fn.dataTable.Api( oDT ).settings()[0] :
 		oDT.fnSettings();
 
@@ -802,9 +802,9 @@ TableTools.prototype = {
 	 */
 	"fnGetSelectedData": function ()
 	{
-		var out = [];
-		var data=this.s.dt.aoData;
-		var i, iLen;
+		const out = [];
+		const data=this.s.dt.aoData;
+		const i, iLen;
 
 		for ( i=0, iLen=data.length ; i<iLen ; i++ )
 		{
@@ -868,7 +868,7 @@ TableTools.prototype = {
 	 */
 	"fnIsSelected": function ( n )
 	{
-		var pos = this.s.dt.oInstance.fnGetPosition( n );
+		const pos = this.s.dt.oInstance.fnGetPosition( n );
 		return (this.s.dt.aoData[pos]._DTTT_selected===true) ? true : false;
 	},
 
@@ -938,11 +938,11 @@ TableTools.prototype = {
 	 */
 	"fnGetTitle": function( oConfig )
 	{
-		var sTitle = "";
+		const sTitle = "";
 		if ( typeof oConfig.sTitle != 'undefined' && oConfig.sTitle !== "" ) {
 			sTitle = oConfig.sTitle;
 		} else {
-			var anTitle = document.getElementsByTagName('title');
+			const anTitle = document.getElementsByTagName('title');
 			if ( anTitle.length > 0 )
 			{
 				sTitle = anTitle[0].innerHTML;
@@ -1027,11 +1027,11 @@ TableTools.prototype = {
 	 */
 	"fnResizeButtons": function ()
 	{
-		for ( var cli in ZeroClipboard_TableTools.clients )
+		for ( const cli in ZeroClipboard_TableTools.clients )
 		{
 			if ( cli )
 			{
-				var client = ZeroClipboard_TableTools.clients[cli];
+				const client = ZeroClipboard_TableTools.clients[cli];
 				if ( typeof client.domElement != 'undefined' &&
 					 client.domElement.parentNode )
 				{
@@ -1047,11 +1047,11 @@ TableTools.prototype = {
 	 */
 	"fnResizeRequired": function ()
 	{
-		for ( var cli in ZeroClipboard_TableTools.clients )
+		for ( const cli in ZeroClipboard_TableTools.clients )
 		{
 			if ( cli )
 			{
-				var client = ZeroClipboard_TableTools.clients[cli];
+				const client = ZeroClipboard_TableTools.clients[cli];
 				if ( typeof client.domElement != 'undefined' &&
 					 client.domElement.parentNode == this.dom.container &&
 					 client.sized === false )
@@ -1099,7 +1099,7 @@ TableTools.prototype = {
 	 *  @param {int} time The duration the message is to be shown on screen for (mS)
 	 */
 	"fnInfo": function ( message, time ) {
-		var info = $('<div/>')
+		const info = $('<div/>')
 			.addClass( this.classes.print.info )
 			.html( message )
 			.appendTo( 'body' );
@@ -1136,7 +1136,7 @@ TableTools.prototype = {
 	 */
 	"_fnConstruct": function ( oOpts )
 	{
-		var that = this;
+		const that = this;
 
 		this._fnCustomiseSettings( oOpts );
 
@@ -1161,7 +1161,7 @@ TableTools.prototype = {
 				$(that.dom.container).empty();
 
 				// Remove the instance
-				var idx = $.inArray( that, TableTools._aInstances );
+				const idx = $.inArray( that, TableTools._aInstances );
 				if ( idx !== -1 ) {
 					TableTools._aInstances.splice( idx, 1 );
 				}
@@ -1229,9 +1229,9 @@ TableTools.prototype = {
 	 */
 	"_fnButtonDefinations": function ( buttonSet, wrapper )
 	{
-		var buttonDef;
+		const buttonDef;
 
-		for ( var i=0, iLen=buttonSet.length ; i<iLen ; i++ )
+		for ( const i=0, iLen=buttonSet.length ; i<iLen ; i++ )
 		{
 			if ( typeof buttonSet[i] == "string" )
 			{
@@ -1249,11 +1249,11 @@ TableTools.prototype = {
 					alert( "TableTools: Warning - unknown button type: "+buttonSet[i].sExtends );
 					continue;
 				}
-				var o = $.extend( {}, TableTools.BUTTONS[ buttonSet[i].sExtends ], true );
+				const o = $.extend( {}, TableTools.BUTTONS[ buttonSet[i].sExtends ], true );
 				buttonDef = $.extend( o, buttonSet[i], true );
 			}
 
-			var button = this._fnCreateButton(
+			const button = this._fnCreateButton(
 				buttonDef,
 				$(wrapper).hasClass(this.classes.collection.container)
 			);
@@ -1274,7 +1274,7 @@ TableTools.prototype = {
 	 */
 	"_fnCreateButton": function ( oConfig, bCollectionButton )
 	{
-	  var nButton = this._fnButtonBase( oConfig, bCollectionButton );
+	  const nButton = this._fnButtonBase( oConfig, bCollectionButton );
 
 		if ( oConfig.sAction.match(/flash/) )
 		{
@@ -1338,7 +1338,7 @@ TableTools.prototype = {
 	 */
 	"_fnButtonBase": function ( o, bCollectionButton )
 	{
-		var sTag, sLiner, sClass;
+		const sTag, sLiner, sClass;
 
 		if ( bCollectionButton )
 		{
@@ -1386,8 +1386,8 @@ TableTools.prototype = {
 		else
 		{
 			/* Look for the master which has the same DT as this one */
-			var instances = TableTools._aInstances;
-			for ( var i=0, iLen=instances.length ; i<iLen ; i++ )
+			const instances = TableTools._aInstances;
+			for ( const i=0, iLen=instances.length ; i<iLen ; i++ )
 			{
 				if ( this.dom.table == instances[i].s.dt.nTable )
 				{
@@ -1412,7 +1412,7 @@ TableTools.prototype = {
 	 */
 	"_fnCollectionConfig": function ( nButton, oConfig )
 	{
-		var nHidden = document.createElement( this.s.tags.collection.container );
+		const nHidden = document.createElement( this.s.tags.collection.container );
 		nHidden.style.display = "none";
 		nHidden.className = this.classes.collection.container;
 		oConfig._collection = nHidden;
@@ -1446,7 +1446,7 @@ TableTools.prototype = {
 		nHidden.style.display = "block";
 		$(nHidden).css('opacity',0);
 
-		var nBackground = document.createElement('div');
+		const nBackground = document.createElement('div');
 		nBackground.style.position = "absolute";
 		nBackground.style.left = "0px";
 		nBackground.style.top = "0px";
@@ -1459,8 +1459,8 @@ TableTools.prototype = {
 		document.body.appendChild( nHidden );
 
 		/* Visual corrections to try and keep the collection visible */
-		var iDivWidth = $(nHidden).outerWidth();
-		var iDivHeight = $(nHidden).outerHeight();
+		const iDivWidth = $(nHidden).outerWidth();
+		const iDivHeight = $(nHidden).outerHeight();
 
 		if ( iDivX + iDivWidth > iDocWidth )
 		{
@@ -1568,12 +1568,12 @@ TableTools.prototype = {
 
 			// Row selection
 			$(dt.nTBody).on( 'click.DTTT_Select', this.s.custom.sRowSelector, function(e) {
-				var row = this.nodeName.toLowerCase() === 'tr' ?
+				const row = this.nodeName.toLowerCase() === 'tr' ?
 					this :
 					$(this).parents('tr')[0];
 
-				var select = that.s.select;
-				var pos = that.s.dt.oInstance.fnGetPosition( row );
+				const select = that.s.select;
+				const pos = that.s.dt.oInstance.fnGetPosition( row );
 
 				/* Sub-table must be ignored (odd that the selector won't do this with >) */
 				if ( row.parentNode != dt.nTBody ) {
@@ -1600,9 +1600,9 @@ TableTools.prototype = {
 					else if ( e.shiftKey ) {
 						// Add a range of rows, from the last selected row to
 						// this one
-						var rowIdxs = that.s.dt.aiDisplay.slice(); // visible rows
-						var idx1 = $.inArray( select.lastRow, rowIdxs );
-						var idx2 = $.inArray( pos, rowIdxs );
+						const rowIdxs = that.s.dt.aiDisplay.slice(); // visible rows
+						const idx1 = $.inArray( select.lastRow, rowIdxs );
+						const idx2 = $.inArray( pos, rowIdxs );
 
 						if ( that.fnGetSelected().length === 0 || idx1 === -1 ) {
 							// select from top to here - slightly odd, but both
@@ -1612,7 +1612,7 @@ TableTools.prototype = {
 						else {
 							// reverse so we can shift click 'up' as well as down
 							if ( idx1 > idx2 ) {
-								var tmp = idx2;
+								const tmp = idx2;
 								idx2 = idx1;
 								idx1 = tmp;
 							}
@@ -1775,7 +1775,7 @@ TableTools.prototype = {
 	 */
 	"_fnSelectData": function ( src )
 	{
-		var out = [], pos, i, iLen;
+		const out = [], pos, i, iLen;
 
 		if ( src.nodeName )
 		{
@@ -1829,7 +1829,7 @@ TableTools.prototype = {
 	 */
 	"_fnTextConfig": function ( nButton, oConfig )
 	{
-		var that = this;
+		const that = this;
 
 		if ( oConfig.fnInit !== null )
 		{
@@ -1893,7 +1893,7 @@ TableTools.prototype = {
 	"_fnHasFlash": function ()
 	{
 		try {
-			var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+			const fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
 			if (fo) {
 				return true;
 			}
@@ -1922,8 +1922,8 @@ TableTools.prototype = {
 	 */
 	"_fnFlashConfig": function ( nButton, oConfig )
 	{
-		var that = this;
-		var flash = new ZeroClipboard_TableTools.Client();
+		const that = this;
+		const flash = new ZeroClipboard_TableTools.Client();
 
 		if ( oConfig.fnInit !== null )
 		{
@@ -1994,8 +1994,8 @@ TableTools.prototype = {
 	 */
 	"_fnFlashGlue": function ( flash, node, text )
 	{
-		var that = this;
-		var id = node.getAttribute('id');
+		const that = this;
+		const id = node.getAttribute('id');
 
 		if ( document.getElementById(id) )
 		{
@@ -2026,10 +2026,10 @@ TableTools.prototype = {
 	 */
 	"_fnFlashSetText": function ( clip, sData )
 	{
-		var asData = this._fnChunkData( sData, 8192 );
+		const asData = this._fnChunkData( sData, 8192 );
 
 		clip.clearText();
-		for ( var i=0, iLen=asData.length ; i<iLen ; i++ )
+		for ( const i=0, iLen=asData.length ; i<iLen ; i++ )
 		{
 			clip.appendText( asData[i] );
 		}
@@ -2054,15 +2054,15 @@ TableTools.prototype = {
 	 */
 	"_fnColumnTargets": function ( mColumns )
 	{
-		var aColumns = [];
-		var dt = this.s.dt;
-		var i, iLen;
-		var columns = dt.aoColumns;
-		var columnCount = columns.length;
+		const aColumns = [];
+		const dt = this.s.dt;
+		const i, iLen;
+		const columns = dt.aoColumns;
+		const columnCount = columns.length;
 
 		if ( typeof mColumns == "function" )
 		{
-			var a = mColumns.call( this, dt );
+			const a = mColumns.call( this, dt );
 
 			for ( i=0, iLen=columnCount ; i<iLen ; i++ )
 			{
@@ -2149,12 +2149,12 @@ TableTools.prototype = {
 	 */
 	"_fnGetDataTablesData": function ( oConfig )
 	{
-		var i, iLen, j, jLen;
-		var aRow, aData=[], sLoopData='', arr;
-		var dt = this.s.dt, tr, child;
-		var regex = new RegExp(oConfig.sFieldBoundary, "g"); /* Do it here for speed */
-		var aColumnsInc = this._fnColumnTargets( oConfig.mColumns );
-		var bSelectedOnly = (typeof oConfig.bSelectedOnly != 'undefined') ? oConfig.bSelectedOnly : false;
+		const i, iLen, j, jLen;
+		const aRow, aData=[], sLoopData='', arr;
+		const dt = this.s.dt, tr, child;
+		const regex = new RegExp(oConfig.sFieldBoundary, "g"); /* Do it here for speed */
+		const aColumnsInc = this._fnColumnTargets( oConfig.mColumns );
+		const bSelectedOnly = (typeof oConfig.bSelectedOnly != 'undefined') ? oConfig.bSelectedOnly : false;
 
 		/*
 		 * Header
@@ -2182,8 +2182,8 @@ TableTools.prototype = {
 		/*
 		 * Body
 		 */
-		var aDataIndex;
-		var aSelected = this.fnGetSelectedIndexes();
+		const aDataIndex;
+		const aSelected = this.fnGetSelectedIndexes();
 		bSelectedOnly = this.s.select.type !== "none" && bSelectedOnly && aSelected.length !== 0;
 
 		if ( bSelectedOnly ) {
@@ -2219,7 +2219,7 @@ TableTools.prototype = {
 				if ( aColumnsInc[i] )
 				{
 					/* Convert to strings (with small optimisation) */
-					var mTypeData = dt.oApi._fnGetCellData( dt, aDataIndex[j], i, 'display' );
+					const mTypeData = dt.oApi._fnGetCellData( dt, aDataIndex[j], i, 'display' );
 					if ( oConfig.fnCellRender )
 					{
 						sLoopData = oConfig.fnCellRender( mTypeData, i, tr, aDataIndex[j] )+"";
@@ -2283,7 +2283,7 @@ TableTools.prototype = {
 			aData.push( aRow.join(oConfig.sFieldSeperator) );
 		}
 
-		var _sLastData = aData.join( this._fnNewline(oConfig) );
+		const _sLastData = aData.join( this._fnNewline(oConfig) );
 		return _sLastData;
 	},
 
@@ -2321,10 +2321,10 @@ TableTools.prototype = {
 	 */
 	"_fnChunkData": function ( sData, iSize )
 	{
-		var asReturn = [];
-		var iStrlen = sData.length;
+		const asReturn = [];
+		const iStrlen = sData.length;
 
-		for ( var i=0 ; i<iStrlen ; i+=iSize )
+		for ( const i=0 ; i<iStrlen ; i+=iSize )
 		{
 			if ( i+iSize < iStrlen )
 			{
@@ -2354,7 +2354,7 @@ TableTools.prototype = {
 			return sData;
 		}
 
-		var n = document.createElement('div');
+		const n = document.createElement('div');
 
 		return sData.replace( /&([^\s]*?);/g, function( match, match2 ) {
 			if ( match.substr(1, 1) === '#' )
@@ -2385,8 +2385,8 @@ TableTools.prototype = {
 	 */
 	"_fnPrintStart": function ( oConfig )
 	{
-	  var that = this;
-	  var oSetDT = this.s.dt;
+	  const that = this;
+	  const oSetDT = this.s.dt;
 
 		/* Parse through the DOM hiding everything that isn't needed for the table */
 		this._fnPrintHideNodes( oSetDT.nTable );
@@ -2418,12 +2418,12 @@ TableTools.prototype = {
 		}
 
 		/* Remove the other DataTables feature nodes - but leave the table! and info div */
-		var anFeature = oSetDT.aanFeatures;
-		for ( var cFeature in anFeature )
+		const anFeature = oSetDT.aanFeatures;
+		for ( const cFeature in anFeature )
 		{
 			if ( cFeature != 'i' && cFeature != 't' && cFeature.length == 1 )
 			{
-				for ( var i=0, iLen=anFeature[cFeature].length ; i<iLen ; i++ )
+				for ( const i=0, iLen=anFeature[cFeature].length ; i<iLen ; i++ )
 				{
 					this.dom.print.hidden.push( {
 						"node": anFeature[cFeature][i],
@@ -2479,10 +2479,10 @@ TableTools.prototype = {
 	 */
 	"_fnPrintEnd": function ( e )
 	{
-		var that = this;
-		var oSetDT = this.s.dt;
-		var oSetPrint = this.s.print;
-		var oDomPrint = this.dom.print;
+		const that = this;
+		const oSetDT = this.s.dt;
+		const oSetPrint = this.s.print;
+		const oDomPrint = this.dom.print;
 
 		/* Show all hidden nodes */
 		this._fnPrintShowNodes();
@@ -2607,9 +2607,9 @@ TableTools.prototype = {
 	 */
 	"_fnPrintShowNodes": function ( )
 	{
-	  var anHidden = this.dom.print.hidden;
+	  const anHidden = this.dom.print.hidden;
 
-		for ( var i=0, iLen=anHidden.length ; i<iLen ; i++ )
+		for ( const i=0, iLen=anHidden.length ; i<iLen ; i++ )
 		{
 			anHidden[i].node.style.display = anHidden[i].display;
 		}
@@ -2627,16 +2627,16 @@ TableTools.prototype = {
 	 */
 	"_fnPrintHideNodes": function ( nNode )
 	{
-		var anHidden = this.dom.print.hidden;
+		const anHidden = this.dom.print.hidden;
 
-		var nParent = nNode.parentNode;
-		var nChildren = nParent.childNodes;
-		for ( var i=0, iLen=nChildren.length ; i<iLen ; i++ )
+		const nParent = nNode.parentNode;
+		const nChildren = nParent.childNodes;
+		for ( const i=0, iLen=nChildren.length ; i<iLen ; i++ )
 		{
 			if ( nChildren[i] != nNode && nChildren[i].nodeType == 1 )
 			{
 				/* If our node is shown (don't want to show nodes which were previously hidden) */
-				var sDisplay = $(nChildren[i]).css("display");
+				const sDisplay = $(nChildren[i]).css("display");
 				if ( sDisplay != "none" )
 				{
 					/* Cache the node and it's previous state so we can restore it */
@@ -2695,8 +2695,8 @@ TableTools._aListeners = [];
  */
 TableTools.fnGetMasters = function ()
 {
-	var a = [];
-	for ( var i=0, iLen=TableTools._aInstances.length ; i<iLen ; i++ )
+	const a = [];
+	for ( const i=0, iLen=TableTools._aInstances.length ; i<iLen ; i++ )
 	{
 		if ( TableTools._aInstances[i].s.master )
 		{
@@ -2719,7 +2719,7 @@ TableTools.fnGetInstance = function ( node )
 		node = document.getElementById(node);
 	}
 
-	for ( var i=0, iLen=TableTools._aInstances.length ; i<iLen ; i++ )
+	for ( const i=0, iLen=TableTools._aInstances.length ; i<iLen ; i++ )
 	{
 		if ( TableTools._aInstances[i].s.master && TableTools._aInstances[i].dom.table == node )
 		{
@@ -2764,8 +2764,8 @@ TableTools._fnEventListen = function ( that, type, fn )
  */
 TableTools._fnEventDispatch = function ( that, type, node, selected )
 {
-	var listeners = TableTools._aListeners;
-	for ( var i=0, iLen=listeners.length ; i<iLen ; i++ )
+	const listeners = TableTools._aListeners;
+	for ( const i=0, iLen=listeners.length ; i<iLen ; i++ )
 	{
 		if ( that.dom.table == listeners[i].that.dom.table && listeners[i].type == type )
 		{
@@ -2854,10 +2854,10 @@ TableTools.BUTTONS = {
 			this.fnSetText( flash, this.fnGetTableData(oConfig) );
 		},
 		"fnComplete": function(nButton, oConfig, flash, text) {
-			var lines = text.split('\n').length;
+			const lines = text.split('\n').length;
             if (oConfig.bHeader) lines--;
             if (this.s.dt.nTFoot !== null && oConfig.bFooter) lines--;
-			var plural = (lines==1) ? "" : "s";
+			const plural = (lines==1) ? "" : "s";
 			this.fnInfo( '<h6>Table copied</h6>'+
 				'<p>Copied '+lines+' row'+plural+' to the clipboard.</p>',
 				1500
@@ -2919,7 +2919,7 @@ TableTools.BUTTONS = {
 	"select_single": $.extend( {}, TableTools.buttonBase, {
 		"sButtonText": "Select button",
 		"fnSelect": function( nButton, oConfig ) {
-			var iSelected = this.fnGetSelected().length;
+			const iSelected = this.fnGetSelected().length;
 			if ( iSelected == 1 ) {
 				$(nButton).removeClass( this.classes.buttons.disabled );
 			} else {
@@ -2966,7 +2966,7 @@ TableTools.BUTTONS = {
 		"sAjaxUrl": "/xhr.php",
 		"sButtonText": "Ajax button",
 		"fnClick": function( nButton, oConfig ) {
-			var sData = this.fnGetTableData(oConfig);
+			const sData = this.fnGetTableData(oConfig);
 			$.ajax( {
 				"url": oConfig.sAjaxUrl,
 				"data": [
@@ -3116,7 +3116,7 @@ TableTools.version = "2.2.3";
 
 if ( $.fn.dataTable.Api ) {
 	$.fn.dataTable.Api.register( 'tabletools()', function () {
-		var tt = null;
+		const tt = null;
 
 		if ( this.context.length > 0 ) {
 			tt = TableTools.fnGetInstance( this.context[0].nTable );
@@ -3142,8 +3142,8 @@ if ( typeof $.fn.dataTable == "function" &&
 {
 	$.fn.dataTableExt.aoFeatures.push( {
 		"fnInit": function( oDTSettings ) {
-			var init = oDTSettings.oInit;
-			var opts = init ?
+			const init = oDTSettings.oInit;
+			const opts = init ?
 				init.tableTools || init.oTableTools || {} :
 				{};
 
@@ -3171,10 +3171,10 @@ if ( typeof $.fn.dataTable == "function" &&
 {
 	$.fn.dataTableExt.aoFeatures.push( {
 		"fnInit": function( oDTSettings ) {
-			var oOpts = typeof oDTSettings.oInit.oTableTools != 'undefined' ?
+			const oOpts = typeof oDTSettings.oInit.oTableTools != 'undefined' ?
 				oDTSettings.oInit.oTableTools : {};
 
-			var oTT = new TableTools( oDTSettings.oInstance, oOpts );
+			const oTT = new TableTools( oDTSettings.oInstance, oOpts );
 			TableTools._aInstances.push( oTT );
 
 			return oTT.dom.container;

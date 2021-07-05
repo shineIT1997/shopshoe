@@ -35,18 +35,18 @@
 	<script type="text/javascript" language="javascript" class="init">
 	
 $(document).ready(function() {
-	var events = $('#events');
-	var table = $('#example').DataTable( {
+	const events = $('#events');
+	const table = $('#example').DataTable( {
 		select: true
 	} );
 
 	table
 		.on( 'select', function ( e, dt, type, indexes ) {
-			var rowData = table.rows( indexes ).data().toArray();
+			const rowData = table.rows( indexes ).data().toArray();
 			events.prepend( '<div><b>'+type+' selection</b> - '+JSON.stringify( rowData )+'</div>' );
 		} )
 		.on( 'deselect', function ( e, dt, type, indexes ) {
-			var rowData = table.rows( indexes ).data().toArray();
+			const rowData = table.rows( indexes ).data().toArray();
 			events.prepend( '<div><b>'+type+' <i>de</i>selection</b> - '+JSON.stringify( rowData )+'</div>' );
 		} );
 } );
@@ -563,18 +563,18 @@ $(document).ready(function() {
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	var events = $('#events');
-	var table = $('#example').DataTable( {
+	const events = $('#events');
+	const table = $('#example').DataTable( {
 		select: true
 	} );
 
 	table
 		.on( 'select', function ( e, dt, type, indexes ) {
-			var rowData = table.rows( indexes ).data().toArray();
+			const rowData = table.rows( indexes ).data().toArray();
 			events.prepend( '&lt;div&gt;&lt;b&gt;'+type+' selection&lt;/b&gt; - '+JSON.stringify( rowData )+'&lt;/div&gt;' );
 		} )
 		.on( 'deselect', function ( e, dt, type, indexes ) {
-			var rowData = table.rows( indexes ).data().toArray();
+			const rowData = table.rows( indexes ).data().toArray();
 			events.prepend( '&lt;div&gt;&lt;b&gt;'+type+' &lt;i&gt;de&lt;/i&gt;selection&lt;/b&gt; - '+JSON.stringify( rowData )+'&lt;/div&gt;' );
 		} );
 } );</code>

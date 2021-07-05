@@ -10,7 +10,7 @@ function showErrorMessage(msg) {
 }
 
 function progressMessage() {
-    var i = 0;
+    const i = 0;
     Messenger({
         extraClasses: 'messenger-fixed messenger-on-right messenger-on-top',
         theme: 'flat'

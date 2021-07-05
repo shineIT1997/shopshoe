@@ -47,10 +47,10 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
-var _instance = 0;
+const _instance = 0;
 
 /** 
  * AutoFill provides Excel like auto-fill features for a DataTable
@@ -60,7 +60,7 @@ var _instance = 0;
  * @param {object} oTD DataTables settings object
  * @param {object} oConfig Configuration object for AutoFill
  */
-var AutoFill = function( dt, opts )
+const AutoFill = function( dt, opts )
 {
 	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.10.8' ) ) {
 		throw( "Warning: AutoFill requires DataTables 1.10.8 or greater");
@@ -147,9 +147,9 @@ $.extend( AutoFill.prototype, {
 	 */
 	_constructor: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var dtScroll = $('div.dataTables_scrollBody', this.s.dt.table().container());
+		const that = this;
+		const dt = this.s.dt;
+		const dtScroll = $('div.dataTables_scrollBody', this.s.dt.table().container());
 
 		if ( dtScroll.length ) {
 			this.dom.dtScroll = dtScroll;
@@ -188,10 +188,10 @@ $.extend( AutoFill.prototype, {
 	 */
 	_attach: function ( node )
 	{
-		var dt = this.s.dt;
-		var idx = dt.cell( node ).index();
-		var handle = this.dom.handle;
-		var handleDim = this.s.handle;
+		const dt = this.s.dt;
+		const idx = dt.cell( node ).index();
+		const handle = this.dom.handle;
+		const handleDim = this.s.handle;
 
 		if ( ! idx || dt.columns( this.c.columns ).indexes().indexOf( idx.column ) === -1 ) {
 			this._detach();
@@ -210,7 +210,7 @@ $.extend( AutoFill.prototype, {
 			handleDim.width = handle.outerWidth();
 		}
 
-		var offset = $(node).position();
+		const offset = $(node).position();
 
 		this.dom.attachedTo = node;
 		handle
@@ -232,10 +232,10 @@ $.extend( AutoFill.prototype, {
 	 */
 	_actionSelector: function ( cells )
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var actions = AutoFill.actions;
-		var available = [];
+		const that = this;
+		const dt = this.s.dt;
+		const actions = AutoFill.actions;
+		const available = [];
 
 		// "Ask" each plug-in if it wants to handle this data
 		$.each( actions, function ( key, action ) {
@@ -246,12 +246,12 @@ $.extend( AutoFill.prototype, {
 
 		if ( available.length === 1 && this.c.alwaysAsk === false ) {
 			// Only one action available - enact it immediately
-			var result = actions[ available[0] ].execute( dt, cells );
+			const result = actions[ available[0] ].execute( dt, cells );
 			this._update( result, cells );
 		}
 		else {
 			// Multiple actions available - ask the end user what they want to do
-			var list = this.dom.list.children('ul').empty();
+			const list = this.dom.list.children('ul').empty();
 
 			// Add a cancel option
 			available.push( 'cancel' );
@@ -266,7 +266,7 @@ $.extend( AutoFill.prototype, {
 					.append( $('<div class="dt-autofill-button">' )
 						.append( $('<button class="'+AutoFill.classes.btn+'">'+dt.i18n('autoFill.button', '&gt;')+'</button>')
 							.on( 'click', function () {
-								var result = actions[ name ].execute(
+								const result = actions[ name ].execute(
 									dt, cells, $(this).closest('li')
 								);
 								that._update( result, cells );
@@ -310,11 +310,11 @@ $.extend( AutoFill.prototype, {
 	_drawSelection: function ( target, e )
 	{
 		// Calculate boundary for start cell to this one
-		var dt = this.s.dt;
-		var start = this.s.start;
-		var startCell = $(this.dom.start);
-		var endCell = $(target);
-		var end = {
+		const dt = this.s.dt;
+		const start = this.s.start;
+		const startCell = $(this.dom.start);
+		const endCell = $(target);
+		const end = {
 			row: dt.rows( { page: 'current' } ).nodes().indexOf( endCell.parent()[0] ),
 			column: endCell.index()
 		};
@@ -331,7 +331,7 @@ $.extend( AutoFill.prototype, {
 
 		this.s.end = end;
 
-		var top, bottom, left, right, height, width;
+		const top, bottom, left, right, height, width;
 
 		top    = start.row    < end.row    ? startCell : endCell;
 		bottom = start.row    < end.row    ? endCell   : startCell;
@@ -343,13 +343,13 @@ $.extend( AutoFill.prototype, {
 		height = bottom.position().top + bottom.outerHeight() - top;
 		width  = right.position().left + right.outerWidth() - left;
 
-		var dtScroll = this.dom.dtScroll;
+		const dtScroll = this.dom.dtScroll;
 		if ( dtScroll ) {
 			top += dtScroll.scrollTop();
 			left += dtScroll.scrollLeft();
 		}
 
-		var select = this.dom.select;
+		const select = this.dom.select;
 		select.top.css( {
 			top: top,
 			left: left,
@@ -386,34 +386,34 @@ $.extend( AutoFill.prototype, {
 	 */
 	_editor: function ( cells )
 	{
-		var dt = this.s.dt;
-		var editor = this.c.editor;
+		const dt = this.s.dt;
+		const editor = this.c.editor;
 
 		if ( ! editor ) {
 			return;
 		}
 
 		// Build the object structure for Editor's multi-row editing
-		var idValues = {};
-		var nodes = [];
-		var fields = editor.fields();
+		const idValues = {};
+		const nodes = [];
+		const fields = editor.fields();
 
-		for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-			for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
-				var cell = cells[i][j];
+		for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+			for ( const j=0, jen=cells[i].length ; j<jen ; j++ ) {
+				const cell = cells[i][j];
 
 				// Determine the field name for the cell being edited
-				var col = dt.settings()[0].aoColumns[ cell.index.column ];
-				var fieldName = col.editField;
+				const col = dt.settings()[0].aoColumns[ cell.index.column ];
+				const fieldName = col.editField;
 
 				if ( fieldName === undefined ) {
-					var dataSrc = col.mData;
+					const dataSrc = col.mData;
 
 					// dataSrc is the `field.data` property, but we need to set
 					// using the field name, so we need to translate from the
 					// data to the name
-					for ( var k=0, ken=fields.length ; k<ken ; k++ ) {
-						var field = editor.field( fields[k] );
+					for ( const k=0, ken=fields.length ; k<ken ; k++ ) {
+						const field = editor.field( fields[k] );
 
 						if ( field.dataSrc() === dataSrc ) {
 							fieldName = field.name();
@@ -431,7 +431,7 @@ $.extend( AutoFill.prototype, {
 					idValues[ fieldName ] = {};
 				}
 
-				var id = dt.row( cell.index.row ).id();
+				const id = dt.row( cell.index.row ).id();
 				idValues[ fieldName ][ id ] = cell.set;
 
 				// Keep a list of cells so we can activate the bubble editing
@@ -472,10 +472,10 @@ $.extend( AutoFill.prototype, {
 	 */
 	_focusListener: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var namespace = this.s.namespace;
-		var focus = this.c.focus !== null ?
+		const that = this;
+		const dt = this.s.dt;
+		const namespace = this.s.namespace;
+		const focus = this.c.focus !== null ?
 			this.c.focus :
 			dt.settings()[0].keytable ?
 				'focus' :
@@ -527,8 +527,8 @@ $.extend( AutoFill.prototype, {
 	 */
 	_mousedown: function ( e )
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		this.dom.start = this.dom.attachedTo;
 		this.s.start = {
@@ -544,8 +544,8 @@ $.extend( AutoFill.prototype, {
 				that._mouseup( e );
 			} );
 
-		var select = this.dom.select;
-		var offsetParent = $(this.s.dt.table().body()).offsetParent();
+		const select = this.dom.select;
+		const offsetParent = $(this.s.dt.table().body()).offsetParent();
 		select.top.appendTo( offsetParent );
 		select.left.appendTo( offsetParent );
 		select.right.appendTo( offsetParent );
@@ -558,7 +558,7 @@ $.extend( AutoFill.prototype, {
 		// Cache scrolling information so mouse move doesn't need to read.
 		// This assumes that the window and DT scroller will not change size
 		// during an AutoFill drag, which I think is a fair assumption
-		var scrollWrapper = this.dom.dtScroll;
+		const scrollWrapper = this.dom.dtScroll;
 		this.s.scroll = {
 			windowHeight: $(window).height(),
 			windowWidth:  $(window).width(),
@@ -579,9 +579,9 @@ $.extend( AutoFill.prototype, {
 	 */
 	_mousemove: function ( e )
 	{	
-		var that = this;
-		var dt = this.s.dt;
-		var name = e.target.nodeName.toLowerCase();
+		const that = this;
+		const dt = this.s.dt;
+		const name = e.target.nodeName.toLowerCase();
 		if ( name !== 'td' && name !== 'th' ) {
 			return;
 		}
@@ -601,8 +601,8 @@ $.extend( AutoFill.prototype, {
 	{
 		$(document.body).off( '.autoFill' );
 
-		var dt = this.s.dt;
-		var select = this.dom.select;
+		const dt = this.s.dt;
+		const select = this.dom.select;
 		select.top.remove();
 		select.left.remove();
 		select.right.remove();
@@ -611,8 +611,8 @@ $.extend( AutoFill.prototype, {
 		this.dom.handle.css( 'display', 'block' );
 
 		// Display complete - now do something useful with the selection!
-		var start = this.s.start;
-		var end = this.s.end;
+		const start = this.s.start;
+		const end = this.s.end;
 
 		// Haven't selected multiple cells, so nothing to do
 		if ( start.row === end.row && start.column === end.column ) {
@@ -620,17 +620,17 @@ $.extend( AutoFill.prototype, {
 		}
 
 		// Build a matrix representation of the selected rows
-		var rows     = this._range( start.row, end.row );
-		var columns  = this._range( start.column, end.column );
-		var selected = [];
+		const rows     = this._range( start.row, end.row );
+		const columns  = this._range( start.column, end.column );
+		const selected = [];
 
 		// Can't use Array.prototype.map as IE8 doesn't support it
 		// Can't use $.map as jQuery flattens 2D arrays
 		// Need to use a good old fashioned for loop
-		for ( var rowIdx=0 ; rowIdx<rows.length ; rowIdx++ ) {
+		for ( const rowIdx=0 ; rowIdx<rows.length ; rowIdx++ ) {
 			selected.push(
 				$.map( columns, function (column) {
-					var cell = dt.cell( ':eq('+rows[rowIdx]+')', column+':visible', {page:'current'} );
+					const cell = dt.cell( ':eq('+rows[rowIdx]+')', column+':visible', {page:'current'} );
 
 					return {
 						cell:  cell,
@@ -655,8 +655,8 @@ $.extend( AutoFill.prototype, {
 	 */
 	_range: function ( start, end )
 	{
-		var out = [];
-		var i;
+		const out = [];
+		const i;
 
 		if ( start <= end ) {
 			for ( i=start ; i<=end ; i++ ) {
@@ -686,12 +686,12 @@ $.extend( AutoFill.prototype, {
 	 */
 	_shiftScroll: function ( e )
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var scroll = this.s.scroll;
-		var runInterval = false;
-		var scrollSpeed = 5;
-		var buffer = 65;
+		const that = this;
+		const dt = this.s.dt;
+		const scroll = this.s.scroll;
+		const runInterval = false;
+		const scrollSpeed = 5;
+		const buffer = 65;
 		var
 			windowY = e.pageY - document.body.scrollTop,
 			windowX = e.pageX - document.body.scrollLeft,
@@ -766,7 +766,7 @@ $.extend( AutoFill.prototype, {
 
 				// DataTables scrolling
 				if ( scroll.dtVert || scroll.dtHoriz ) {
-					var scroller = that.dom.dtScroll[0];
+					const scroller = that.dom.dtScroll[0];
 
 					if ( scroll.dtVert ) {
 						scroller.scrollTop += scroll.dtVert;
@@ -797,8 +797,8 @@ $.extend( AutoFill.prototype, {
 			return;
 		}
 
-		var dt = this.s.dt;
-		var cell;
+		const dt = this.s.dt;
+		const cell;
 
 		// Potentially allow modifications to the cells matrix
 		this._emitEvent( 'preAutoFill', [ dt, cells ] );
@@ -808,15 +808,15 @@ $.extend( AutoFill.prototype, {
 		// Automatic updates are not performed if `update` is null and the
 		// `editor` parameter is passed in - the reason being that Editor will
 		// update the data once submitted
-		var update = this.c.update !== null ?
+		const update = this.c.update !== null ?
 			this.c.update :
 			this.c.editor ?
 				false :
 				true;
 
 		if ( update ) {
-			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-				for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
+			for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( const j=0, jen=cells[i].length ; j<jen ; j++ ) {
 					cell = cells[i][j];
 
 					cell.cell.data( cell.set );
@@ -853,11 +853,11 @@ AutoFill.actions = {
 		},
 
 		execute: function ( dt, cells, node ) {
-			var value = cells[0][0].data * 1;
-			var increment = $('input', node).val() * 1;
+			const value = cells[0][0].data * 1;
+			const increment = $('input', node).val() * 1;
 
-			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-				for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
+			for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( const j=0, jen=cells[i].length ; j<jen ; j++ ) {
 					cells[i][j].set = value;
 
 					value += increment;
@@ -876,10 +876,10 @@ AutoFill.actions = {
 		},
 
 		execute: function ( dt, cells, node ) {
-			var value = cells[0][0].data;
+			const value = cells[0][0].data;
 
-			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-				for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
+			for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( const j=0, jen=cells[i].length ; j<jen ; j++ ) {
 					cells[i][j].set = value;
 				}
 			}
@@ -896,8 +896,8 @@ AutoFill.actions = {
 		},
 
 		execute: function ( dt, cells, node ) {
-			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-				for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
+			for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( const j=0, jen=cells[i].length ; j<jen ; j++ ) {
 					cells[i][j].set = cells[i][0].data;
 				}
 			}
@@ -914,8 +914,8 @@ AutoFill.actions = {
 		},
 
 		execute: function ( dt, cells, node ) {
-			for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-				for ( var j=0, jen=cells[i].length ; j<jen ; j++ ) {
+			for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+				for ( const j=0, jen=cells[i].length ; j<jen ; j++ ) {
 					cells[i][j].set = cells[0][j].data;
 				}
 			}
@@ -991,11 +991,11 @@ $(document).on( 'preInit.dt.autofill', function (e, settings, json) {
 		return;
 	}
 
-	var init = settings.oInit.autoFill;
-	var defaults = DataTable.defaults.autoFill;
+	const init = settings.oInit.autoFill;
+	const defaults = DataTable.defaults.autoFill;
 
 	if ( init || defaults ) {
-		var opts = $.extend( {}, init, defaults );
+		const opts = $.extend( {}, init, defaults );
 
 		if ( init !== false ) {
 			new AutoFill( settings, opts  );

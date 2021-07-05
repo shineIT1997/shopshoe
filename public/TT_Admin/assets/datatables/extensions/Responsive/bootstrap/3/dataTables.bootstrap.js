@@ -39,8 +39,8 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
 $.extend( $.fn.dataTableExt.oPagination, {
 	"bootstrap": {
 		"fnInit": function( oSettings, nPaging, fnDraw ) {
-			var oLang = oSettings.oLanguage.oPaginate;
-			var fnClickHandler = function ( e ) {
+			const oLang = oSettings.oLanguage.oPaginate;
+			const fnClickHandler = function ( e ) {
 				e.preventDefault();
 				if ( oSettings.oApi._fnPageChange(oSettings, e.data.action) ) {
 					fnDraw( oSettings );
@@ -53,16 +53,16 @@ $.extend( $.fn.dataTableExt.oPagination, {
 					'<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
 				'</ul>'
 			);
-			var els = $('a', nPaging);
+			const els = $('a', nPaging);
 			$(els[0]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
 			$(els[1]).bind( 'click.DT', { action: "next" }, fnClickHandler );
 		},
 
 		"fnUpdate": function ( oSettings, fnDraw ) {
-			var iListLength = 5;
-			var oPaging = oSettings.oInstance.fnPagingInfo();
-			var an = oSettings.aanFeatures.p;
-			var i, ien, j, sClass, iStart, iEnd, iHalf=Math.floor(iListLength/2);
+			const iListLength = 5;
+			const oPaging = oSettings.oInstance.fnPagingInfo();
+			const an = oSettings.aanFeatures.p;
+			const i, ien, j, sClass, iStart, iEnd, iHalf=Math.floor(iListLength/2);
 
 			if ( oPaging.iTotalPages < iListLength) {
 				iStart = 1;

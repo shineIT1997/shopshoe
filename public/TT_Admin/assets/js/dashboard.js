@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
 
 
@@ -23,9 +23,9 @@ jQuery(function($) {
         /*------------- Chart 1 ----------------*/
 
       // Initialize after dom ready
-       var myChart = echarts.init(document.getElementById('browser_type')); 
+       const myChart = echarts.init(document.getElementById('browser_type')); 
         
-        var option = {
+        const option = {
 
                 // Setup grid
                 grid: {
@@ -183,9 +183,9 @@ jQuery(function($) {
         /*-------------- Chart 2 ---------------*/
 
 // Initialize after dom ready
-        var myChart = echarts.init(document.getElementById('user_type')); 
+        const myChart = echarts.init(document.getElementById('user_type')); 
         
-        var option = {
+        const option = {
 
                 // Setup grid
                 grid: {
@@ -365,10 +365,10 @@ jQuery(function($) {
 
         /*--------------- Chart 3 -------------*/
 
-var myChart = echarts.init(document.getElementById('platform_type_dates')); 
+const myChart = echarts.init(document.getElementById('platform_type_dates')); 
 
-var idx = 1;
-var option_dt = {
+const idx = 1;
+const option_dt = {
 
     timeline : {
         show: true,
@@ -496,9 +496,9 @@ myChart.setOption(option_dt);
 
 
 // Initialize after dom ready
-        var myChart = echarts.init(document.getElementById('page_views_today')); 
+        const myChart = echarts.init(document.getElementById('page_views_today')); 
         
-        var option = {
+        const option = {
 
                 // Setup grid
                 grid: {
@@ -676,9 +676,9 @@ myChart.setOption(option_dt);
 
 
 // Initialize after dom ready
-        var myChart = echarts.init(document.getElementById('scatter_chart')); 
+        const myChart = echarts.init(document.getElementById('scatter_chart')); 
         
-        var option = {
+        const option = {
             color: ['rgba(63,81,181,1.0)','#E91E63'],
     title : {
        // text: '',
@@ -866,9 +866,9 @@ myChart.setOption(option_dt);
 
 
 // Initialize after dom ready
-        var myChart = echarts.init(document.getElementById('gauge_chart')); 
+        const myChart = echarts.init(document.getElementById('gauge_chart')); 
         
-        var option = {
+        const option = {
                         
                 tooltip : {
                     formatter: "{b} : {c}%"
@@ -928,7 +928,7 @@ myChart.setOption(option_dt);
 
 //myChart.setOption(option);
 gauge_load_chart(option);
-var timeTicket = setInterval(function (){
+const timeTicket = setInterval(function (){
     gauge_load_chart(option);
 },1500);
 

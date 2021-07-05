@@ -33,7 +33,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 $.extend( true, DataTable.Buttons.defaults, {

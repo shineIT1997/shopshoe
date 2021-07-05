@@ -34,10 +34,10 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
-var _link = document.createElement( 'a' );
+const _link = document.createElement( 'a' );
 
 /**
  * Convert a `link` tag's URL from a relative to an absolute address so it will
@@ -45,10 +45,10 @@ var _link = document.createElement( 'a' );
  *
  * @param  {node}     el Element to convert
  */
-var _relToAbs = function( el ) {
-	var url;
-	var clone = $(el).clone()[0];
-	var linkHost;
+const _relToAbs = function( el ) {
+	const url;
+	const clone = $(el).clone()[0];
+	const linkHost;
 
 	if ( clone.nodeName.toLowerCase() === 'link' ) {
 		_link.href = clone.href;
@@ -75,11 +75,11 @@ DataTable.ext.buttons.print = {
 	},
 
 	action: function ( e, dt, button, config ) {
-		var data = dt.buttons.exportData( config.exportOptions );
-		var addRow = function ( d, tag ) {
-			var str = '<tr>';
+		const data = dt.buttons.exportData( config.exportOptions );
+		const addRow = function ( d, tag ) {
+			const str = '<tr>';
 
-			for ( var i=0, ien=d.length ; i<ien ; i++ ) {
+			for ( const i=0, ien=d.length ; i<ien ; i++ ) {
 				str += '<'+tag+'>'+d[i]+'</'+tag+'>';
 			}
 
@@ -87,14 +87,14 @@ DataTable.ext.buttons.print = {
 		};
 
 		// Construct a table for printing
-		var html = '<table class="'+dt.table().node().className+'">';
+		const html = '<table class="'+dt.table().node().className+'">';
 
 		if ( config.header ) {
 			html += '<thead>'+ addRow( data.header, 'th' ) +'</thead>';
 		}
 
 		html += '<tbody>';
-		for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=data.body.length ; i<ien ; i++ ) {
 			html += addRow( data.body[i], 'td' );
 		}
 		html += '</tbody>';
@@ -104,8 +104,8 @@ DataTable.ext.buttons.print = {
 		}
 
 		// Open a new window for the printable table
-		var win = window.open( '', '' );
-		var title = config.title.replace( '*', $('title').text() );
+		const win = window.open( '', '' );
+		const title = config.title.replace( '*', $('title').text() );
 
 		win.document.close();
 
@@ -113,7 +113,7 @@ DataTable.ext.buttons.print = {
 		// document so the table can retain its base styling. Note that we have
 		// to use string manipulation as IE won't allow elements to be created
 		// in the host document and then appended to the new window.
-		var head = '<title>'+title+'</title>';
+		const head = '<title>'+title+'</title>';
 		$('style, link').each( function () {
 			head += _relToAbs( this );
 		} );

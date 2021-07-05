@@ -34,7 +34,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 $.extend( DataTable.ext.buttons, {
@@ -55,7 +55,7 @@ $.extend( DataTable.ext.buttons, {
 
 	// Selected columns with individual buttons - toggle column visibility
 	columnsToggle: function ( dt, conf ) {
-		var columns = dt.columns( conf.columns ).indexes().map( function ( idx ) {
+		const columns = dt.columns( conf.columns ).indexes().map( function ( idx ) {
 			return {
 				extend: 'columnToggle',
 				columns: idx
@@ -75,7 +75,7 @@ $.extend( DataTable.ext.buttons, {
 
 	// Selected columns with individual buttons - set column visibility
 	columnsVisibility: function ( dt, conf ) {
-		var columns = dt.columns( conf.columns ).indexes().map( function ( idx ) {
+		const columns = dt.columns( conf.columns ).indexes().map( function ( idx ) {
 			return {
 				extend: 'columnVisibility',
 				columns: idx,
@@ -94,8 +94,8 @@ $.extend( DataTable.ext.buttons, {
 		},
 		className: 'buttons-columnVisibility',
 		action: function ( e, dt, button, conf ) {
-			var col = dt.columns( conf.columns );
-			var curr = col.visible();
+			const col = dt.columns( conf.columns );
+			const curr = col.visible();
 
 			col.visible( conf.visibility !== undefined ?
 				conf.visibility :
@@ -103,8 +103,8 @@ $.extend( DataTable.ext.buttons, {
 			);
 		},
 		init: function ( dt, button, conf ) {
-			var that = this;
-			var col = dt.column( conf.columns );
+			const that = this;
+			const col = dt.column( conf.columns );
 
 			dt
 				.on( 'column-visibility.dt'+conf.namespace, function (e, settings, column, state) {
@@ -123,7 +123,7 @@ $.extend( DataTable.ext.buttons, {
 						conf.columns = details.mapping[ conf.columns ];
 					}
 
-					var col = dt.column( conf.columns );
+					const col = dt.column( conf.columns );
 
 					that.text( conf._columnText( dt, conf.columns ) );
 					that.active( col.visible() );
@@ -142,7 +142,7 @@ $.extend( DataTable.ext.buttons, {
 			// is a public API. The other option is to use
 			// `$( column(col).node() ).text()` but the node might not have been
 			// populated when Buttons is constructed.
-			var idx = dt.column( col ).index();
+			const idx = dt.column( col ).index();
 			return dt.settings()[0].aoColumns[ idx ].sTitle
 				.replace(/\n/g," ")        // remove new lines
 				.replace( /<.*?>/g, "" )   // strip HTML
@@ -168,7 +168,7 @@ $.extend( DataTable.ext.buttons, {
 			dt.columns().every( function ( i ) {
 				// Take into account that ColReorder might have disrupted our
 				// indexes
-				var idx = dt.colReorder && dt.colReorder.transpose ?
+				const idx = dt.colReorder && dt.colReorder.transpose ?
 					dt.colReorder.transpose( i, 'toOriginal' ) :
 					i;
 

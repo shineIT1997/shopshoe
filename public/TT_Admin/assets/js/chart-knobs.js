@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Knob Chart
@@ -40,7 +40,7 @@ jQuery(function($) {
 
                         this.cursorExt = 0.3;
 
-                        var a = this.arc(this.cv) // Arc
+                        const a = this.arc(this.cv) // Arc
                             ,
                             pa // Previous arc
                             , r = 1;
@@ -72,7 +72,7 @@ jQuery(function($) {
             });
 
             // Example of infinite knob, iPod click wheel
-            var v, up = 0,
+            const v, up = 0,
                 down = 0,
                 i = 0,
                 $idir = $("div.idir"),
@@ -140,10 +140,10 @@ jQuery(function($) {
 
 
 function knob_clock() {
-    var $s = $(".second"),
+    const $s = $(".second"),
         $m = $(".minute"),
         $h = $(".hour");
-    var d = new Date(),
+    const d = new Date(),
         s = d.getSeconds(),
         m = d.getMinutes(),
         h = d.getHours();

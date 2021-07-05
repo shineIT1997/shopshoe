@@ -40,15 +40,15 @@
 
 
 $(document).ready(function() {
-	var events = $('#events');
-	var table = $('#example').DataTable( {
+	const events = $('#events');
+	const table = $('#example').DataTable( {
 		dom: 'Bfrtip',
 		select: true,
 		buttons: [
 			{
 				text: 'Get selected data',
 				action: function () {
-					var count = table.rows( { selected: true } ).count();
+					const count = table.rows( { selected: true } ).count();
 
 					events.prepend( '<div>'+count+' row(s) selected</div>' );
 				}
@@ -577,15 +577,15 @@ table.cells( { selected: true } );
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	var events = $('#events');
-	var table = $('#example').DataTable( {
+	const events = $('#events');
+	const table = $('#example').DataTable( {
 		dom: 'Bfrtip',
 		select: true,
 		buttons: [
 			{
 				text: 'Get selected data',
 				action: function () {
-					var count = table.rows( { selected: true } ).count();
+					const count = table.rows( { selected: true } ).count();
 
 					events.prepend( '&lt;div&gt;'+count+' row(s) selected&lt;/div&gt;' );
 				}

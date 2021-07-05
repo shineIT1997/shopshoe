@@ -24,7 +24,7 @@
 (function(window, document, undefined) {
 
 
-var factory = function( $, DataTable ) {
+const factory = function( $, DataTable ) {
 "use strict";
 
 /**
@@ -72,7 +72,7 @@ var factory = function( $, DataTable ) {
  *      } );
  *    } );
  */
-var Responsive = function ( settings, opts ) {
+const Responsive = function ( settings, opts ) {
 	// Sanity check that we are using DataTables 1.10 or newer
 	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.10.1' ) ) {
 		throw 'DataTables Responsive requires DataTables 1.10.1 or newer';
@@ -110,8 +110,8 @@ Responsive.prototype = {
 	 */
 	_constructor: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		dt.settings()[0]._responsive = this;
 
@@ -144,7 +144,7 @@ Responsive.prototype = {
 		this._resize();
 
 		// Details handler
-		var details = this.c.details;
+		const details = this.c.details;
 		if ( details.type ) {
 			that._detailsInit();
 			this._detailsVis();
@@ -176,14 +176,14 @@ Responsive.prototype = {
 	 */
 	_columnsVisiblity: function ( breakpoint )
 	{
-		var dt = this.s.dt;
-		var columns = this.s.columns;
-		var i, ien;
+		const dt = this.s.dt;
+		const columns = this.s.columns;
+		const i, ien;
 
 		// Class logic - determine which columns are in this breakpoint based
 		// on the classes. If no class control (i.e. `auto`) then `-` is used
 		// to indicate this to the rest of the function
-		var display = $.map( columns, function ( col ) {
+		const display = $.map( columns, function ( col ) {
 			return col.auto && col.minWidth === null ?
 				false :
 				col.auto === true ?
@@ -193,7 +193,7 @@ Responsive.prototype = {
 
 		// Auto column control - first pass: how much width is taken by the
 		// ones that must be included from the non-auto columns
-		var requiredWidth = 0;
+		const requiredWidth = 0;
 		for ( i=0, ien=display.length ; i<ien ; i++ ) {
 			if ( display[i] === true ) {
 				requiredWidth += columns[i].minWidth;
@@ -201,8 +201,8 @@ Responsive.prototype = {
 		}
 
 		// Second pass, use up any remaining width for other columns
-		var widthAvailable = dt.table().container().offsetWidth;
-		var usedWidth = widthAvailable - requiredWidth;
+		const widthAvailable = dt.table().container().offsetWidth;
+		const usedWidth = widthAvailable - requiredWidth;
 
 		for ( i=0, ien=display.length ; i<ien ; i++ ) {
 			// Control column needs to always be included. This makes it sub-
@@ -228,7 +228,7 @@ Responsive.prototype = {
 		// control column). The two loops look inefficient here, but they are
 		// trivial and will fly through. We need to know the outcome from the
 		// first , before the action in the second can be taken
-		var showControl = false;
+		const showControl = false;
 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( ! columns[i].control && ! columns[i].never && ! display[i] ) {
@@ -263,11 +263,11 @@ Responsive.prototype = {
 	 */
 	_classLogic: function ()
 	{
-		var that = this;
-		var calc = {};
-		var breakpoints = this.c.breakpoints;
-		var columns = this.s.dt.columns().eq(0).map( function (i) {
-			var className = this.column(i).header().className;
+		const that = this;
+		const calc = {};
+		const breakpoints = this.c.breakpoints;
+		const columns = this.s.dt.columns().eq(0).map( function (i) {
+			const className = this.column(i).header().className;
 
 			return {
 				className: className,
@@ -280,16 +280,16 @@ Responsive.prototype = {
 
 		// Simply add a breakpoint to `includeIn` array, ensuring that there are
 		// no duplicates
-		var add = function ( colIdx, name ) {
-			var includeIn = columns[ colIdx ].includeIn;
+		const add = function ( colIdx, name ) {
+			const includeIn = columns[ colIdx ].includeIn;
 
 			if ( $.inArray( name, includeIn ) === -1 ) {
 				includeIn.push( name );
 			}
 		};
 
-		var column = function ( colIdx, name, operator, matched ) {
-			var size, i, ien;
+		const column = function ( colIdx, name, operator, matched ) {
+			const size, i, ien;
 
 			if ( ! operator ) {
 				columns[ colIdx ].includeIn.push( name );
@@ -328,12 +328,12 @@ Responsive.prototype = {
 		// Loop over each column and determine if it has a responsive control
 		// class
 		columns.each( function ( col, i ) {
-			var classNames = col.className.split(' ');
-			var hasClass = false;
+			const classNames = col.className.split(' ');
+			const hasClass = false;
 
 			// Split the class name up so multiple rules can be applied if needed
-			for ( var k=0, ken=classNames.length ; k<ken ; k++ ) {
-				var className = $.trim( classNames[k] );
+			for ( const k=0, ken=classNames.length ; k<ken ; k++ ) {
+				const className = $.trim( classNames[k] );
 
 				if ( className === 'all' ) {
 					// Include in all
@@ -358,9 +358,9 @@ Responsive.prototype = {
 
 				$.each( breakpoints, function ( j, breakpoint ) {
 					// Does this column have a class that matches this breakpoint?
-					var brokenPoint = breakpoint.name.split('-');
-					var re = new RegExp( '(min\\-|max\\-|not\\-)?('+brokenPoint[0]+')(\\-[_a-zA-Z0-9])?' );
-					var match = className.match( re );
+					const brokenPoint = breakpoint.name.split('-');
+					const re = new RegExp( '(min\\-|max\\-|not\\-)?('+brokenPoint[0]+')(\\-[_a-zA-Z0-9])?' );
+					const match = className.match( re );
 
 					if ( match ) {
 						hasClass = true;
@@ -394,9 +394,9 @@ Responsive.prototype = {
 	 */
 	_detailsInit: function ()
 	{
-		var that    = this;
-		var dt      = this.s.dt;
-		var details = this.c.details;
+		const that    = this;
+		const dt      = this.s.dt;
+		const details = this.c.details;
 
 		// The inline type always uses the first child as the target
 		if ( details.type === 'inline' ) {
@@ -404,8 +404,8 @@ Responsive.prototype = {
 		}
 
 		// type.target can be a string jQuery selector or a column index
-		var target   = details.target;
-		var selector = typeof target === 'string' ? target : 'td';
+		const target   = details.target;
+		const selector = typeof target === 'string' ? target : 'td';
 
 		// Click handler to show / hide the details rows when they are available
 		$( dt.table().body() ).on( 'click', selector, function (e) {
@@ -423,7 +423,7 @@ Responsive.prototype = {
 			// For column index, we determine if we should act or not in the
 			// handler - otherwise it is already okay
 			if ( typeof target === 'number' ) {
-				var targetIdx = target < 0 ?
+				const targetIdx = target < 0 ?
 					dt.columns().eq(0).length + target :
 					target;
 
@@ -433,14 +433,14 @@ Responsive.prototype = {
 			}
 
 			// $().closest() includes itself in its check
-			var row = dt.row( $(this).closest('tr') );
+			const row = dt.row( $(this).closest('tr') );
 
 			if ( row.child.isShown() ) {
 				row.child( false );
 				$( row.node() ).removeClass( 'parent' );
 			}
 			else {
-				var info = that.c.details.renderer( dt, row[0] );
+				const info = that.c.details.renderer( dt, row[0] );
 				row.child( info, 'child' ).show();
 				$( row.node() ).addClass( 'parent' );
 			}
@@ -455,12 +455,12 @@ Responsive.prototype = {
 	 */
 	_detailsVis: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		// Find how many columns are hidden
-		var hiddenColumns = dt.columns().indexes().filter( function ( idx ) {
-			var col = dt.column( idx );
+		const hiddenColumns = dt.columns().indexes().filter( function ( idx ) {
+			const col = dt.column( idx );
 
 			if ( col.visible() ) {
 				return null;
@@ -469,7 +469,7 @@ Responsive.prototype = {
 			// Only counts as hidden if it doesn't have the `never` class
 			return $( col.header() ).hasClass( 'never' ) ? null : idx;
 		} );
-		var haveHidden = true;
+		const haveHidden = true;
 
 		if ( hiddenColumns.length === 0 || ( hiddenColumns.length === 1 && this.s.columns[ hiddenColumns[0] ].control ) ) {
 			haveHidden = false;
@@ -481,10 +481,10 @@ Responsive.prototype = {
 
 			// Show all existing child rows
 			dt.rows().eq(0).each( function (idx) {
-				var row = dt.row( idx );
+				const row = dt.row( idx );
 
 				if ( row.child() ) {
-					var info = that.c.details.renderer( dt, row[0] );
+					const info = that.c.details.renderer( dt, row[0] );
 
 					// The renderer can return false to have no child row
 					if ( info === false ) {
@@ -515,9 +515,9 @@ Responsive.prototype = {
 	 */
 	_find: function ( name )
 	{
-		var breakpoints = this.c.breakpoints;
+		const breakpoints = this.c.breakpoints;
 
-		for ( var i=0, ien=breakpoints.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=breakpoints.length ; i<ien ; i++ ) {
 			if ( breakpoints[i].name === name ) {
 				return breakpoints[i];
 			}
@@ -534,13 +534,13 @@ Responsive.prototype = {
 	 */
 	_resize: function ()
 	{
-		var dt = this.s.dt;
-		var width = $(window).width();
-		var breakpoints = this.c.breakpoints;
-		var breakpoint = breakpoints[0].name;
+		const dt = this.s.dt;
+		const width = $(window).width();
+		const breakpoints = this.c.breakpoints;
+		const breakpoint = breakpoints[0].name;
 
 		// Determine what breakpoint we are currently at
-		for ( var i=breakpoints.length-1 ; i>=0 ; i-- ) {
+		for ( const i=breakpoints.length-1 ; i>=0 ; i-- ) {
 			if ( width <= breakpoints[i].width ) {
 				breakpoint = breakpoints[i].name;
 				break;
@@ -548,7 +548,7 @@ Responsive.prototype = {
 		}
 		
 		// Show the columns for that break point
-		var columns = this._columnsVisiblity( breakpoint );
+		const columns = this._columnsVisiblity( breakpoint );
 
 		dt.columns().eq(0).each( function ( colIdx, i ) {
 			dt.column( colIdx ).visible( columns[i] );
@@ -566,8 +566,8 @@ Responsive.prototype = {
 	 */
 	_resizeAuto: function ()
 	{
-		var dt = this.s.dt;
-		var columns = this.s.columns;
+		const dt = this.s.dt;
+		const columns = this.s.columns;
 
 		// Are we allowed to do auto sizing?
 		if ( ! this.c.auto ) {
@@ -581,16 +581,16 @@ Responsive.prototype = {
 		}
 
 		// Clone the table with the current data in it
-		var tableWidth   = dt.table().node().offsetWidth;
-		var columnWidths = dt.columns;
-		var clonedTable  = dt.table().node().cloneNode( false );
-		var clonedHeader = $( dt.table().header().cloneNode( false ) ).appendTo( clonedTable );
-		var clonedBody   = $( dt.table().body().cloneNode( false ) ).appendTo( clonedTable );
+		const tableWidth   = dt.table().node().offsetWidth;
+		const columnWidths = dt.columns;
+		const clonedTable  = dt.table().node().cloneNode( false );
+		const clonedHeader = $( dt.table().header().cloneNode( false ) ).appendTo( clonedTable );
+		const clonedBody   = $( dt.table().body().cloneNode( false ) ).appendTo( clonedTable );
 
 		// This is a bit slow, but we need to get a clone of each row that
 		// includes all columns. As such, try to do this as little as possible.
 		dt.rows( { page: 'current' } ).indexes().flatten().each( function ( idx ) {
-			var clone = dt.row( idx ).node().cloneNode( true );
+			const clone = dt.row( idx ).node().cloneNode( true );
 			
 			if ( dt.columns( ':hidden' ).flatten().length ) {
 				$(clone).append( dt.cells( idx, ':hidden' ).nodes().to$().clone() );
@@ -599,8 +599,8 @@ Responsive.prototype = {
 			$(clone).appendTo( clonedBody );
 		} );
 
-		var cells        = dt.columns().header().to$().clone( false ).wrapAll('tr').appendTo( clonedHeader );
-		var inserted     = $('<div/>')
+		const cells        = dt.columns().header().to$().clone( false ).wrapAll('tr').appendTo( clonedHeader );
+		const inserted     = $('<div/>')
 			.css( {
 				width: 1,
 				height: 1,
@@ -684,9 +684,9 @@ Responsive.defaults = {
 	 */
 	details: {
 		renderer: function ( api, rowIdx ) {
-			var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
-				var header = $( api.column( cell.column ).header() );
-				var idx = api.cell( cell ).index();
+			const data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+				const header = $( api.column( cell.column ).header() );
+				const idx = api.cell( cell ).index();
 
 				if ( header.hasClass( 'control' ) || header.hasClass( 'never' ) ) {
 					return '';
@@ -695,8 +695,8 @@ Responsive.defaults = {
 				// Use a non-public DT API method to render the data for display
 				// This needs to be updated when DT adds a suitable method for
 				// this type of data retrieval
-				var dtPrivate = api.settings()[0];
-				var cellData = dtPrivate.oApi._fnGetCellData(
+				const dtPrivate = api.settings()[0];
+				const cellData = dtPrivate.oApi._fnGetCellData(
 					dtPrivate, idx.row, idx.column, 'display'
 				);
 
@@ -725,7 +725,7 @@ Responsive.defaults = {
 /*
  * API
  */
-var Api = $.fn.dataTable.Api;
+const Api = $.fn.dataTable.Api;
 
 // Doesn't do anything - work around for a bug in DT... Not documented
 Api.register( 'responsive()', function () {
@@ -771,7 +771,7 @@ $(document).on( 'init.dt.dtr', function (e, settings, json) {
 		 settings.oInit.responsive ||
 		 DataTable.defaults.responsive
 	) {
-		var init = settings.oInit.responsive;
+		const init = settings.oInit.responsive;
 
 		if ( init !== false ) {
 			new Responsive( settings, $.isPlainObject( init ) ? init : {}  );

@@ -1,5 +1,5 @@
-var Product = require('../models/product');
-var mongoose = require('mongoose');
+const Product = require('../models/product');
+const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/shopping', {useNewUrlParser: true}, function(err, db) {
     if (err) {
@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost:27017/shopping', {useNewUrlParser: true}, 
         console.log('MongoDB connection successful');
     }
 });
-var products = [
+const products = [
     new Product({
         imagePath : "p1.jpg" ,
         title : "Giày Addidas cho người chơi thể thao",
@@ -70,8 +70,8 @@ var products = [
   
   ];
 
-  var done =0;
-for(var i=0; i<products.length; i++){
+  const done =0;
+for(const i=0; i<products.length; i++){
     products[i].save(function(err, result){
         done++;
         if(done === products.length){

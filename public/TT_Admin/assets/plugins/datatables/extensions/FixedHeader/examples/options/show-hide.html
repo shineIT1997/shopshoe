@@ -26,12 +26,12 @@
 	
 
 $(document).ready(function() {
-	var table = $('#example').DataTable( {
+	const table = $('#example').DataTable( {
 		fixedHeader: true
 	} );
 
-	var visible = true;
-	var tableContainer = $(table.table().container());
+	const visible = true;
+	const tableContainer = $(table.table().container());
 
 	$('#toggle').on( 'click', function () {
 		tableContainer.css( 'display', visible ? 'none' : 'block' );
@@ -546,12 +546,12 @@ $(document).ready(function() {
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	var table = $('#example').DataTable( {
+	const table = $('#example').DataTable( {
 		fixedHeader: true
 	} );
 
-	var visible = true;
-	var tableContainer = $(table.table().container());
+	const visible = true;
+	const tableContainer = $(table.table().container());
 
 	$('#toggle').on( 'click', function () {
 		tableContainer.css( 'display', visible ? 'none' : 'block' );

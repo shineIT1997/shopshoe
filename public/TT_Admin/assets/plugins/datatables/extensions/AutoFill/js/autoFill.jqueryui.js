@@ -33,7 +33,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 DataTable.AutoFill.classes.btn = 'ui-button ui-state-default ui-corner-all';

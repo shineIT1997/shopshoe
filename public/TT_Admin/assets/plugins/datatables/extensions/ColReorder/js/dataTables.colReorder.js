@@ -47,7 +47,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 /**
@@ -59,8 +59,8 @@ var DataTable = $.fn.dataTable;
  */
 function fnInvertKeyValues( aIn )
 {
-	var aRet=[];
-	for ( var i=0, iLen=aIn.length ; i<iLen ; i++ )
+	const aRet=[];
+	for ( const i=0, iLen=aIn.length ; i<iLen ; i++ )
 	{
 		aRet[ aIn[i] ] = i;
 	}
@@ -78,7 +78,7 @@ function fnInvertKeyValues( aIn )
  */
 function fnArraySwitch( aArray, iFrom, iTo )
 {
-	var mStore = aArray.splice( iFrom, 1 )[0];
+	const mStore = aArray.splice( iFrom, 1 )[0];
 	aArray.splice( iTo, 0, mStore );
 }
 
@@ -94,15 +94,15 @@ function fnArraySwitch( aArray, iFrom, iTo )
  */
 function fnDomSwitch( nParent, iFrom, iTo )
 {
-	var anTags = [];
-	for ( var i=0, iLen=nParent.childNodes.length ; i<iLen ; i++ )
+	const anTags = [];
+	for ( const i=0, iLen=nParent.childNodes.length ; i<iLen ; i++ )
 	{
 		if ( nParent.childNodes[i].nodeType == 1 )
 		{
 			anTags.push( nParent.childNodes[i] );
 		}
 	}
-	var nStore = anTags[ iFrom ];
+	const nStore = anTags[ iFrom ];
 
 	if ( iTo !== null )
 	{
@@ -128,14 +128,14 @@ function fnDomSwitch( nParent, iFrom, iTo )
  */
 $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop )
 {
-	var i, iLen, j, jLen, iCols=oSettings.aoColumns.length, nTrs, oCol;
-	var attrMap = function ( obj, prop, mapping ) {
+	const i, iLen, j, jLen, iCols=oSettings.aoColumns.length, nTrs, oCol;
+	const attrMap = function ( obj, prop, mapping ) {
 		if ( ! obj[ prop ] || typeof obj[ prop ] === 'function' ) {
 			return;
 		}
 
-		var a = obj[ prop ].split('.');
-		var num = a.shift();
+		const a = obj[ prop ].split('.');
+		const num = a.shift();
 
 		if ( isNaN( num*1 ) ) {
 			return;
@@ -166,13 +166,13 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop )
 	/*
 	 * Calculate the new column array index, so we have a mapping between the old and new
 	 */
-	var aiMapping = [];
+	const aiMapping = [];
 	for ( i=0, iLen=iCols ; i<iLen ; i++ )
 	{
 		aiMapping[i] = i;
 	}
 	fnArraySwitch( aiMapping, iFrom, iTo );
-	var aiInvertMapping = fnInvertKeyValues( aiMapping );
+	const aiInvertMapping = fnInvertKeyValues( aiMapping );
 
 
 	/*
@@ -244,8 +244,8 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop )
 		 * before needs to take into account that there might not be an element to insert before,
 		 * in which case it will be null, and an appendChild should be used
 		 */
-		var iVisibleIndex = this.oApi._fnColumnIndexToVisible( oSettings, iFrom );
-		var iInsertBeforeIndex = null;
+		const iVisibleIndex = this.oApi._fnColumnIndexToVisible( oSettings, iFrom );
+		const iInsertBeforeIndex = null;
 
 		i = iTo < iFrom ? iTo : iTo + 1;
 		while ( iInsertBeforeIndex === null && i < iCols )
@@ -293,7 +293,7 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop )
 	/* Array array - internal data anodes cache */
 	for ( i=0, iLen=oSettings.aoData.length ; i<iLen ; i++ )
 	{
-		var data = oSettings.aoData[i];
+		const data = oSettings.aoData[i];
 
 		if ( data.anCells ) {
 			fnArraySwitch( data.anCells, iFrom, iTo );
@@ -322,7 +322,7 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop )
 	}
 
 	// Invalidate row cached data for sorting, filtering etc
-	var api = new $.fn.dataTable.Api( oSettings );
+	const api = new $.fn.dataTable.Api( oSettings );
 	api.rows().invalidate();
 
 	/*
@@ -359,9 +359,9 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop )
  * @param {object} dt DataTables settings object
  * @param {object} opts ColReorder options
  */
-var ColReorder = function( dt, opts )
+const ColReorder = function( dt, opts )
 {
-	var settings = new $.fn.dataTable.Api( dt ).settings()[0];
+	const settings = new $.fn.dataTable.Api( dt ).settings()[0];
 
 	// Ensure that we can't initialise on the same table twice
 	if ( settings._colReorder ) {
@@ -374,7 +374,7 @@ var ColReorder = function( dt, opts )
 	}
 
 	// Convert from camelCase to Hungarian, just as DataTables does
-	var camelToHungarian = $.fn.dataTable.camelToHungarian;
+	const camelToHungarian = $.fn.dataTable.camelToHungarian;
 	if ( camelToHungarian ) {
 		camelToHungarian( ColReorder.defaults, ColReorder.defaults, true );
 		camelToHungarian( ColReorder.defaults, opts || {} );
@@ -499,7 +499,7 @@ $.extend( ColReorder.prototype, {
 	 *
 	 *  @example
 	 *    // DataTables initialisation with ColReorder
-	 *    var table = $('#example').dataTable( {
+	 *    const table = $('#example').dataTable( {
 	 *        "sDom": 'Rlfrtip'
 	 *    } );
 	 *
@@ -536,7 +536,7 @@ $.extend( ColReorder.prototype, {
 	 *
 	 *  @example
 	 *    // Get column ordering for the table
-	 *    var order = $.fn.dataTable.ColReorder( dataTable ).fnOrder();
+	 *    const order = $.fn.dataTable.ColReorder( dataTable ).fnOrder();
 	 *//**
 	 * Set the order of the columns, from the positions identified in the
 	 * ordering array given. Note that ColReorder takes a brute force approach
@@ -552,8 +552,8 @@ $.extend( ColReorder.prototype, {
 	 *
 	 *  @example
 	 *    // Move the first column to the end for the table `#example`
-	 *    var curr = $.fn.dataTable.ColReorder( '#example' ).fnOrder();
-	 *    var first = curr.shift();
+	 *    const curr = $.fn.dataTable.ColReorder( '#example' ).fnOrder();
+	 *    const first = curr.shift();
 	 *    curr.push( first );
 	 *    $.fn.dataTable.ColReorder( '#example' ).fnOrder( curr );
 	 *
@@ -565,8 +565,8 @@ $.extend( ColReorder.prototype, {
 	 */
 	"fnOrder": function ( set, original )
 	{
-		var a = [], i, ien, j, jen;
-		var columns = this.s.dt.aoColumns;
+		const a = [], i, ien, j, jen;
+		const columns = this.s.dt.aoColumns;
 
 		if ( set === undefined ){
 			for ( i=0, ien=columns.length ; i<ien ; i++ ) {
@@ -580,7 +580,7 @@ $.extend( ColReorder.prototype, {
 		// existing ones, so we need to translate from the original to current
 		// before then doing the order
 		if ( original ) {
-			var order = this.fnOrder();
+			const order = this.fnOrder();
 
 			for ( i=0, ien=set.length ; i<ien ; i++ ) {
 				a.push( $.inArray( set[i], order ) );
@@ -609,8 +609,8 @@ $.extend( ColReorder.prototype, {
 			dir = 'toCurrent';
 		}
 
-		var order = this.fnOrder();
-		var columns = this.s.dt.aoColumns;
+		const order = this.fnOrder();
+		const columns = this.s.dt.aoColumns;
 
 		if ( dir === 'toCurrent' ) {
 			// Given an original index, want the current
@@ -643,10 +643,10 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnConstruct": function ()
 	{
-		var that = this;
-		var iLen = this.s.dt.aoColumns.length;
-		var table = this.s.dt.nTable;
-		var i;
+		const that = this;
+		const iLen = this.s.dt.aoColumns.length;
+		const table = this.s.dt.nTable;
+		const i;
 
 		/* Columns discounted from reordering - counting left to right */
 		if ( this.s.init.iFixedColumns )
@@ -688,7 +688,7 @@ $.extend( ColReorder.prototype, {
 		}, "ColReorder_State" );
 
 		/* An initial column order has been specified */
-		var aiOrder = null;
+		const aiOrder = null;
 		if ( this.s.init.aiOrder )
 		{
 			aiOrder = this.s.init.aiOrder.slice();
@@ -709,19 +709,19 @@ $.extend( ColReorder.prototype, {
 			 */
 			if ( !that.s.dt._bInitComplete )
 			{
-				var bDone = false;
+				const bDone = false;
 				$(table).on( 'draw.dt.colReorder', function () {
 					if ( !that.s.dt._bInitComplete && !bDone )
 					{
 						bDone = true;
-						var resort = fnInvertKeyValues( aiOrder );
+						const resort = fnInvertKeyValues( aiOrder );
 						that._fnOrderColumns.call( that, resort );
 					}
 				} );
 			}
 			else
 			{
-				var resort = fnInvertKeyValues( aiOrder );
+				const resort = fnInvertKeyValues( aiOrder );
 				that._fnOrderColumns.call( that, resort );
 			}
 		}
@@ -753,7 +753,7 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnOrderColumns": function ( a )
 	{
-		var changed = false;
+		const changed = false;
 
 		if ( a.length != this.s.dt.aoColumns.length )
 		{
@@ -762,9 +762,9 @@ $.extend( ColReorder.prototype, {
 			return;
 		}
 
-		for ( var i=0, iLen=a.length ; i<iLen ; i++ )
+		for ( const i=0, iLen=a.length ; i<iLen ; i++ )
 		{
-			var currIndex = $.inArray( i, a );
+			const currIndex = $.inArray( i, a );
 			if ( i != currIndex )
 			{
 				/* Reorder our switching array */
@@ -811,9 +811,9 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnStateSave": function ( oState )
 	{
-		var i, iLen, aCopy, iOrigColumn;
-		var oSettings = this.s.dt;
-		var columns = oSettings.aoColumns;
+		const i, iLen, aCopy, iOrigColumn;
+		const oSettings = this.s.dt;
+		const columns = oSettings.aoColumns;
 
 		oState.ColReorder = [];
 
@@ -824,7 +824,7 @@ $.extend( ColReorder.prototype, {
 				oState.aaSorting[i][0] = columns[ oState.aaSorting[i][0] ]._ColReorder_iOrigCol;
 			}
 
-			var aSearchCopy = $.extend( true, [], oState.aoSearchCols );
+			const aSearchCopy = $.extend( true, [], oState.aoSearchCols );
 
 			for ( i=0, iLen=columns.length ; i<iLen ; i++ )
 			{
@@ -846,7 +846,7 @@ $.extend( ColReorder.prototype, {
 				oState.order[i][0] = columns[ oState.order[i][0] ]._ColReorder_iOrigCol;
 			}
 
-			var stateColumnsCopy = $.extend( true, [], oState.columns );
+			const stateColumnsCopy = $.extend( true, [], oState.columns );
 
 			for ( i=0, iLen=columns.length ; i<iLen ; i++ )
 			{
@@ -876,7 +876,7 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnMouseListener": function ( i, nTh )
 	{
-		var that = this;
+		const that = this;
 		$(nTh).on( 'mousedown.ColReorder', function (e) {
 			e.preventDefault();
 			that._fnMouseDown.call( that, e, nTh );
@@ -894,12 +894,12 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnMouseDown": function ( e, nTh )
 	{
-		var that = this;
+		const that = this;
 
 		/* Store information about the mouse position */
-		var target = $(e.target).closest('th, td');
-		var offset = target.offset();
-		var idx = parseInt( $(nTh).attr('data-column-index'), 10 );
+		const target = $(e.target).closest('th, td');
+		const offset = target.offset();
+		const idx = parseInt( $(nTh).attr('data-column-index'), 10 );
 
 		if ( idx === undefined ) {
 			return;
@@ -935,7 +935,7 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnMouseMove": function ( e )
 	{
-		var that = this;
+		const that = this;
 
 		if ( this.dom.drag === null )
 		{
@@ -959,10 +959,10 @@ $.extend( ColReorder.prototype, {
 		} );
 
 		/* Based on the current mouse position, calculate where the insert should go */
-		var bSet = false;
-		var lastToIndex = this.s.mouse.toIndex;
+		const bSet = false;
+		const lastToIndex = this.s.mouse.toIndex;
 
-		for ( var i=1, iLen=this.s.aoTargets.length ; i<iLen ; i++ )
+		for ( const i=1, iLen=this.s.aoTargets.length ; i<iLen ; i++ )
 		{
 			if ( e.pageX < this.s.aoTargets[i-1].x + ((this.s.aoTargets[i].x-this.s.aoTargets[i-1].x)/2) )
 			{
@@ -999,7 +999,7 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnMouseUp": function ( e )
 	{
-		var that = this;
+		const that = this;
 
 		$(document).off( 'mousemove.ColReorder mouseup.ColReorder' );
 
@@ -1041,7 +1041,7 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnRegions": function ()
 	{
-		var aoColumns = this.s.dt.aoColumns;
+		const aoColumns = this.s.dt.aoColumns;
 
 		this.s.aoTargets.splice( 0, this.s.aoTargets.length );
 
@@ -1050,10 +1050,10 @@ $.extend( ColReorder.prototype, {
 			"to": 0
 		} );
 
-		var iToPoint = 0;
-		var total = $(aoColumns[0].nTh).offset().left; // Offset of the first column
+		const iToPoint = 0;
+		const total = $(aoColumns[0].nTh).offset().left; // Offset of the first column
 
-		for ( var i=0, iLen=aoColumns.length ; i<iLen ; i++ )
+		for ( const i=0, iLen=aoColumns.length ; i<iLen ; i++ )
 		{
 			/* For the column / header in question, we want it's position to remain the same if the
 			 * position is just to it's immediate left or right, so we only increment the counter for
@@ -1098,13 +1098,13 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnCreateDragNode": function ()
 	{
-		var scrolling = this.s.dt.oScroll.sX !== "" || this.s.dt.oScroll.sY !== "";
+		const scrolling = this.s.dt.oScroll.sX !== "" || this.s.dt.oScroll.sY !== "";
 
-		var origCell = this.s.dt.aoColumns[ this.s.mouse.targetIndex ].nTh;
-		var origTr = origCell.parentNode;
-		var origThead = origTr.parentNode;
-		var origTable = origThead.parentNode;
-		var cloneCell = $(origCell).clone();
+		const origCell = this.s.dt.aoColumns[ this.s.mouse.targetIndex ].nTh;
+		const origTr = origCell.parentNode;
+		const origThead = origTr.parentNode;
+		const origTable = origThead.parentNode;
+		const cloneCell = $(origCell).clone();
 
 		// This is a slightly odd combination of jQuery and DOM, but it is the
 		// fastest and least resource intensive way I could think of cloning
@@ -1252,11 +1252,11 @@ if ( typeof $.fn.dataTable == "function" &&
 {
 	$.fn.dataTableExt.aoFeatures.push( {
 		"fnInit": function( settings ) {
-			var table = settings.oInstance;
+			const table = settings.oInstance;
 
 			if ( ! settings._colReorder ) {
-				var dtInit = settings.oInit;
-				var opts = dtInit.colReorder || dtInit.oColReorder || {};
+				const dtInit = settings.oInit;
+				const opts = dtInit.colReorder || dtInit.oColReorder || {};
 
 				new ColReorder( settings, opts );
 			}
@@ -1282,11 +1282,11 @@ $(document).on( 'preInit.dt.colReorder', function (e, settings) {
 		return;
 	}
 
-	var init = settings.oInit.colReorder;
-	var defaults = DataTable.defaults.colReorder;
+	const init = settings.oInit.colReorder;
+	const defaults = DataTable.defaults.colReorder;
 
 	if ( init || defaults ) {
-		var opts = $.extend( {}, init, defaults );
+		const opts = $.extend( {}, init, defaults );
 
 		if ( init !== false ) {
 			new ColReorder( settings, opts  );

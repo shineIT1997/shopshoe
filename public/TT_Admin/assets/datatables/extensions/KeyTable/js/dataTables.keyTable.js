@@ -48,10 +48,10 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
-var KeyTable = function ( dt, opts ) {
+const KeyTable = function ( dt, opts ) {
 	// Sanity check that we are using DataTables 1.10 or newer
 	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.10.8' ) ) {
 		throw 'KeyTable requires DataTables 1.10.8 or newer';
@@ -78,8 +78,8 @@ var KeyTable = function ( dt, opts ) {
 	};
 
 	// Check if row reorder has already been initialised on this table
-	var settings = this.s.dt.settings()[0];
-	var exisiting = settings.keytable;
+	const settings = this.s.dt.settings()[0];
+	const exisiting = settings.keytable;
 	if ( exisiting ) {
 		return exisiting;
 	}
@@ -129,13 +129,13 @@ $.extend( KeyTable.prototype, {
 	 */
 	focused: function ( cell )
 	{
-		var lastFocus = this.s.lastFocus;
+		const lastFocus = this.s.lastFocus;
 
 		if ( ! lastFocus ) {
 			return false;
 		}
 
-		var lastIdx = this.s.lastFocus.index();
+		const lastIdx = this.s.lastFocus.index();
 		return cell.row === lastIdx.row && cell.column === lastIdx.column;
 	},
 
@@ -153,9 +153,9 @@ $.extend( KeyTable.prototype, {
 	{
 		this._tabInput();
 
-		var that = this;
-		var dt = this.s.dt;
-		var table = $( dt.table().node() );
+		const that = this;
+		const dt = this.s.dt;
+		const table = $( dt.table().node() );
 
 		// Need to be able to calculate the cell positions relative to the table
 		if ( table.css('position') === 'static' ) {
@@ -168,7 +168,7 @@ $.extend( KeyTable.prototype, {
 				return;
 			}
 
-			var cell = dt.cell( this );
+			const cell = dt.cell( this );
 
 			if ( ! cell.any() ) {
 				return;
@@ -228,7 +228,7 @@ $.extend( KeyTable.prototype, {
 		} );
 
 		// Initial focus comes from state or options
-		var state = dt.state.loaded();
+		const state = dt.state.loaded();
 
 		if ( state && state.keyTable ) {
 			dt.cell( state.keyTable ).focus();
@@ -256,7 +256,7 @@ $.extend( KeyTable.prototype, {
 			return;
 		}
 
-		var cell = this.s.lastFocus;
+		const cell = this.s.lastFocus;
 
 		$( cell.node() ).removeClass( this.c.className );
 		this.s.lastFocus = null;
@@ -273,9 +273,9 @@ $.extend( KeyTable.prototype, {
 	 */
 	_columns: function ()
 	{
-		var dt = this.s.dt;
-		var user = dt.columns( this.c.columns ).indexes();
-		var out = [];
+		const dt = this.s.dt;
+		const user = dt.columns( this.c.columns ).indexes();
+		const out = [];
 
 		dt.columns( ':visible' ).every( function (i) {
 			if ( user.indexOf( i ) !== -1 ) {
@@ -297,15 +297,15 @@ $.extend( KeyTable.prototype, {
 	 */
 	_editor: function ( key, orig )
 	{
-		var dt = this.s.dt;
-		var editor = this.c.editor;
+		const dt = this.s.dt;
+		const editor = this.c.editor;
 
 		orig.stopPropagation();
 
 		editor.inline( this.s.lastFocus.index() );
 
 		// Excel style - select all text
-		var input = $('div.DTE input');
+		const input = $('div.DTE input');
 		if ( input.length ) {
 			input[0].select();
 		}
@@ -356,10 +356,10 @@ $.extend( KeyTable.prototype, {
 	 */
 	_focus: function ( row, column )
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var pageInfo = dt.page.info();
-		var lastFocus = this.s.lastFocus;
+		const that = this;
+		const dt = this.s.dt;
+		const pageInfo = dt.page.info();
+		const lastFocus = this.s.lastFocus;
 
 		if ( ! this.s.enable ) {
 			return;
@@ -367,7 +367,7 @@ $.extend( KeyTable.prototype, {
 
 		if ( typeof row !== 'number' ) {
 			// Convert the cell to a row and column
-			var index = row.index();
+			const index = row.index();
 			column = index.column;
 			row = dt
 				.rows( { filter: 'applied', order: 'applied' } )
@@ -406,7 +406,7 @@ $.extend( KeyTable.prototype, {
 			row -= pageInfo.start;
 		}
 
-		var cell = dt.cell( ':eq('+row+')', column, {search: 'applied'} );
+		const cell = dt.cell( ':eq('+row+')', column, {search: 'applied'} );
 
 		if ( lastFocus ) {
 			// Don't trigger a refocus on the same cell
@@ -418,15 +418,15 @@ $.extend( KeyTable.prototype, {
 			this._blur();
 		}
 
-		var node = $( cell.node() );
+		const node = $( cell.node() );
 		node.addClass( this.c.className );
 
 		// Shift viewpoint and page to make cell visible
 		this._scroll( $(window), $(document.body), node, 'offset' );
 
-		var bodyParent = dt.table().body().parentNode;
+		const bodyParent = dt.table().body().parentNode;
 		if ( bodyParent !== dt.table().header().parentNode ) {
-			var parent = $(bodyParent.parentNode);
+			const parent = $(bodyParent.parentNode);
 
 			this._scroll( parent, parent, node, 'position' );
 		}
@@ -456,13 +456,13 @@ $.extend( KeyTable.prototype, {
 		}
 
 		// If not focused, then there is no key action to take
-		var cell = this.s.lastFocus;
+		const cell = this.s.lastFocus;
 		if ( ! cell ) {
 			return;
 		}
 
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		// If we are not listening for this key, do nothing
 		if ( this.c.keys && $.inArray( e.keyCode, this.c.keys ) === -1 ) {
@@ -483,11 +483,11 @@ $.extend( KeyTable.prototype, {
 			case 33: // page up (previous page)
 			case 34: // page down (next page)
 				e.preventDefault();
-				var index = dt.cells( {page: 'current'} ).nodes().indexOf( cell.node() );
+				const index = dt.cells( {page: 'current'} ).nodes().indexOf( cell.node() );
 
 				dt
 					.one( 'draw', function () {
-						var nodes = dt.cells( {page: 'current'} ).nodes();
+						const nodes = dt.cells( {page: 'current'} ).nodes();
 
 						that._focus( dt.cell( index < nodes.length ?
 							nodes[ index ] :
@@ -501,7 +501,7 @@ $.extend( KeyTable.prototype, {
 			case 35: // end (end of current page)
 			case 36: // home (start of current page)
 				e.preventDefault();
-				var indexes = dt.cells( {page: 'current'} ).indexes();
+				const indexes = dt.cells( {page: 'current'} ).indexes();
 
 				this._focus( dt.cell(
 					indexes[ e.keyCode === 35 ? indexes.length-1 : 0 ]
@@ -547,14 +547,14 @@ $.extend( KeyTable.prototype, {
 	 */
 	_scroll: function ( container, scroller, cell, posOff )
 	{
-		var offset = cell[posOff]();
-		var height = cell.outerHeight();
-		var width = cell.outerWidth();
+		const offset = cell[posOff]();
+		const height = cell.outerHeight();
+		const width = cell.outerWidth();
 
-		var scrollTop = scroller.scrollTop();
-		var scrollLeft = scroller.scrollLeft();
-		var containerHeight = container.height();
-		var containerWidth = container.width();
+		const scrollTop = scroller.scrollTop();
+		const scrollLeft = scroller.scrollLeft();
+		const containerHeight = container.height();
+		const containerWidth = container.width();
 
 		// Top correction
 		if ( offset.top < scrollTop ) {
@@ -591,18 +591,18 @@ $.extend( KeyTable.prototype, {
 	 */
 	_shift: function ( e, direction, keyBlurable )
 	{
-		var that         = this;
-		var dt           = this.s.dt;
-		var pageInfo     = dt.page.info();
-		var rows         = pageInfo.recordsDisplay;
-		var currentCell  = this.s.lastFocus;
-		var columns      = this._columns();
+		const that         = this;
+		const dt           = this.s.dt;
+		const pageInfo     = dt.page.info();
+		const rows         = pageInfo.recordsDisplay;
+		const currentCell  = this.s.lastFocus;
+		const columns      = this._columns();
 
 		if ( ! currentCell ) {
 			return;
 		}
 
-		var currRow = dt
+		const currRow = dt
 			.rows( { filter: 'applied', order: 'applied' } )
 			.indexes()
 			.indexOf( currentCell.index().row );
@@ -614,7 +614,7 @@ $.extend( KeyTable.prototype, {
 			currRow += pageInfo.start;
 		}
 
-		var currCol = dt
+		const currCol = dt
 			.columns( columns )
 			.indexes()
 			.indexOf( currentCell.index().column );
@@ -673,9 +673,9 @@ $.extend( KeyTable.prototype, {
 	 */
 	_tabInput: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var tabIndex = this.c.tabIndex !== null ?
+		const that = this;
+		const dt = this.s.dt;
+		const tabIndex = this.c.tabIndex !== null ?
 			this.c.tabIndex :
 			dt.settings()[0].iTabIndex;
 
@@ -683,7 +683,7 @@ $.extend( KeyTable.prototype, {
 			return;
 		}
 
-		var div = $('<div><input type="text" tabindex="'+tabIndex+'"/></div>')
+		const div = $('<div><input type="text" tabindex="'+tabIndex+'"/></div>')
 			.css( {
 				position: 'absolute',
 				height: 1,
@@ -795,15 +795,15 @@ DataTable.Api.register( 'keys.enable()', function ( opts ) {
 
 // Cell selector
 DataTable.ext.selector.cell.push( function ( settings, opts, cells ) {
-	var focused = opts.focused;
-	var kt = settings.keytable;
-	var out = [];
+	const focused = opts.focused;
+	const kt = settings.keytable;
+	const out = [];
 
 	if ( ! kt || focused === undefined ) {
 		return cells;
 	}
 
-	for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
+	for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
 		if ( (focused === true &&  kt.focused( cells[i] ) ) ||
 			 (focused === false && ! kt.focused( cells[i] ) )
 		) {
@@ -822,11 +822,11 @@ $(document).on( 'preInit.dt.dtk', function (e, settings, json) {
 		return;
 	}
 
-	var init = settings.oInit.keys;
-	var defaults = DataTable.defaults.keys;
+	const init = settings.oInit.keys;
+	const defaults = DataTable.defaults.keys;
 
 	if ( init || defaults ) {
-		var opts = $.extend( {}, init, defaults );
+		const opts = $.extend( {}, init, defaults );
 
 		if ( init !== false ) {
 			new KeyTable( settings, opts  );

@@ -48,7 +48,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 /**
@@ -72,7 +72,7 @@ var DataTable = $.fn.dataTable;
  *  @requires jQuery 1.7+
  *  @requires DataTables 1.10.7+
  */
-var RowReorder = function ( dt, opts ) {
+const RowReorder = function ( dt, opts ) {
 	// Sanity check that we are using DataTables 1.10 or newer
 	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.10.8' ) ) {
 		throw 'DataTables RowReorder requires DataTables 1.10.8 or newer';
@@ -122,8 +122,8 @@ var RowReorder = function ( dt, opts ) {
 	};
 
 	// Check if row reorder has already been initialised on this table
-	var settings = this.s.dt.settings()[0];
-	var exisiting = settings.rowreorder;
+	const settings = this.s.dt.settings()[0];
+	const exisiting = settings.rowreorder;
 	if ( exisiting ) {
 		return exisiting;
 	}
@@ -145,9 +145,9 @@ $.extend( RowReorder.prototype, {
 	 */
 	_constructor: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var table = $( dt.table().node() );
+		const that = this;
+		const dt = this.s.dt;
+		const table = $( dt.table().node() );
 
 		// Need to be able to calculate the row positions relative to the table
 		if ( table.css('position') === 'static' ) {
@@ -161,7 +161,7 @@ $.extend( RowReorder.prototype, {
 		// Use `table().container()` rather than just the table node for IE8 -
 		// otherwise it only works once...
 		$(dt.table().container()).on( 'mousedown.rowReorder touchstart.rowReorder', this.c.selector, function (e) {
-			var tr = $(this).closest('tr');
+			const tr = $(this).closest('tr');
 
 			// Double check that it is a DataTable row
 			if ( dt.row( tr ).any() ) {
@@ -189,22 +189,22 @@ $.extend( RowReorder.prototype, {
 	 */
 	_cachePositions: function ()
 	{
-		var dt = this.s.dt;
+		const dt = this.s.dt;
 
 		// Frustratingly, if we add `position:relative` to the tbody, the
 		// position is still relatively to the parent. So we need to adjust
 		// for that
-		var headerHeight = $( dt.table().node() ).find('thead').outerHeight();
+		const headerHeight = $( dt.table().node() ).find('thead').outerHeight();
 
 		// Need to pass the nodes through jQuery to get them in document order,
 		// not what DataTables thinks it is, since we have been altering the
 		// order
-		var nodes = $.unique( dt.rows( { page: 'current' } ).nodes().toArray() );
-		var tops = $.map( nodes, function ( node, i ) {
+		const nodes = $.unique( dt.rows( { page: 'current' } ).nodes().toArray() );
+		const tops = $.map( nodes, function ( node, i ) {
 			return $(node).position().top - headerHeight;
 		} );
 
-		var middles = $.map( tops, function ( top, i ) {
+		const middles = $.map( tops, function ( top, i ) {
 			return tops.length < i-1 ?
 				(top + tops[i+1]) / 2 :
 				(top + top + $( dt.row( ':last-child' ).node() ).outerHeight() ) / 2;
@@ -224,17 +224,17 @@ $.extend( RowReorder.prototype, {
 	 */
 	_clone: function ( target )
 	{
-		var dt = this.s.dt;
-		var clone = $( dt.table().node().cloneNode(false) )
+		const dt = this.s.dt;
+		const clone = $( dt.table().node().cloneNode(false) )
 			.addClass( 'dt-rowReorder-float' )
 			.append('<tbody/>')
 			.append( target.clone( false ) );
 
 		// Match the table and column widths - read all sizes before setting
 		// to reduce reflows
-		var tableWidth = target.outerWidth();
-		var tableHeight = target.outerHeight();
-		var sizes = target.children().map( function () {
+		const tableWidth = target.outerWidth();
+		const tableHeight = target.outerHeight();
+		const sizes = target.children().map( function () {
 			return $(this).width();
 		} );
 
@@ -260,11 +260,11 @@ $.extend( RowReorder.prototype, {
 	 */
 	_clonePosition: function ( e )
 	{
-		var start = this.s.start;
-		var topDiff = this._eventToPage( e, 'Y' ) - start.top;
-		var leftDiff = this._eventToPage( e, 'X' ) - start.left;
-		var snap = this.c.snapX;
-		var left;
+		const start = this.s.start;
+		const topDiff = this._eventToPage( e, 'Y' ) - start.top;
+		const leftDiff = this._eventToPage( e, 'X' ) - start.left;
+		const snap = this.c.snapX;
+		const left;
 
 		if ( snap === true ) {
 			left = start.offsetLeft;
@@ -326,11 +326,11 @@ $.extend( RowReorder.prototype, {
 	 */
 	_mouseDown: function ( e, target )
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var start = this.s.start;
+		const that = this;
+		const dt = this.s.dt;
+		const start = this.s.start;
 
-		var offset = target.offset();
+		const offset = target.offset();
 		start.top = this._eventToPage( e, 'Y' );
 		start.left = this._eventToPage( e, 'X' );
 		start.offsetTop = offset.top;
@@ -372,15 +372,15 @@ $.extend( RowReorder.prototype, {
 		this._clonePosition( e );
 
 		// Transform the mouse position into a position in the table's body
-		var bodyY = this._eventToPage( e, 'Y' ) - this.s.bodyTop;
-		var middles = this.s.middles;
-		var insertPoint = null;
-		var dt = this.s.dt;
-		var body = dt.table().body();
+		const bodyY = this._eventToPage( e, 'Y' ) - this.s.bodyTop;
+		const middles = this.s.middles;
+		const insertPoint = null;
+		const dt = this.s.dt;
+		const body = dt.table().body();
 
 		// Determine where the row should be inserted based on the mouse
 		// position
-		for ( var i=0, ien=middles.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=middles.length ; i<ien ; i++ ) {
 			if ( bodyY < middles[i] ) {
 				insertPoint = i;
 				break;
@@ -397,7 +397,7 @@ $.extend( RowReorder.prototype, {
 				this.dom.target.prependTo( body );
 			}
 			else {
-				var nodes = $.unique( dt.rows( { page: 'current' } ).nodes().toArray() );
+				const nodes = $.unique( dt.rows( { page: 'current' } ).nodes().toArray() );
 
 				if ( insertPoint > this.s.lastInsert ) {
 					this.dom.target.before( nodes[ insertPoint-1 ] );
@@ -413,8 +413,8 @@ $.extend( RowReorder.prototype, {
 		}
 
 		// scroll window up and down when reaching the edges
-		var windowY = this._eventToPage( e, 'Y' ) - document.body.scrollTop;
-		var scrollInterval = this.s.scrollInterval;
+		const windowY = this._eventToPage( e, 'Y' ) - document.body.scrollTop;
+		const scrollInterval = this.s.scrollInterval;
 
 		if ( windowY < 65 ) {
 			if ( ! scrollInterval ) {
@@ -446,9 +446,9 @@ $.extend( RowReorder.prototype, {
 	 */
 	_mouseUp: function ( e )
 	{
-		var dt = this.s.dt;
-		var i, ien;
-		var dataSrc = this.c.dataSrc;
+		const dt = this.s.dt;
+		const i, ien;
+		const dataSrc = this.c.dataSrc;
 
 		this.dom.clone.remove();
 		this.dom.clone = null;
@@ -463,19 +463,19 @@ $.extend( RowReorder.prototype, {
 		this.s.scrollInterval = null;
 
 		// Calculate the difference
-		var startNodes = this.s.start.nodes;
-		var endNodes = $.unique( dt.rows( { page: 'current' } ).nodes().toArray() );
-		var idDiff = {};
-		var fullDiff = [];
-		var diffNodes = [];
-		var getDataFn = this.s.getDataFn;
-		var setDataFn = this.s.setDataFn;
+		const startNodes = this.s.start.nodes;
+		const endNodes = $.unique( dt.rows( { page: 'current' } ).nodes().toArray() );
+		const idDiff = {};
+		const fullDiff = [];
+		const diffNodes = [];
+		const getDataFn = this.s.getDataFn;
+		const setDataFn = this.s.setDataFn;
 
 		for ( i=0, ien=startNodes.length ; i<ien ; i++ ) {
 			if ( startNodes[i] !== endNodes[i] ) {
-				var id = dt.row( endNodes[i] ).id();
-				var endRowData = dt.row( endNodes[i] ).data();
-				var startRowData = dt.row( startNodes[i] ).data();
+				const id = dt.row( endNodes[i] ).id();
+				const endRowData = dt.row( endNodes[i] ).data();
+				const startRowData = dt.row( startNodes[i] ).data();
 
 				if ( id ) {
 					idDiff[ id ] = getDataFn( startRowData );
@@ -514,8 +514,8 @@ $.extend( RowReorder.prototype, {
 		// Do update if required
 		if ( this.c.update ) {
 			for ( i=0, ien=fullDiff.length ; i<ien ; i++ ) {
-				var row = dt.row( fullDiff[i].node );
-				var rowData = row.data();
+				const row = dt.row( fullDiff[i].node );
+				const rowData = row.data();
 
 				setDataFn( rowData, fullDiff[i].newData );
 
@@ -602,11 +602,11 @@ $(document).on( 'init.dt.dtr', function (e, settings, json) {
 		return;
 	}
 
-	var init = settings.oInit.rowReorder;
-	var defaults = DataTable.defaults.rowReorder;
+	const init = settings.oInit.rowReorder;
+	const defaults = DataTable.defaults.rowReorder;
 
 	if ( init || defaults ) {
-		var opts = $.extend( {}, init, defaults );
+		const opts = $.extend( {}, init, defaults );
 
 		if ( init !== false ) {
 			new RowReorder( settings, opts  );

@@ -1,17 +1,17 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
 
-var Giohang= require('../models/giohang');
-var Cart= require('../models/cart');
-var Product = require('../models/product');
-var Cate = require('../models/cate');
-var User = require('../models/user')
+const Giohang= require('../models/giohang');
+const Cart= require('../models/cart');
+const Product = require('../models/product');
+const Cate = require('../models/cate');
+const User = require('../models/user')
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // var login  = req.session.user ? true : false
+  // const login  = req.session.user ? true : false
   Product.find().limit(8). populate({ path: 'theloai'}).then(function(product){
     res.render('shop/index', { products: product });
   });
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
 // tìm sản phẩm index
 router.post('/', function (req, res) {
-  var find = req.body.find;
+  const find = req.body.find;
   Cate.find().then(function(cate){
 		Product.find({title: {$regex: find}}).populate('theloai').then(function(result){
       console.log(result)
@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
 //category
 router.get('/cate/:name.:id.html', function (req, res) {
   console.log(req.params.id);
-  // var login  = req.session.user ? true : false
+  // const login  = req.session.user ? true : false
 	Product.find({ theloai: { $elemMatch: { $eq: req.params.id }}}).populate('theloai').then(function(data){
 		Cate.find().then(function(cates){
 			res.render('shop/san-pham',{product: data, cates: cates});
@@ -42,7 +42,7 @@ router.get('/cate/:name.:id.html', function (req, res) {
 
 // tìm sản phẩm category
 router.post('/cate/:name.:id.html', function (req, res) {
-  var find = req.body.find;
+  const find = req.body.find;
   Cate.find().then(function(cates){
 		Product.find({title: {$regex: find}}).populate('theloai').then(function(result){
 			res.render('shop/san-pham',{product: result, cates: cates});
@@ -61,7 +61,7 @@ router.get('/san-pham.html', function (req, res) {
 
 // tìm sản phẩm category
 router.post('/san-pham.html', function (req, res) {
-  var find = req.body.find;
+  const find = req.body.find;
   Cate.find().then(function(cate){
 		Product.find({title: {$regex: find}}, function(err, result){
 			res.render('shop/san-pham',{product: result, cate: cate});
@@ -79,7 +79,7 @@ router.get('/chi-tiet/:id', function (req, res) {
 
 // tìm sản phẩm chi tiết
 router.post('/chi-tiet/:id', function (req, res) {
-  var find = req.body.find;
+  const find = req.body.find;
   Cate.find().then(function(cate){
 		Product.find({title: {$regex: find}}, function(err, result){
 			res.render('shop/san-pham',{product: result, cate: cate});
@@ -92,13 +92,13 @@ router.post('/thanh-toan', function (req, res) {
 
   console.log(typeof req.user._id);
 
-  var giohang = new Cart(req.session.cart );
+  const giohang = new Cart(req.session.cart );
   console.log(req.session.cart , 'req.session.cart');
   
   console.log(giohang, 'giohang');
   
-  var data = giohang.convertArray();
-  var Tong = giohang.Tien;
+  const data = giohang.convertArray();
+  const Tong = giohang.Tien;
   
   for ( let element of data) {
     let soluong = element.item.sl - element.sl
@@ -111,7 +111,7 @@ router.post('/thanh-toan', function (req, res) {
       } )
     }
   }
-	var cart = new Giohang({
+	const cart = new Giohang({
     userID      :  req.user._id,
     firstname		:  req.body.ho,
     lastname    :  req.body.ten,
@@ -137,7 +137,7 @@ router.get('/thanh-toan', function(req, res, next){
   if(!req.session.cart){
     return res.render('shop/gio-hang', {products: null});
   }
-  var cart = new Cart(req.session.cart);
+  const cart = new Cart(req.session.cart);
   console.log(req.user);
   
   res.render('shop/thanh-toan', {products: cart.convertArray(), Tien: cart.Tien, user: req.user});
@@ -146,7 +146,7 @@ router.get('/thanh-toan', function(req, res, next){
 
 // tìm sản phẩm thanh toán
 router.post('/thanh-toan', function (req, res) {
-  var find = req.body.find;
+  const find = req.body.find;
   Cate.find().then(function(cate){
 		Product.find({title: {$regex: find}}, function(err, result){
 			res.render('shop/san-pham',{product: result, cate: cate});
@@ -156,8 +156,8 @@ router.post('/thanh-toan', function (req, res) {
 
 //thêm vào giỏ hàng
 router.get('/them-vao-gio-hang/:id', function(req, res, next){
-  var productId = req.params.id;
-  var cart = new Cart( (req.session.cart) ? req.session.cart : {} );
+  const productId = req.params.id;
+  const cart = new Cart( (req.session.cart) ? req.session.cart : {} );
 
   console.log();
   
@@ -176,7 +176,7 @@ router.get('/gio-hang', function(req, res, next){
   if(!req.session.cart){
     return res.render('shop/gio-hang', {products: null});
   }
-  var cart = new Cart(req.session.cart);
+  const cart = new Cart(req.session.cart);
   console.log(cart.convertArray())
   res.render('shop/gio-hang', {products: cart.convertArray(), Tien: cart.Tien});
 
@@ -184,7 +184,7 @@ router.get('/gio-hang', function(req, res, next){
 
 // tìm sản phẩm giỏ hàng
 router.post('/gio-hang', function (req, res) {
-  var find = req.body.find;
+  const find = req.body.find;
   Cate.find().then(function(cate){
 		Product.find({title: {$regex: find}}, function(err, result){
 			res.render('shop/san-pham',{product: result, cate: cate});
@@ -204,8 +204,8 @@ router.post('/search', function (req, res) {
 
 //del 1 product
 router.get('/remove/:id', function(req,res){
-	var productId = req.params.id;
-  var giohang = new Cart( (req.session.cart) ? req.session.cart : {} );
+	const productId = req.params.id;
+  const giohang = new Cart( (req.session.cart) ? req.session.cart : {} );
   
   giohang.delCart( productId);
    req.session.cart=giohang;
@@ -214,8 +214,8 @@ router.get('/remove/:id', function(req,res){
 
 //del product
 router.get('/delcart/:id', function(req,res){
-	var productId = req.params.id;
-  var giohang = new Cart( (req.session.cart) ? req.session.cart : {} );
+	const productId = req.params.id;
+  const giohang = new Cart( (req.session.cart) ? req.session.cart : {} );
   
   giohang.remove( productId);
    req.session.cart=giohang;
@@ -224,13 +224,13 @@ router.get('/delcart/:id', function(req,res){
 
 //update sp
 router.post('/update/:id', function(req,res){
-  var productId = req.params.id;
-  var sl = req.body.sl;
-  var giohang = new Cart( (req.session.cart) ? req.session.cart : {} );
+  const productId = req.params.id;
+  const sl = req.body.sl;
+  const giohang = new Cart( (req.session.cart) ? req.session.cart : {} );
   
   giohang.updateCart( productId, sl);
   req.session.cart=giohang;
-  var data = giohang.convertArray();
+  const data = giohang.convertArray();
   res.render('shop/gio-hang', {products: data, Tien: giohang.Tien});
 });
 

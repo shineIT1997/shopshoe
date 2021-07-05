@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var csrf = require('csurf');
-var passport = require('passport');
-var giohang = require('../models/giohang.js');
+const express = require('express');
+const router = express.Router();
+const csrf = require('csurf');
+const passport = require('passport');
+const giohang = require('../models/giohang.js');
 
-var csrfProtec = csrf();
+const csrfProtec = csrf();
 router.use(csrfProtec);
 
 // =====================================
@@ -39,7 +39,7 @@ router.get('/don-hang', isLoggedIn, function(req, res){
 
 
 router.get('/:id/xoa-cart.html', function(req, res, next) {
-  var id = req.params.id;
+  const id = req.params.id;
   giohang.findOneAndRemove({_id: id}, function(err, offer){
       req.flash('succsess_msg', 'Đã Xoá Thành Công');
      res.redirect('/user/don-hang'); 
@@ -50,7 +50,7 @@ router.get('/:id/xoa-cart.html', function(req, res, next) {
 router.post('/:id/sua-cart.html', isLoggedIn, function(req, res, next) {
   console.log(req.session);
   
-  var id = req.params.id;
+  const id = req.params.id;
   
   giohang.findByIdAndUpdate(id, { 
     firstname: req.body.ho,
@@ -89,7 +89,7 @@ router.use('/', notisLoggedIn, function(req, res, next){
 // =====================================
 // hiển thị form đăng ký
 router.get('/registration', function(req, res, next){
-  var messages = req.flash('error');
+  const messages = req.flash('error');
   res.render('user/registration', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
@@ -105,7 +105,7 @@ router.post('/registration', passport.authenticate('local.registration',{
 // =====================================
 // hiển thị form đăng nhập
 router.get('/login', function(req, res, next){
-  var messages = req.flash('error');
+  const messages = req.flash('error');
   res.render('user/login', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 

@@ -47,7 +47,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 /**
@@ -95,7 +95,7 @@ var DataTable = $.fn.dataTable;
  *      } );
  *    } );
  */
-var Responsive = function ( settings, opts ) {
+const Responsive = function ( settings, opts ) {
 	// Sanity check that we are using DataTables 1.10 or newer
 	if ( ! DataTable.versionCheck || ! DataTable.versionCheck( '1.10.3' ) ) {
 		throw 'DataTables Responsive requires DataTables 1.10.3 or newer';
@@ -134,9 +134,9 @@ $.extend( Responsive.prototype, {
 	 */
 	_constructor: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var dtPrivateSettings = dt.settings()[0];
+		const that = this;
+		const dt = this.s.dt;
+		const dtPrivateSettings = dt.settings()[0];
 
 		dt.settings()[0]._responsive = this;
 
@@ -152,7 +152,7 @@ $.extend( Responsive.prototype, {
 		dtPrivateSettings.oApi._fnCallbackReg( dtPrivateSettings, 'aoRowCreatedCallback', function (tr, data, idx) {
 			if ( $.inArray( false, that.s.current ) !== -1 ) {
 				$('td, th', tr).each( function ( i ) {
-					var idx = dt.column.index( 'toData', i );
+					const idx = dt.column.index( 'toData', i );
 
 					if ( that.s.current[idx] === false ) {
 						$(this).css('display', 'none');
@@ -186,7 +186,7 @@ $.extend( Responsive.prototype, {
 		this._resizeAuto();
 
 		// Details handler
-		var details = this.c.details;
+		const details = this.c.details;
 		if ( details.type !== false ) {
 			that._detailsInit();
 
@@ -240,14 +240,14 @@ $.extend( Responsive.prototype, {
 	 */
 	_columnsVisiblity: function ( breakpoint )
 	{
-		var dt = this.s.dt;
-		var columns = this.s.columns;
-		var i, ien;
+		const dt = this.s.dt;
+		const columns = this.s.columns;
+		const i, ien;
 
 		// Create an array that defines the column ordering based first on the
 		// column's priority, and secondly the column index. This allows the
 		// columns to be removed from the right if the priority matches
-		var order = columns
+		const order = columns
 			.map( function ( col, idx ) {
 				return {
 					columnIdx: idx,
@@ -265,7 +265,7 @@ $.extend( Responsive.prototype, {
 		// Class logic - determine which columns are in this breakpoint based
 		// on the classes. If no class control (i.e. `auto`) then `-` is used
 		// to indicate this to the rest of the function
-		var display = $.map( columns, function ( col ) {
+		const display = $.map( columns, function ( col ) {
 			return col.auto && col.minWidth === null ?
 				false :
 				col.auto === true ?
@@ -275,7 +275,7 @@ $.extend( Responsive.prototype, {
 
 		// Auto column control - first pass: how much width is taken by the
 		// ones that must be included from the non-auto columns
-		var requiredWidth = 0;
+		const requiredWidth = 0;
 		for ( i=0, ien=display.length ; i<ien ; i++ ) {
 			if ( display[i] === true ) {
 				requiredWidth += columns[i].minWidth;
@@ -287,10 +287,10 @@ $.extend( Responsive.prototype, {
 		// may not be requires which makes this sub-optimal, but it would
 		// require another full redraw to make complete use of those extra few
 		// pixels
-		var scrolling = dt.settings()[0].oScroll;
-		var bar = scrolling.sY || scrolling.sX ? scrolling.iBarWidth : 0;
-		var widthAvailable = dt.table().container().offsetWidth - bar;
-		var usedWidth = widthAvailable - requiredWidth;
+		const scrolling = dt.settings()[0].oScroll;
+		const bar = scrolling.sY || scrolling.sX ? scrolling.iBarWidth : 0;
+		const widthAvailable = dt.table().container().offsetWidth - bar;
+		const usedWidth = widthAvailable - requiredWidth;
 
 		// Control column needs to always be included. This makes it sub-
 		// optimal in terms of using the available with, but to stop layout
@@ -305,9 +305,9 @@ $.extend( Responsive.prototype, {
 
 		// Allow columns to be shown (counting by priority and then right to
 		// left) until we run out of room
-		var empty = false;
+		const empty = false;
 		for ( i=0, ien=order.length ; i<ien ; i++ ) {
-			var colIdx = order[i].columnIdx;
+			const colIdx = order[i].columnIdx;
 
 			if ( display[colIdx] === '-' && ! columns[colIdx].control && columns[colIdx].minWidth ) {
 				// Once we've found a column that won't fit we don't let any
@@ -330,7 +330,7 @@ $.extend( Responsive.prototype, {
 		// control column). The two loops look inefficient here, but they are
 		// trivial and will fly through. We need to know the outcome from the
 		// first , before the action in the second can be taken
-		var showControl = false;
+		const showControl = false;
 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( ! columns[i].control && ! columns[i].never && ! display[i] ) {
@@ -365,14 +365,14 @@ $.extend( Responsive.prototype, {
 	 */
 	_classLogic: function ()
 	{
-		var that = this;
-		var calc = {};
-		var breakpoints = this.c.breakpoints;
-		var dt = this.s.dt;
-		var columns = dt.columns().eq(0).map( function (i) {
-			var column = this.column(i);
-			var className = column.header().className;
-			var priority = dt.settings()[0].aoColumns[i].responsivePriority;
+		const that = this;
+		const calc = {};
+		const breakpoints = this.c.breakpoints;
+		const dt = this.s.dt;
+		const columns = dt.columns().eq(0).map( function (i) {
+			const column = this.column(i);
+			const className = column.header().className;
+			const priority = dt.settings()[0].aoColumns[i].responsivePriority;
 
 			if ( priority === undefined ) {
 				priority = $(column.header).data('priority') !== undefined ?
@@ -392,16 +392,16 @@ $.extend( Responsive.prototype, {
 
 		// Simply add a breakpoint to `includeIn` array, ensuring that there are
 		// no duplicates
-		var add = function ( colIdx, name ) {
-			var includeIn = columns[ colIdx ].includeIn;
+		const add = function ( colIdx, name ) {
+			const includeIn = columns[ colIdx ].includeIn;
 
 			if ( $.inArray( name, includeIn ) === -1 ) {
 				includeIn.push( name );
 			}
 		};
 
-		var column = function ( colIdx, name, operator, matched ) {
-			var size, i, ien;
+		const column = function ( colIdx, name, operator, matched ) {
+			const size, i, ien;
 
 			if ( ! operator ) {
 				columns[ colIdx ].includeIn.push( name );
@@ -439,12 +439,12 @@ $.extend( Responsive.prototype, {
 		// Loop over each column and determine if it has a responsive control
 		// class
 		columns.each( function ( col, i ) {
-			var classNames = col.className.split(' ');
-			var hasClass = false;
+			const classNames = col.className.split(' ');
+			const hasClass = false;
 
 			// Split the class name up so multiple rules can be applied if needed
-			for ( var k=0, ken=classNames.length ; k<ken ; k++ ) {
-				var className = $.trim( classNames[k] );
+			for ( const k=0, ken=classNames.length ; k<ken ; k++ ) {
+				const className = $.trim( classNames[k] );
 
 				if ( className === 'all' ) {
 					// Include in all
@@ -469,9 +469,9 @@ $.extend( Responsive.prototype, {
 
 				$.each( breakpoints, function ( j, breakpoint ) {
 					// Does this column have a class that matches this breakpoint?
-					var brokenPoint = breakpoint.name.split('-');
-					var re = new RegExp( '(min\\-|max\\-|not\\-)?('+brokenPoint[0]+')(\\-[_a-zA-Z0-9])?' );
-					var match = className.match( re );
+					const brokenPoint = breakpoint.name.split('-');
+					const re = new RegExp( '(min\\-|max\\-|not\\-)?('+brokenPoint[0]+')(\\-[_a-zA-Z0-9])?' );
+					const match = className.match( re );
 
 					if ( match ) {
 						hasClass = true;
@@ -507,10 +507,10 @@ $.extend( Responsive.prototype, {
 	 */
 	_detailsDisplay: function ( row, update )
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
-		var res = this.c.details.display( row, update, function () {
+		const res = this.c.details.display( row, update, function () {
 			return that.c.details.renderer(
 				dt, row[0], that._detailsObj(row[0])
 			);
@@ -529,9 +529,9 @@ $.extend( Responsive.prototype, {
 	 */
 	_detailsInit: function ()
 	{
-		var that    = this;
-		var dt      = this.s.dt;
-		var details = this.c.details;
+		const that    = this;
+		const dt      = this.s.dt;
+		const details = this.c.details;
 
 		// The inline type always uses the first child as the target
 		if ( details.type === 'inline' ) {
@@ -551,8 +551,8 @@ $.extend( Responsive.prototype, {
 		} );
 
 		// type.target can be a string jQuery selector or a column index
-		var target   = details.target;
-		var selector = typeof target === 'string' ? target : 'td';
+		const target   = details.target;
+		const selector = typeof target === 'string' ? target : 'td';
 
 		// Click handler to show / hide the details rows when they are available
 		$( dt.table().body() )
@@ -575,7 +575,7 @@ $.extend( Responsive.prototype, {
 				// For column index, we determine if we should act or not in the
 				// handler - otherwise it is already okay
 				if ( typeof target === 'number' ) {
-					var targetIdx = target < 0 ?
+					const targetIdx = target < 0 ?
 						dt.columns().eq(0).length + target :
 						target;
 
@@ -585,7 +585,7 @@ $.extend( Responsive.prototype, {
 				}
 
 				// $().closest() includes itself in its check
-				var row = dt.row( $(this).closest('tr') );
+				const row = dt.row( $(this).closest('tr') );
 
 				// The renderer is given as a function so the caller can execute it
 				// only when they need (i.e. if hiding there is no point is running
@@ -602,8 +602,8 @@ $.extend( Responsive.prototype, {
 	 */
 	_detailsObj: function ( rowIdx )
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		return $.map( this.s.columns, function( col, i ) {
 			if ( col.never ) {
@@ -628,9 +628,9 @@ $.extend( Responsive.prototype, {
 	 */
 	_find: function ( name )
 	{
-		var breakpoints = this.c.breakpoints;
+		const breakpoints = this.c.breakpoints;
 
-		for ( var i=0, ien=breakpoints.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=breakpoints.length ; i<ien ; i++ ) {
 			if ( breakpoints[i].name === name ) {
 				return breakpoints[i];
 			}
@@ -646,11 +646,11 @@ $.extend( Responsive.prototype, {
 	 */
 	_redrawChildren: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
+		const that = this;
+		const dt = this.s.dt;
 
 		dt.rows( {page: 'current'} ).iterator( 'row', function ( settings, idx ) {
-			var row = dt.row( idx );
+			const row = dt.row( idx );
 
 			that._detailsDisplay( dt.row( idx ), true );
 		} );
@@ -666,14 +666,14 @@ $.extend( Responsive.prototype, {
 	 */
 	_resize: function ()
 	{
-		var that = this;
-		var dt = this.s.dt;
-		var width = $(window).width();
-		var breakpoints = this.c.breakpoints;
-		var breakpoint = breakpoints[0].name;
-		var columns = this.s.columns;
-		var i, ien;
-		var oldVis = this.s.current.slice();
+		const that = this;
+		const dt = this.s.dt;
+		const width = $(window).width();
+		const breakpoints = this.c.breakpoints;
+		const breakpoint = breakpoints[0].name;
+		const columns = this.s.columns;
+		const i, ien;
+		const oldVis = this.s.current.slice();
 
 		// Determine what breakpoint we are currently at
 		for ( i=breakpoints.length-1 ; i>=0 ; i-- ) {
@@ -684,13 +684,13 @@ $.extend( Responsive.prototype, {
 		}
 		
 		// Show the columns for that break point
-		var columnsVis = this._columnsVisiblity( breakpoint );
+		const columnsVis = this._columnsVisiblity( breakpoint );
 		this.s.current = columnsVis;
 
 		// Set the class before the column visibility is changed so event
 		// listeners know what the state is. Need to determine if there are
 		// any columns that are not visible but can be shown
-		var collapsedClass = false;
+		const collapsedClass = false;
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
 			if ( columnsVis[i] === false && ! columns[i].never ) {
 				collapsedClass = true;
@@ -700,7 +700,7 @@ $.extend( Responsive.prototype, {
 
 		$( dt.table().node() ).toggleClass( 'collapsed', collapsedClass );
 
-		var changed = false;
+		const changed = false;
 
 		dt.columns().eq(0).each( function ( colIdx, i ) {
 			if ( columnsVis[i] !== oldVis[i] ) {
@@ -725,8 +725,8 @@ $.extend( Responsive.prototype, {
 	 */
 	_resizeAuto: function ()
 	{
-		var dt = this.s.dt;
-		var columns = this.s.columns;
+		const dt = this.s.dt;
+		const columns = this.s.columns;
 
 		// Are we allowed to do auto sizing?
 		if ( ! this.c.auto ) {
@@ -740,14 +740,14 @@ $.extend( Responsive.prototype, {
 		}
 
 		// Clone the table with the current data in it
-		var tableWidth   = dt.table().node().offsetWidth;
-		var columnWidths = dt.columns;
-		var clonedTable  = dt.table().node().cloneNode( false );
-		var clonedHeader = $( dt.table().header().cloneNode( false ) ).appendTo( clonedTable );
-		var clonedBody   = $( dt.table().body().cloneNode( false ) ).appendTo( clonedTable );
+		const tableWidth   = dt.table().node().offsetWidth;
+		const columnWidths = dt.columns;
+		const clonedTable  = dt.table().node().cloneNode( false );
+		const clonedHeader = $( dt.table().header().cloneNode( false ) ).appendTo( clonedTable );
+		const clonedBody   = $( dt.table().body().cloneNode( false ) ).appendTo( clonedTable );
 
 		// Header
-		var headerCells = dt.columns()
+		const headerCells = dt.columns()
 			.header()
 			.filter( function (idx) {
 				return dt.column(idx).visible();
@@ -763,10 +763,10 @@ $.extend( Responsive.prototype, {
 			.find( 'th, td' ).css( 'display', '' );
 
 		// Footer
-		var footer = dt.table().footer();
+		const footer = dt.table().footer();
 		if ( footer ) {
-			var clonedFooter = $( footer.cloneNode( false ) ).appendTo( clonedTable );
-			var footerCells = dt.columns()
+			const clonedFooter = $( footer.cloneNode( false ) ).appendTo( clonedTable );
+			const footerCells = dt.columns()
 				.header()
 				.filter( function (idx) {
 					return dt.column(idx).visible();
@@ -791,7 +791,7 @@ $.extend( Responsive.prototype, {
 			$(clonedTable).addClass( 'dtr-inline collapsed' );
 		}
 
-		var inserted = $('<div/>')
+		const inserted = $('<div/>')
 			.css( {
 				width: 1,
 				height: 1,
@@ -803,7 +803,7 @@ $.extend( Responsive.prototype, {
 
 		// The cloned header now contains the smallest that each column can be
 		headerCells.each( function (i) {
-			var idx = dt.column.index( 'fromVisible', i );
+			const idx = dt.column.index( 'fromVisible', i );
 			columns[ idx ].minWidth =  this.offsetWidth || 0;
 		} );
 
@@ -824,8 +824,8 @@ $.extend( Responsive.prototype, {
 	 */
 	_setColumnVis: function ( col, showHide )
 	{
-		var dt = this.s.dt;
-		var display = showHide ? '' : 'none'; // empty string will remove the attr
+		const dt = this.s.dt;
+		const display = showHide ? '' : 'none'; // empty string will remove the attr
 
 		$( dt.column( col ).header() ).css( 'display', display );
 		$( dt.column( col ).footer() ).css( 'display', display );
@@ -844,14 +844,14 @@ $.extend( Responsive.prototype, {
 	 */
 	_tabIndexes: function ()
 	{
-		var dt = this.s.dt;
-		var cells = dt.cells( { page: 'current' } ).nodes().to$();
-		var ctx = dt.settings()[0];
-		var target = this.c.details.target;
+		const dt = this.s.dt;
+		const cells = dt.cells( { page: 'current' } ).nodes().to$();
+		const ctx = dt.settings()[0];
+		const target = this.c.details.target;
 
 		cells.filter( '[data-dtr-keyboard]' ).removeData( '[data-dtr-keyboard]' );
 
-		var selector = typeof target === 'number' ?
+		const selector = typeof target === 'number' ?
 			':eq('+target+')' :
 			target;
 
@@ -938,12 +938,12 @@ Responsive.display = {
 		return function ( row, update, render ) {
 			if ( ! update ) {
 				// Show a modal
-				var close = function () {
+				const close = function () {
 					modal.remove(); // will tidy events for us
 					$(document).off( 'keypress.dtr' );
 				};
 
-				var modal = $('<div class="dtr-modal"/>')
+				const modal = $('<div class="dtr-modal"/>')
 					.append( $('<div class="dtr-modal-display"/>')
 						.append( $('<div class="dtr-modal-content"/>')
 							.append( render() )
@@ -1034,7 +1034,7 @@ Responsive.defaults = {
 		display: Responsive.display.childRow,
 
 		renderer: function ( api, rowIdx, columns ) {
-			var data = $.map( columns, function ( col, i ) {
+			const data = $.map( columns, function ( col, i ) {
 				return col.hidden ?
 					'<li data-dtr-index="'+i+'">'+
 						'<span class="dtr-title">'+
@@ -1070,7 +1070,7 @@ Responsive.defaults = {
 /*
  * API
  */
-var Api = $.fn.dataTable.Api;
+const Api = $.fn.dataTable.Api;
 
 // Doesn't do anything - work around for a bug in DT... Not documented
 Api.register( 'responsive()', function () {
@@ -1104,7 +1104,7 @@ Api.register( 'responsive.recalc()', function () {
 } );
 
 Api.register( 'responsive.hasHidden()', function () {
-	var ctx = this.context[0];
+	const ctx = this.context[0];
 
 	return ctx._responsive ?
 		$.inArray( false, ctx._responsive.s.current ) !== -1 :
@@ -1136,7 +1136,7 @@ $(document).on( 'init.dt.dtr', function (e, settings, json) {
 		 settings.oInit.responsive ||
 		 DataTable.defaults.responsive
 	) {
-		var init = settings.oInit.responsive;
+		const init = settings.oInit.responsive;
 
 		if ( init !== false ) {
 			new Responsive( settings, $.isPlainObject( init ) ? init : {}  );

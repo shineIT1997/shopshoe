@@ -28,7 +28,7 @@
 	<script type="text/javascript" language="javascript" class="init">
 	
 $(document).ready(function() {
-	var table = $('#example').DataTable( {
+	const table = $('#example').DataTable( {
 		ajax: '../../../../examples/ajax/data/objects.txt',
 		deferRender: true,
 		columns: [
@@ -106,7 +106,7 @@ $(document).ready(function() {
 			<div class="tabs">
 				<div class="js">
 					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
-	var table = $('#example').DataTable( {
+	const table = $('#example').DataTable( {
 		ajax: '../../../../examples/ajax/data/objects.txt',
 		deferRender: true,
 		columns: [

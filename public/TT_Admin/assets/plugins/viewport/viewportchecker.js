@@ -18,7 +18,7 @@
 (function($){
     $.fn.viewportChecker = function(useroptions){
         // Define options and extend with user
-        var options = {
+        const options = {
             classToAdd: 'visible',
             classToRemove : 'invisible',
             offset: 100,
@@ -30,7 +30,7 @@
         $.extend(options, useroptions);
 
         // Cache the given element and height of the browser
-        var $elem = this,
+        const $elem = this,
             windowSize = {height: $(window).height(), width: $(window).width()},
             scrollElem = ((navigator.userAgent.toLowerCase().indexOf('webkit') != -1 || navigator.userAgent.toLowerCase().indexOf('windows phone') != -1) ? 'body' : 'html');
 
@@ -38,7 +38,7 @@
          * Main method that checks the elements and adds or removes the class(es)
          */
         this.checkElements = function(){
-            var viewportStart, viewportEnd;
+            const viewportStart, viewportEnd;
 
             // Set some vars to check with
             if(!options.scrollHorizontal){
@@ -52,7 +52,7 @@
 
             // Loop through all given dom elements
             $elem.each(function(){
-                var $obj = $(this),
+                const $obj = $(this),
                     objOptions = {},
                     attrOptions = {};
 
@@ -84,7 +84,7 @@
                     objOptions.offset = (parseInt(objOptions.offset) / 100) * windowSize.height;
 
                 // define the top position of the element and include the offset which makes is appear earlier or later
-                var elemStart = (!objOptions.scrollHorizontal) ? Math.round( $obj.offset().top ) + objOptions.offset : Math.round( $obj.offset().left ) + objOptions.offset,
+                const elemStart = (!objOptions.scrollHorizontal) ? Math.round( $obj.offset().top ) + objOptions.offset : Math.round( $obj.offset().left ) + objOptions.offset,
                     elemEnd = (!objOptions.scrollHorizontal) ? elemStart + $obj.height() : elemStart + $obj.width();
 
                 if(objOptions.invertBottomOffset)

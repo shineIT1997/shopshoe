@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 
 
 
@@ -16,7 +16,7 @@ router.get('/', isLoggedIn, function(req, res, next){
 
 
 router.get('/login', notisLoggedIn ,function(req, res, next){
-  var messages = req.flash('error');
+  const messages = req.flash('error');
   res.render('admin/login/login_ad', { messages: messages, hasErrors: messages.length > 0,
     layout: false
   });

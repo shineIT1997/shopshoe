@@ -37,7 +37,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -46,7 +46,7 @@ var DataTable = $.fn.dataTable;
 
 /*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
 
-var _saveAs = (function(view) {
+const _saveAs = (function(view) {
 	// IE <10 is explicitly unsupported
 	if (typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
 		return;
@@ -60,7 +60,7 @@ var _saveAs = (function(view) {
 		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
 		, can_use_save_link = "download" in save_link
 		, click = function(node) {
-			var event = doc.createEvent("MouseEvents");
+			const event = doc.createEvent("MouseEvents");
 			event.initMouseEvent(
 				"click", true, false, view, 0, 0, 0, 0, 0
 				, false, false, false, false, 0, null
@@ -81,7 +81,7 @@ var _saveAs = (function(view) {
 		// for the reasoning behind the timeout and revocation flow
 		, arbitrary_revoke_timeout = 500 // in ms
 		, revoke = function(file) {
-			var revoker = function() {
+			const revoker = function() {
 				if (typeof file === "string") { // file is an object URL
 					get_URL().revokeObjectURL(file);
 				} else { // file is a File
@@ -96,9 +96,9 @@ var _saveAs = (function(view) {
 		}
 		, dispatch = function(filesaver, event_types, event) {
 			event_types = [].concat(event_types);
-			var i = event_types.length;
+			const i = event_types.length;
 			while (i--) {
-				var listener = filesaver["on" + event_types[i]];
+				const listener = filesaver["on" + event_types[i]];
 				if (typeof listener === "function") {
 					try {
 						listener.call(filesaver, event || filesaver);
@@ -136,7 +136,7 @@ var _saveAs = (function(view) {
 					if (target_view) {
 						target_view.location.href = object_url;
 					} else {
-						var new_tab = view.open(object_url, "_blank");
+						const new_tab = view.open(object_url, "_blank");
 						if (new_tab === undefined && typeof safari !== "undefined") {
 							//Apple do not allow window.open, see http://bit.ly/1kZffRI
 							view.location.href = object_url;
@@ -196,7 +196,7 @@ var _saveAs = (function(view) {
 			fs_min_size += blob.size;
 			req_fs(view.TEMPORARY, fs_min_size, abortable(function(fs) {
 				fs.root.getDirectory("saved", create_if_not_found, abortable(function(dir) {
-					var save = function() {
+					const save = function() {
 						dir.getFile(name, create_if_not_found, abortable(function(file) {
 							file.createWriter(abortable(function(writer) {
 								writer.onwriteend = function(event) {
@@ -206,7 +206,7 @@ var _saveAs = (function(view) {
 									revoke(file);
 								};
 								writer.onerror = function() {
-									var error = writer.error;
+									const error = writer.error;
 									if (error.code !== error.ABORT_ERR) {
 										fs_error();
 									}
@@ -250,7 +250,7 @@ var _saveAs = (function(view) {
 	}
 
 	FS_proto.abort = function() {
-		var filesaver = this;
+		const filesaver = this;
 		filesaver.readyState = filesaver.DONE;
 		dispatch(filesaver, "abort");
 	};
@@ -282,10 +282,10 @@ var _saveAs = (function(view) {
  * @param {object}  config       Button configuration
  * @param {boolean} incExtension Include the file name extension
  */
-var _filename = function ( config, incExtension )
+const _filename = function ( config, incExtension )
 {
 	// Backwards compatibility
-	var filename = config.filename === '*' && config.title !== '*' && config.title !== undefined ?
+	const filename = config.filename === '*' && config.title !== '*' && config.title !== undefined ?
 		config.title :
 		config.filename;
 
@@ -306,9 +306,9 @@ var _filename = function ( config, incExtension )
  *
  * @param {object}  config  Button configuration
  */
-var _title = function ( config )
+const _title = function ( config )
 {
-	var title = config.title;
+	const title = config.title;
 
 	return title.indexOf( '*' ) !== -1 ?
 		title.replace( '*', $('title').text() ) :
@@ -321,7 +321,7 @@ var _title = function ( config )
  * @param {object}  config Button configuration
  * @return {string}        Newline character
  */
-var _newLine = function ( config )
+const _newLine = function ( config )
 {
 	return config.newline ?
 		config.newline :
@@ -338,22 +338,22 @@ var _newLine = function ( config )
  * @param  {object}        config Button configuration
  * @return {object}               The data to export
  */
-var _exportData = function ( dt, config )
+const _exportData = function ( dt, config )
 {
-	var newLine = _newLine( config );
-	var data = dt.buttons.exportData( config.exportOptions );
-	var boundary = config.fieldBoundary;
-	var separator = config.fieldSeparator;
-	var reBoundary = new RegExp( boundary, 'g' );
-	var escapeChar = config.escapeChar !== undefined ?
+	const newLine = _newLine( config );
+	const data = dt.buttons.exportData( config.exportOptions );
+	const boundary = config.fieldBoundary;
+	const separator = config.fieldSeparator;
+	const reBoundary = new RegExp( boundary, 'g' );
+	const escapeChar = config.escapeChar !== undefined ?
 		config.escapeChar :
 		'\\';
-	var join = function ( a ) {
-		var s = '';
+	const join = function ( a ) {
+		const s = '';
 
 		// If there is a field boundary, then we might need to escape it in
 		// the source data
-		for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=a.length ; i<ien ; i++ ) {
 			if ( i > 0 ) {
 				s += separator;
 			}
@@ -366,11 +366,11 @@ var _exportData = function ( dt, config )
 		return s;
 	};
 
-	var header = config.header ? join( data.header )+newLine : '';
-	var footer = config.footer ? newLine+join( data.footer ) : '';
-	var body = [];
+	const header = config.header ? join( data.header )+newLine : '';
+	const footer = config.footer ? newLine+join( data.footer ) : '';
+	const body = [];
 
-	for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+	for ( const i=0, ien=data.body.length ; i<ien ; i++ ) {
 		body.push( join( data.body[i] ) );
 	}
 
@@ -387,7 +387,7 @@ var _exportData = function ( dt, config )
  * 
  * @return {Boolean} `true` if Safari
  */
-var _isSafari = function ()
+const _isSafari = function ()
 {
 	return navigator.userAgent.indexOf('Safari') !== -1 &&
 		navigator.userAgent.indexOf('Chrome') === -1 &&
@@ -396,7 +396,7 @@ var _isSafari = function ()
 
 
 // Excel - Pre-defined strings to build a minimal XLSX file
-var excelStrings = {
+const excelStrings = {
 	"_rels/.rels": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">\
 	<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>\
@@ -453,9 +453,9 @@ DataTable.ext.buttons.copyHtml5 = {
 	},
 
 	action: function ( e, dt, button, config ) {
-		var exportData = _exportData( dt, config );
-		var output = exportData.str;
-		var hiddenDiv = $('<div/>')
+		const exportData = _exportData( dt, config );
+		const output = exportData.str;
+		const hiddenDiv = $('<div/>')
 			.css( {
 				height: 1,
 				width: 1,
@@ -464,7 +464,7 @@ DataTable.ext.buttons.copyHtml5 = {
 				top: 0,
 				left: 0
 			} );
-		var textarea = $('<textarea readonly/>')
+		const textarea = $('<textarea readonly/>')
 			.val( output )
 			.appendTo( hiddenDiv );
 
@@ -493,7 +493,7 @@ DataTable.ext.buttons.copyHtml5 = {
 		}
 
 		// Otherwise we show the text box and instruct the user to use it
-		var message = $('<span>'+dt.i18n( 'buttons.copyKeys',
+		const message = $('<span>'+dt.i18n( 'buttons.copyKeys',
 				'Press <i>ctrl</i> or <i>\u2318</i> + <i>C</i> to copy the table data<br>to your system clipboard.<br><br>'+
 				'To cancel, click this message or press escape.' )+'</span>'
 			)
@@ -507,8 +507,8 @@ DataTable.ext.buttons.copyHtml5 = {
 		textarea[0].select();
 
 		// Event to hide the message when the user is done
-		var container = $(message).closest('.dt-button-info');
-		var close = function () {
+		const container = $(message).closest('.dt-button-info');
+		const close = function () {
 			container.off( 'click.buttons-copy' );
 			$(document).off( '.buttons-copy' );
 			dt.buttons.info( false );
@@ -553,9 +553,9 @@ DataTable.ext.buttons.csvHtml5 = {
 
 	action: function ( e, dt, button, config ) {
 		// Set the text
-		var newLine = _newLine( config );
-		var output = _exportData( dt, config ).str;
-		var charset = config.charset;
+		const newLine = _newLine( config );
+		const output = _exportData( dt, config ).str;
+		const charset = config.charset;
 
 		if ( charset !== false ) {
 			if ( ! charset ) {
@@ -611,12 +611,12 @@ DataTable.ext.buttons.excelHtml5 = {
 
 	action: function ( e, dt, button, config ) {
 		// Set the text
-		var xml = '';
-		var data = dt.buttons.exportData( config.exportOptions );
-		var addRow = function ( row ) {
-			var cells = [];
+		const xml = '';
+		const data = dt.buttons.exportData( config.exportOptions );
+		const addRow = function ( row ) {
+			const cells = [];
 
-			for ( var i=0, ien=row.length ; i<ien ; i++ ) {
+			for ( const i=0, ien=row.length ; i<ien ; i++ ) {
 				if ( row[i] === null || row[i] === undefined ) {
 					row[i] = '';
 				}
@@ -642,7 +642,7 @@ DataTable.ext.buttons.excelHtml5 = {
 			xml += addRow( data.header );
 		}
 
-		for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=data.body.length ; i<ien ; i++ ) {
 			xml += addRow( data.body[i] );
 		}
 
@@ -650,11 +650,11 @@ DataTable.ext.buttons.excelHtml5 = {
 			xml += addRow( data.footer );
 		}
 
-		var zip           = new window.JSZip();
-		var _rels         = zip.folder("_rels");
-		var xl            = zip.folder("xl");
-		var xl_rels       = zip.folder("xl/_rels");
-		var xl_worksheets = zip.folder("xl/worksheets");
+		const zip           = new window.JSZip();
+		const _rels         = zip.folder("_rels");
+		const xl            = zip.folder("xl");
+		const xl_rels       = zip.folder("xl/_rels");
+		const xl_worksheets = zip.folder("xl/worksheets");
 
 		zip.file(           '[Content_Types].xml', excelStrings['[Content_Types].xml'] );
 		_rels.file(         '.rels',               excelStrings['_rels/.rels'] );
@@ -694,9 +694,9 @@ DataTable.ext.buttons.pdfHtml5 = {
 	},
 
 	action: function ( e, dt, button, config ) {
-		var newLine = _newLine( config );
-		var data = dt.buttons.exportData( config.exportOptions );
-		var rows = [];
+		const newLine = _newLine( config );
+		const data = dt.buttons.exportData( config.exportOptions );
+		const rows = [];
 
 		if ( config.header ) {
 			rows.push( $.map( data.header, function ( d ) {
@@ -707,7 +707,7 @@ DataTable.ext.buttons.pdfHtml5 = {
 			} ) );
 		}
 
-		for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=data.body.length ; i<ien ; i++ ) {
 			rows.push( $.map( data.body[i], function ( d ) {
 				return {
 					text: typeof d === 'string' ? d : d+'',
@@ -725,7 +725,7 @@ DataTable.ext.buttons.pdfHtml5 = {
 			} ) );
 		}
 
-		var doc = {
+		const doc = {
 			pageSize: config.pageSize,
 			pageOrientation: config.orientation,
 			content: [
@@ -786,14 +786,14 @@ DataTable.ext.buttons.pdfHtml5 = {
 			config.customize( doc );
 		}
 
-		var pdf = window.pdfMake.createPdf( doc );
+		const pdf = window.pdfMake.createPdf( doc );
 
 		if ( config.download === 'open' && ! _isSafari() ) {
 			pdf.open();
 		}
 		else {
 			pdf.getBuffer( function (buffer) {
-				var blob = new Blob( [buffer], {type:'application/pdf'} );
+				const blob = new Blob( [buffer], {type:'application/pdf'} );
 
 				_saveAs( blob, _filename( config ) );
 			} );

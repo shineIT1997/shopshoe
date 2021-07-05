@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Flot Chart
@@ -22,7 +22,7 @@ if($("#flot-realtime").length){
         // We use an inline data source in the example, usually data would
         // be fetched from a server
 
-        var rtdata = [],
+        const rtdata = [],
             totalPoints = 300;
 
         function RealTimegetRandomData() {
@@ -34,7 +34,7 @@ if($("#flot-realtime").length){
 
             while (rtdata.length < totalPoints) {
 
-                var prev = rtdata.length > 0 ? rtdata[rtdata.length - 1] : 50,
+                const prev = rtdata.length > 0 ? rtdata[rtdata.length - 1] : 50,
                     y = prev + Math.random() * 10 - 5;
 
                 if (y < 0) {
@@ -48,8 +48,8 @@ if($("#flot-realtime").length){
 
             // Zip the generated y values with the x values
 
-            var res = [];
-            for (var i = 0; i < rtdata.length; ++i) {
+            const res = [];
+            for (const i = 0; i < rtdata.length; ++i) {
                 res.push([i, rtdata[i]])
             }
 
@@ -58,9 +58,9 @@ if($("#flot-realtime").length){
 
         // Set up the control widget
 
-        var updateInterval = 30;
+        const updateInterval = 30;
         $("#updateInterval").val(updateInterval).change(function() {
-            var v = $(this).val();
+            const v = $(this).val();
             if (v && !isNaN(+v)) {
                 updateInterval = +v;
                 if (updateInterval < 1) {
@@ -72,7 +72,7 @@ if($("#flot-realtime").length){
             }
         });
 
-        var realplot = $.plot("#flot-realtime", [RealTimegetRandomData()], {
+        const realplot = $.plot("#flot-realtime", [RealTimegetRandomData()], {
             series: {
                 shadowSize: 0 // Drawing is faster without shadows
             },
@@ -110,7 +110,7 @@ if($("#flot-realtime").length){
 
         /*---------------------- Percentile ------------------------*/
 if($("#flot-percentile").length){
-        var males = {
+        const males = {
             "15%": [
                 [2, 88.0],
                 [3, 93.3],
@@ -273,7 +273,7 @@ if($("#flot-percentile").length){
             ]
         };
 
-        var females = {
+        const females = {
             "15%": [
                 [2, 84.8],
                 [3, 93.7],
@@ -436,7 +436,7 @@ if($("#flot-percentile").length){
             ]
         };
 
-        var dataset = [{
+        const dataset = [{
                 label: "Female mean",
                 data: females["mean"],
                 lines: {
@@ -588,22 +588,22 @@ if($("#flot-navigate").length){
         // generate data set from a parametric function with a fractal look
 
         function sumf(f, t, m) {
-            var res = 0;
-            for (var i = 1; i < m; ++i) {
+            const res = 0;
+            for (const i = 1; i < m; ++i) {
                 res += f(i * i * t) / (i * i);
             }
             return res;
         }
 
-        var d1 = [];
-        for (var t = 0; t <= 2 * Math.PI; t += 0.01) {
+        const d1 = [];
+        for (const t = 0; t <= 2 * Math.PI; t += 0.01) {
             d1.push([sumf(Math.cos, t, 10), sumf(Math.sin, t, 10)]);
         }
 
-        var data1 = [d1],
+        const data1 = [d1],
             placeholder = $("#flot-navigate");
 
-        var navplot = $.plot(placeholder, data1, {
+        const navplot = $.plot(placeholder, data1, {
             series: {
                 lines: {
                     show: true
@@ -635,12 +635,12 @@ if($("#flot-navigate").length){
         // show pan/zoom messages to illustrate events 
 
         placeholder.bind("plotpan", function(event, navplot) {
-            var axes = navplot.getAxes();
+            const axes = navplot.getAxes();
             $(".message").html("Panning to x: " + axes.xaxis.min.toFixed(2) + " &ndash; " + axes.xaxis.max.toFixed(2) + " and y: " + axes.yaxis.min.toFixed(2) + " &ndash; " + axes.yaxis.max.toFixed(2));
         });
 
         placeholder.bind("plotzoom", function(event, navplot) {
-            var axes = navplot.getAxes();
+            const axes = navplot.getAxes();
             $(".message").html("Zooming to x: " + axes.xaxis.min.toFixed(2) + " &ndash; " + axes.xaxis.max.toFixed(2) + " and y: " + axes.yaxis.min.toFixed(2) + " &ndash; " + axes.yaxis.max.toFixed(2));
         });
 
@@ -686,17 +686,17 @@ if($("#flot-navigate").length){
 
 if($("#flotpie").length){
 
-        var data = [],
+        const data = [],
             series = Math.floor(Math.random() * 6) + 3;
 
-        for (var i = 0; i < series; i++) {
+        for (const i = 0; i < series; i++) {
             data[i] = {
                 label: "Series" + (i + 1),
                 data: Math.floor(Math.random() * 100) + 1
             }
         }
 
-        var placeholder = $("#placeholder");
+        const placeholder = $("#placeholder");
 
         $("#example-1").click(function() {
 
@@ -730,18 +730,18 @@ if($("#flotpie").length){
 if($("#flotpie").length){
 
 
-        var data = [],
+        const data = [],
             //series = Math.floor(Math.random() * 6) + 3;
             series = 5;
 
-        for (var i = 0; i < series; i++) {
+        for (const i = 0; i < series; i++) {
             data[i] = {
                 label: "Series" + (i + 1),
                 data: Math.floor(Math.random() * 100) + 1
             }
         }
 
-        var flotpie = $("#flotpie");
+        const flotpie = $("#flotpie");
 
         $("#pieexample-1").click(function() {
 
@@ -1074,7 +1074,7 @@ if($("#flotpie").length){
                     return;
                 }
 
-                var percent = parseFloat(obj.series.percent).toFixed(2);
+                const percent = parseFloat(obj.series.percent).toFixed(2);
                 $("#hover").html("<span style='font-weight:bold; color:" + obj.series.color + "'>" + obj.series.label + " (" + percent + "%)</span>");
             });
 
@@ -1084,7 +1084,7 @@ if($("#flotpie").length){
                     return;
                 }
 
-                var percent = parseFloat(obj.series.percent).toFixed(2);
+                const percent = parseFloat(obj.series.percent).toFixed(2);
                 alert("" + obj.series.label + ": " + percent + "%");
             });
         });
@@ -1106,7 +1106,7 @@ if($("#flotpie").length){
         /*------------------ Series Toggle ---------------------*/
 
 if($("#flot-toggle").length){
-        var togdatasets = {
+        const togdatasets = {
             "usa": {
                 label: "USA",
                 data: [
@@ -1279,14 +1279,14 @@ if($("#flot-toggle").length){
         // hard-code color indices to prevent them from shifting as
         // countries are turned on/off
 
-        var i = 0;
+        const i = 0;
         $.each(togdatasets, function(key, val) {
             val.color = i;
             ++i;
         });
 
         // insert checkboxes 
-        var choiceContainer = $("#choices");
+        const choiceContainer = $("#choices");
         $.each(togdatasets, function(key, val) {
             choiceContainer.append("<br/><input class='iCheck' type='checkbox' name='" + key +
                 "' checked='checked' id='id" + key + "'></input>" +
@@ -1305,10 +1305,10 @@ if($("#flot-toggle").length){
 
         function plotAccordingToChoices() {
 
-            var data = [];
+            const data = [];
 
             choiceContainer.find("input:checked").each(function() {
-                var key = $(this).attr("name");
+                const key = $(this).attr("name");
                 if (key && togdatasets[key]) {
                     data.push(togdatasets[key]);
                 }
@@ -1344,35 +1344,35 @@ if($("#flot-toggle").length){
 
 if($("#flot-types").length){
 
-        var typed1 = [];
-        for (var i = 0; i < 14; i += 0.5) {
+        const typed1 = [];
+        for (const i = 0; i < 14; i += 0.5) {
             typed1.push([i, Math.sin(i)]);
         }
 
-        var typed2 = [
+        const typed2 = [
             [0, 3],
             [4, 8],
             [8, 5],
             [9, 13]
         ];
 
-        var typed3 = [];
-        for (var i = 0; i < 14; i += 0.5) {
+        const typed3 = [];
+        for (const i = 0; i < 14; i += 0.5) {
             typed3.push([i, Math.cos(i)]);
         }
 
-        var typed4 = [];
-        for (var i = 0; i < 14; i += 0.1) {
+        const typed4 = [];
+        for (const i = 0; i < 14; i += 0.1) {
             typed4.push([i, Math.sqrt(i * 10)]);
         }
 
-        var typed5 = [];
-        for (var i = 0; i < 14; i += 0.5) {
+        const typed5 = [];
+        for (const i = 0; i < 14; i += 0.5) {
             typed5.push([i, Math.sqrt(i)]);
         }
 
-        var typed6 = [];
-        for (var i = 0; i < 14; i += 0.5 + Math.random()) {
+        const typed6 = [];
+        for (const i = 0; i < 14; i += 0.5 + Math.random()) {
             typed6.push([i, Math.sqrt(2 * i + Math.sin(i) + 5)]);
         }
 
@@ -1430,22 +1430,22 @@ if($("#flot-types").length){
         /*------------------ Stacking -------------------------*/
 
 if($("#flot-stack").length){
-        var stackd1 = [];
-        for (var i = 0; i <= 10; i += 1) {
+        const stackd1 = [];
+        for (const i = 0; i <= 10; i += 1) {
             stackd1.push([i, parseInt(Math.random() * 30)]);
         }
 
-        var stackd2 = [];
-        for (var i = 0; i <= 10; i += 1) {
+        const stackd2 = [];
+        for (const i = 0; i <= 10; i += 1) {
             stackd2.push([i, parseInt(Math.random() * 30)]);
         }
 
-        var stackd3 = [];
-        for (var i = 0; i <= 10; i += 1) {
+        const stackd3 = [];
+        for (const i = 0; i <= 10; i += 1) {
             stackd3.push([i, parseInt(Math.random() * 30)]);
         }
 
-        var stack = 0,
+        const stack = 0,
             bars = true,
             lines = false,
             steps = false;
@@ -1504,14 +1504,14 @@ if($("#flot-stack").length){
 
 if($("#flot-track").length){
 
-        var sin = [],
+        const sin = [],
             cos = [];
-        for (var i = 0; i < 14; i += 0.1) {
+        for (const i = 0; i < 14; i += 0.1) {
             sin.push([i, Math.sin(i)]);
             cos.push([i, Math.cos(i)]);
         }
 
-        var trackplot = $.plot("#flot-track", [{
+        const trackplot = $.plot("#flot-track", [{
             data: sin,
             label: "sin(x) = -0.00"
         }, {
@@ -1540,32 +1540,32 @@ if($("#flot-track").length){
             colors: ["#3F51B5", "#673AB7", "#E91E63", "#FFC107", "#797979"],
         });
 
-        var legends = $("#flot-track .legendLabel");
+        const legends = $("#flot-track .legendLabel");
 
         legends.each(function() {
             // fix the widths so they don't jump around
             $(this).css('width', $(this).width());
         });
 
-        var updateLegendTimeout = null;
-        var latestPosition = null;
+        const updateLegendTimeout = null;
+        const latestPosition = null;
 
         function updateLegend() {
 
             updateLegendTimeout = null;
 
-            var pos = latestPosition;
+            const pos = latestPosition;
 
-            var axes = trackplot.getAxes();
+            const axes = trackplot.getAxes();
             if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
                 pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) {
                 return;
             }
 
-            var i, j, trackdataset = trackplot.getData();
+            const i, j, trackdataset = trackplot.getData();
             for (i = 0; i < trackdataset.length; ++i) {
 
-                var series = trackdataset[i];
+                const series = trackdataset[i];
 
                 // Find the nearest points, x-wise
 
@@ -1577,7 +1577,7 @@ if($("#flot-track").length){
 
                 // Now Interpolate
 
-                var y,
+                const y,
                     p1 = series.data[j - 1],
                     p2 = series.data[j];
 
@@ -1611,7 +1611,7 @@ if($("#flot-track").length){
         /*------------------- Visitor -------------------------*/
 if($("#flot-visitors").length){
 
-        var visitd = [
+        const visitd = [
             [1196463600000, 0],
             [1196550000000, 0],
             [1196636400000, 0],
@@ -1705,7 +1705,7 @@ if($("#flot-visitors").length){
         // midnights in UTC+0100, but Flot always displays dates in UTC
         // so we have to add one hour to hit the midnights in the plot
 
-        for (var i = 0; i < visitd.length; ++i) {
+        for (const i = 0; i < visitd.length; ++i) {
             visitd[i][0] += 60 * 60 * 1000;
         }
 
@@ -1713,7 +1713,7 @@ if($("#flot-visitors").length){
 
         function weekendAreas(axes) {
 
-            var markings = [],
+            const markings = [],
                 d = new Date(axes.xaxis.min);
 
             // go to the first Saturday
@@ -1723,7 +1723,7 @@ if($("#flot-visitors").length){
             d.setUTCMinutes(0);
             d.setUTCHours(0);
 
-            var i = d.getTime();
+            const i = d.getTime();
 
             // when we don't set yaxis, the rectangle automatically
             // extends to infinity upwards and downwards
@@ -1741,7 +1741,7 @@ if($("#flot-visitors").length){
             return markings;
         }
 
-        var options = {
+        const options = {
             xaxis: {
                 mode: "time",
                 tickLength: 5
@@ -1759,9 +1759,9 @@ if($("#flot-visitors").length){
 
         };
 
-        var visitplot = $.plot("#flot-visitors", [visitd], options);
+        const visitplot = $.plot("#flot-visitors", [visitd], options);
 
-        var overview = $.plot("#flot-visit-overview", [visitd], {
+        const overview = $.plot("#flot-visit-overview", [visitd], {
             series: {
                 lines: {
                     show: true,
@@ -1797,7 +1797,7 @@ if($("#flot-visitors").length){
 
             // do the zooming
             $.each(visitplot.getXAxes(), function(_, axis) {
-                var opts = axis.options;
+                const opts = axis.options;
                 opts.min = ranges.xaxis.from;
                 opts.max = ranges.xaxis.to;
             });
@@ -1824,9 +1824,9 @@ if($("#flot-zoom").length){
 
         function getData(x1, x2) {
 
-            var d = [];
-            for (var i = 0; i <= 100; ++i) {
-                var x = x1 + i * (x2 - x1) / 100;
+            const d = [];
+            for (const i = 0; i <= 100; ++i) {
+                const x = x1 + i * (x2 - x1) / 100;
                 d.push([x, Math.sin(x * Math.sin(x))]);
             }
 
@@ -1836,7 +1836,7 @@ if($("#flot-zoom").length){
             }];
         }
 
-        var zoomoptions = {
+        const zoomoptions = {
             legend: {
                 show: false
             },
@@ -1864,13 +1864,13 @@ if($("#flot-zoom").length){
             }
         };
 
-        var startData = getData(0, 3 * Math.PI);
+        const startData = getData(0, 3 * Math.PI);
 
-        var plot = $.plot("#flot-zoom", startData, zoomoptions);
+        const plot = $.plot("#flot-zoom", startData, zoomoptions);
 
         // Create the overview plot
 
-        var zoomoverview = $.plot("#flot-zoom-overview", startData, {
+        const zoomoverview = $.plot("#flot-zoom-overview", startData, {
             legend: {
                 show: false
             },
@@ -1943,7 +1943,7 @@ if($("#flot-zoom").length){
         /* ------------------ Area Chart ------------------------*/
 if($("#demoarea-chart #demoarea-container").length){
 
-        var data7_1 = [
+        const data7_1 = [
             [1354586111100, 153],
             [1354587111100, 65],
             [1354588111100, 98],
@@ -1957,7 +1957,7 @@ if($("#demoarea-chart #demoarea-container").length){
             [1354596111100, 88],
             [1354597111100, 36]
         ];
-        var data7_2 = [
+        const data7_2 = [
             [1354586111100, 153],
             [1354587111100, 65],
             [1354588111100, 298],
@@ -2036,7 +2036,7 @@ if($("#demoarea-chart #demoarea-container").length){
 
         /*---------------- Combined Chart --------------------*/
 if($("#democombine").length){
-        var data_1type = [
+        const data_1type = [
             [0, 2601],
             [1, 3520],
             [2, 4337],
@@ -2062,7 +2062,7 @@ if($("#democombine").length){
             [22, 3583],
             [23, 743]
         ];
-        var data_2type = [
+        const data_2type = [
             [0, 4145],
             [1, 5192],
             [2, 7138],
@@ -2088,7 +2088,7 @@ if($("#democombine").length){
             [22, 3420],
             [23, 8201]
         ];
-        var data_diff = [
+        const data_diff = [
             [23, 1727],
             [22, 118],
             [21, 1210],
@@ -2114,7 +2114,7 @@ if($("#democombine").length){
             [1, 726],
             [0, 1566]
         ];
-        var ticks = [
+        const ticks = [
             [0, "22h"],
             [1, ""],
             [2, "00h"],
@@ -2140,7 +2140,7 @@ if($("#democombine").length){
             [22, "20h"],
             [23, ""]
         ];
-        var combinedata = [{
+        const combinedata = [{
             label: "Data Set 1",
             data: data_1type,
             lines: {
@@ -2166,7 +2166,7 @@ if($("#democombine").length){
                 show: true
             }
         }];
-        var combineoptions = {
+        const combineoptions = {
             xaxis: {
                 ticks: ticks
             },
@@ -2191,7 +2191,7 @@ if($("#democombine").length){
                 noColumns: 0
             }
         };
-        var combineplot = $.plot($("#flotcombine"),
+        const combineplot = $.plot($("#flotcombine"),
             combinedata, combineoptions);
 
 }

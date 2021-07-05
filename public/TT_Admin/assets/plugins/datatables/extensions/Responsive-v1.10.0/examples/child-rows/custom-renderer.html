@@ -31,7 +31,7 @@ $(document).ready(function() {
 		responsive: {
 			details: {
 				renderer: function ( api, rowIdx, columns ) {
-					var data = $.map( columns, function ( col, i ) {
+					const data = $.map( columns, function ( col, i ) {
 						return col.hidden ?
 							'<tr>'+
 								'<td>'+col.title+':'+'</td> '+
@@ -726,7 +726,7 @@ $(document).ready(function() {
 		responsive: {
 			details: {
 				renderer: function ( api, rowIdx, columns ) {
-					var data = $.map( columns, function ( col, i ) {
+					const data = $.map( columns, function ( col, i ) {
 						return col.hidden ?
 							'&lt;tr&gt;'+
 								'&lt;td&gt;'+col.title+':'+'&lt;/td&gt; '+

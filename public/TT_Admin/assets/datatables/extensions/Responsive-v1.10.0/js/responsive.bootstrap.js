@@ -33,11 +33,11 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
-var _display = DataTable.Responsive.display;
-var _original = _display.modal;
+const _display = DataTable.Responsive.display;
+const _original = _display.modal;
 
 _display.modal = function ( options ) {
 	return function ( row, update, render ) {
@@ -46,7 +46,7 @@ _display.modal = function ( options ) {
 		}
 		else {
 			if ( ! update ) {
-				var modal = $(
+				const modal = $(
 					'<div class="modal fade" role="dialog">'+
 						'<div class="modal-dialog" role="document">'+
 							'<div class="modal-content">'+

@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var giohang = require('../models/giohang.js');
-var Cart = require('../models/cart.js');
+const giohang = require('../models/giohang.js');
+const Cart = require('../models/cart.js');
 
 
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -30,14 +30,14 @@ router.get('/danh-sach.html', isLoggedIn, function(req, res, next) {
 });
 
 router.get('/:id/xem-cart.html', isLoggedIn, function(req, res, next) {
-    var id = req.params.id;
+    const id = req.params.id;
     giohang.findById(id).then(function(dl){
         res.render('admin/cart/view', {pro: dl ,layout: false });
    });
 });
 
 router.get('/:id/thanh-toan-cart.html', isLoggedIn, function(req, res, next) {
-    var id = req.params.id;
+    const id = req.params.id;
     giohang.findById(id, function(err, data){
         data.st -= 1;
         data.save();
@@ -49,7 +49,7 @@ router.get('/:id/thanh-toan-cart.html', isLoggedIn, function(req, res, next) {
 
 router.post('/:id/sua-cart.html', check, function(req, res, next) {
 
-    var id = req.params.id;
+    const id = req.params.id;
     
     giohang.findByIdAndUpdate(id, { 
       firstname: req.body.ho,
@@ -69,7 +69,7 @@ router.post('/:id/sua-cart.html', check, function(req, res, next) {
 
 
 router.get('/:id/xoa-cart.html', isLoggedIn, function(req, res, next) {
-    var id = req.params.id;
+    const id = req.params.id;
     giohang.findOneAndRemove({_id: id}, function(err, offer){
         req.flash('succsess_msg', 'Đã Xoá Thành Công');
        res.redirect('/admin/cart/danh-sach.html'); 

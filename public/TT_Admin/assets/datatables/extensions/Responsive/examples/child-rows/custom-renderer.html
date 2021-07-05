@@ -28,8 +28,8 @@ $(document).ready(function() {
 			details: {
 				renderer: function ( api, rowIdx ) {
 					// Select hidden columns for the given row
-					var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
-						var header = $( api.column( cell.column ).header() );
+					const data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+						const header = $( api.column( cell.column ).header() );
 
 						return '<tr>'+
 								'<td>'+
@@ -737,8 +737,8 @@ $(document).ready(function() {
 			details: {
 				renderer: function ( api, rowIdx ) {
 					// Select hidden columns for the given row
-					var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
-						var header = $( api.column( cell.column ).header() );
+					const data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+						const header = $( api.column( cell.column ).header() );
 
 						return '&lt;tr&gt;'+
 								'&lt;td&gt;'+

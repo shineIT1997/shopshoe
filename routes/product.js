@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var multer  = require('multer');
+const express = require('express');
+const router = express.Router();
+const multer  = require('multer');
 
 //cấu hình đường dẫn file upload và tên file upload 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
      cb(null, './public/upload'); //đg dẫn file
    },
@@ -11,10 +11,10 @@ var storage = multer.diskStorage({
      cb(null, Date.now() + '_' + file.originalname); //tên file
    }
  });
- var upload = multer({ storage: storage });
+ const upload = multer({ storage: storage });
 
-var Product = require('../models/product.js');
-var Cate = require('../models/cate.js');
+const Product = require('../models/product.js');
+const Cate = require('../models/cate.js');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function (req, res) {
@@ -44,16 +44,16 @@ router.post('/them-product.html', isLoggedIn, upload.single('hinh'), function (r
 	req.checkBody('gia', 'giá phải là số').isInt();
 	req.checkBody('soluong', 'soluong là số').isInt();
 	req.checkBody('des', 'Chi tiết không được trống').notEmpty();
-		var errors = req.validationErrors();
+		const errors = req.validationErrors();
 		
 	if (errors) {
-		var file = './public/upload/' + req.file.filename;
-		  var fs = require('fs');
+		const file = './public/upload/' + req.file.filename;
+		  const fs = require('fs');
 			fs.unlink(file, function(e){
 				if(e) throw e;
 			});
 	} else {
-	var pro = new Product({
+	const pro = new Product({
       imagePath 			: req.file.filename,
       title 			    : req.body.name,
       description		    : req.body.des,
@@ -83,10 +83,10 @@ router.post('/:id/sua-product.html',  upload.single('hinh'), function (req, res)
 	req.checkBody('gia', 'giá phải là số').isInt();
 	req.checkBody('des', 'Chi tiết không được trống').notEmpty();
 
-    var errors = req.validationErrors();
+    const errors = req.validationErrors();
 	  if (errors) {
-		var file = './public/upload/' + req.file.filename;
-		var fs = require('fs');
+		const file = './public/upload/' + req.file.filename;
+		const fs = require('fs');
 		fs.unlink(file, function(e){
 			if(e) throw e;
 		 });
@@ -95,8 +95,8 @@ router.post('/:id/sua-product.html',  upload.single('hinh'), function (req, res)
 			});
 	    } else {
 		Product.findOne({ _id: req.params.id},  function(err, data){
-			var file = './public/upload/' + data.imagePath;
-			var fs = require('fs');
+			const file = './public/upload/' + data.imagePath;
+			const fs = require('fs');
 			fs.unlink(file, function(e){
 				if(e) throw e;
 			 });
@@ -116,8 +116,8 @@ router.post('/:id/sua-product.html',  upload.single('hinh'), function (req, res)
 //xóa sản phẩm
 router.get('/:id/xoa-product.html', isLoggedIn,  function (req, res) {
 	Product.findById(req.params.id, function(err, data){
-		var file = './public/upload/' + data.imagePath ;
-		var fs = require('fs');
+		const file = './public/upload/' + data.imagePath ;
+		const fs = require('fs');
 		fs.unlink(file, function(e){
 			if(e) throw e;
 		 });

@@ -10,7 +10,7 @@
 (function($) {
 
   // Cached vars
-  var _iCheck = 'iCheck',
+  const _iCheck = 'iCheck',
     _iCheckHelper = _iCheck + '-helper',
     _checkbox = 'checkbox',
     _radio = 'radio',
@@ -34,11 +34,11 @@
   $.fn[_iCheck] = function(options, fire) {
 
     // Walker
-    var handle = 'input[type="' + _checkbox + '"], input[type="' + _radio + '"]',
+    const handle = 'input[type="' + _checkbox + '"], input[type="' + _radio + '"]',
       stack = $(),
       walker = function(object) {
         object.each(function() {
-          var self = $(this);
+          const self = $(this);
 
           if (self.is(handle)) {
             stack = stack.add(self);
@@ -58,7 +58,7 @@
       walker(this);
 
       return stack.each(function() {
-        var self = $(this);
+        const self = $(this);
 
         if (options == 'destroy') {
           tidy(self, 'ifDestroyed');
@@ -76,7 +76,7 @@
     } else if (typeof options == 'object' || !options) {
 
       // Check if any options were passed
-      var settings = $.extend({
+      const settings = $.extend({
           checkedClass: _checked,
           disabledClass: _disabled,
           indeterminateClass: _indeterminate,
@@ -107,12 +107,12 @@
       walker(this);
 
       return stack.each(function() {
-        var self = $(this);
+        const self = $(this);
 
         // If already customized
         tidy(self);
 
-        var node = this,
+        const node = this,
           id = node.id,
 
           // Layer styles
@@ -189,7 +189,7 @@
         // Label events
         if (label.length) {
           label.on(_click + '.i mouseover.i mouseout.i ' + _touch, function(event) {
-            var type = event[_type],
+            const type = event[_type],
               item = $(this);
 
             // Do nothing if input is disabled
@@ -226,7 +226,7 @@
 
         // Input events
         self.on(_click + '.i focus.i blur.i keyup.i keydown.i keypress.i', function(event) {
-          var type = event[_type],
+          const type = event[_type],
             key = event.keyCode;
 
           // Click
@@ -257,7 +257,7 @@
 
         // Helper events
         helper.on(_click + ' mousedown mouseup mouseover mouseout ' + _touch, function(event) {
-          var type = event[_type],
+          const type = event[_type],
 
             // mousedown|mouseup
             toggle = /wn|up/.test(type) ? activeClass : hoverClass;
@@ -306,7 +306,7 @@
 
   // Do something with inputs
   function operate(input, direct, method) {
-    var node = input[0],
+    const node = input[0],
       state = /er/.test(method) ? _indeterminate : /bl/.test(method) ? _disabled : _checked,
       active = method == _update ? {
         checked: node[_checked],
@@ -326,7 +326,7 @@
     } else if (method == _update) {
 
       // Handle states
-      for (var each in active) {
+      for (const each in active) {
         if (active[each]) {
           on(input, each, true);
         } else {
@@ -354,7 +354,7 @@
 
   // Add checked, disabled or indeterminate state
   function on(input, state, keep) {
-    var node = input[0],
+    const node = input[0],
       parent = input.parent(),
       checked = state == _checked,
       indeterminate = state == _indeterminate,
@@ -368,7 +368,7 @@
 
       // Toggle assigned radio buttons
       if (!keep && state == _checked && node[_type] == _radio && node.name) {
-        var form = input.closest('form'),
+        const form = input.closest('form'),
           inputs = 'input[name="' + node.name + '"]';
 
         inputs = form.length ? form.find(inputs) : $(inputs);
@@ -428,7 +428,7 @@
 
   // Remove checked, disabled or indeterminate state
   function off(input, state, keep) {
-    var node = input[0],
+    const node = input[0],
       parent = input.parent(),
       checked = state == _checked,
       indeterminate = state == _indeterminate,

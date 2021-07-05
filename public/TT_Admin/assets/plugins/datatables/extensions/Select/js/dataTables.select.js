@@ -48,7 +48,7 @@
 	}
 }(function( $, window, document, undefined ) {
 'use strict';
-var DataTable = $.fn.dataTable;
+const DataTable = $.fn.dataTable;
 
 
 // Version information for debugger
@@ -138,17 +138,17 @@ handler that will select the items using the API methods.
  */
 function cellRange( dt, idx, last )
 {
-	var indexes;
-	var columnIndexes;
-	var rowIndexes;
-	var selectColumns = function ( start, end ) {
+	const indexes;
+	const columnIndexes;
+	const rowIndexes;
+	const selectColumns = function ( start, end ) {
 		if ( start > end ) {
-			var tmp = end;
+			const tmp = end;
 			end = start;
 			start = tmp;
 		}
 		
-		var record = false;
+		const record = false;
 		return dt.columns( ':visible' ).indexes().filter( function (i) {
 			if ( i === start ) {
 				record = true;
@@ -163,17 +163,17 @@ function cellRange( dt, idx, last )
 		} );
 	};
 
-	var selectRows = function ( start, end ) {
-		var indexes = dt.rows( { search: 'applied' } ).indexes();
+	const selectRows = function ( start, end ) {
+		const indexes = dt.rows( { search: 'applied' } ).indexes();
 
 		// Which comes first - might need to swap
 		if ( indexes.indexOf( start ) > indexes.indexOf( end ) ) {
-			var tmp = end;
+			const tmp = end;
 			end = start;
 			start = tmp;
 		}
 
-		var record = false;
+		const record = false;
 		return indexes.filter( function (i) {
 			if ( i === start ) {
 				record = true;
@@ -219,8 +219,8 @@ function cellRange( dt, idx, last )
  */
 function disableMouseSelection( dt )
 {
-	var ctx = dt.settings()[0];
-	var selector = ctx._select.selector;
+	const ctx = dt.settings()[0];
+	const selector = ctx._select.selector;
 
 	$( dt.table().body() )
 		.off( 'mousedown.dtSelect', selector )
@@ -238,9 +238,9 @@ function disableMouseSelection( dt )
  */
 function enableMouseSelection ( dt )
 {
-	var body = $( dt.table().body() );
-	var ctx = dt.settings()[0];
-	var selector = ctx._select.selector;
+	const body = $( dt.table().body() );
+	const ctx = dt.settings()[0];
+	const selector = ctx._select.selector;
 
 	body
 		.on( 'mousedown.dtSelect', selector, function(e) {
@@ -260,18 +260,18 @@ function enableMouseSelection ( dt )
 			body.css( '-moz-user-select', '' );
 		} )
 		.on( 'click.dtSelect', selector, function ( e ) {
-			var items = dt.select.items();
-			var idx;
+			const items = dt.select.items();
+			const idx;
 
-			var ctx = dt.settings()[0];
+			const ctx = dt.settings()[0];
 
 			// Ignore clicks inside a sub-table
 			if ( $(e.target).closest('tbody')[0] != body[0] ) {
 				return;
 			}
 
-			var cell = $(e.target).closest('td, th');
-			var cellIndex = dt.cell( cell ).index();
+			const cell = $(e.target).closest('td, th');
+			const cellIndex = dt.cell( cell ).index();
 
 			// Check the cell actually belongs to the host DataTable (so child rows,
 			// etc, are ignored)
@@ -343,14 +343,14 @@ function eventTrigger ( api, type, args, any )
  */
 function info ( api )
 {
-	var ctx = api.settings()[0];
+	const ctx = api.settings()[0];
 
 	if ( ! ctx._select.info || ! ctx.aanFeatures.i ) {
 		return;
 	}
 
-	var output  = $('<span class="select-info"/>');
-	var add = function ( name, num ) {
+	const output  = $('<span class="select-info"/>');
+	const add = function ( name, num ) {
 		output.append( $('<span class="select-item"/>').append( api.i18n(
 			'select.'+name+'s',
 			{ _: '%d '+name+'s selected', 0: '', 1: '1 '+name+' selected' },
@@ -366,7 +366,7 @@ function info ( api )
 	$.each( ctx.aanFeatures.i, function ( i, el ) {
 		el = $(el);
 
-		var exisiting = el.children('span.select-info');
+		const exisiting = el.children('span.select-info');
 		if ( exisiting.length ) {
 			exisiting.remove();
 		}
@@ -388,7 +388,7 @@ function info ( api )
  * @private
  */
 function init ( ctx ) {
-	var api = new DataTable.Api( ctx );
+	const api = new DataTable.Api( ctx );
 
 	// Row callback so that classes can be added to rows and cells if the item
 	// was selected before the element was created. This will happen with the
@@ -399,8 +399,8 @@ function init ( ctx ) {
 	// this code to create your own plug-ins, please do not do this!
 	ctx.aoRowCreatedCallback.push( {
 		fn: function ( row, data, index ) {
-			var i, ien;
-			var d = ctx.aoData[ index ];
+			const i, ien;
+			const d = ctx.aoData[ index ];
 
 			// Row
 			if ( d._select_selected ) {
@@ -423,12 +423,12 @@ function init ( ctx ) {
 	api.on( 'preXhr.dt.dtSelect', function () {
 		// note that column selection doesn't need to be cached and then
 		// reselected, as they are already selected
-		var rows = api.rows( { selected: true } ).ids( true ).filter( function ( d ) {
+		const rows = api.rows( { selected: true } ).ids( true ).filter( function ( d ) {
 			return d !== undefined;
 		} );
 
-		var cells = api.cells( { selected: true } ).eq(0).map( function ( cellIdx ) {
-			var id = api.row( cellIdx.row ).id( true );
+		const cells = api.cells( { selected: true } ).eq(0).map( function ( cellIdx ) {
+			const id = api.row( cellIdx.row ).id( true );
 			return id ?
 				{ row: id, column: cellIdx.column } :
 				undefined;
@@ -474,9 +474,9 @@ function init ( ctx ) {
 function rowColumnRange( dt, type, idx, last )
 {
 	// Add a range of rows from the last selected row to this one
-	var indexes = dt[type+'s']( { search: 'applied' } ).indexes();
-	var idx1 = $.inArray( last, indexes );
-	var idx2 = $.inArray( idx, indexes );
+	const indexes = dt[type+'s']( { search: 'applied' } ).indexes();
+	const idx1 = $.inArray( last, indexes );
+	const idx2 = $.inArray( idx, indexes );
 
 	if ( ! dt[type+'s']( { selected: true } ).any() && idx1 === -1 ) {
 		// select from top to here - slightly odd, but both Windows and Mac OS
@@ -486,7 +486,7 @@ function rowColumnRange( dt, type, idx, last )
 	else {
 		// reverse so we can shift click 'up' as well as down
 		if ( idx1 > idx2 ) {
-			var tmp = idx2;
+			const tmp = idx2;
 			idx2 = idx1;
 			idx1 = tmp;
 		}
@@ -517,7 +517,7 @@ function rowColumnRange( dt, type, idx, last )
 function clear( ctx, force )
 {
 	if ( force || ctx._select.style === 'single' ) {
-		var api = new DataTable.Api( ctx );
+		const api = new DataTable.Api( ctx );
 		
 		api.rows( { selected: true } ).deselect();
 		api.columns( { selected: true } ).deselect();
@@ -537,8 +537,8 @@ function clear( ctx, force )
  */
 function typeSelect ( e, dt, ctx, type, idx )
 {
-	var style = dt.select.style();
-	var isSelected = dt[type]( idx, { selected: true } ).any();
+	const style = dt.select.style();
+	const isSelected = dt[type]( idx, { selected: true } ).any();
 
 	if ( style === 'os' ) {
 		if ( e.ctrlKey || e.metaKey ) {
@@ -559,7 +559,7 @@ function typeSelect ( e, dt, ctx, type, idx )
 		else {
 			// No cmd or shift click - deselect if selected, or select
 			// this row only
-			var selected = dt[type+'s']( { selected: true } );
+			const selected = dt[type+'s']( { selected: true } );
 
 			if ( isSelected && selected.flatten().length === 1 ) {
 				dt[type]( idx ).deselect();
@@ -589,15 +589,15 @@ $.each( [
 	{ type: 'column', prop: 'aoColumns' }
 ], function ( i, o ) {
 	DataTable.ext.selector[ o.type ].push( function ( settings, opts, indexes ) {
-		var selected = opts.selected;
-		var data;
-		var out = [];
+		const selected = opts.selected;
+		const data;
+		const out = [];
 
 		if ( selected === undefined ) {
 			return indexes;
 		}
 
-		for ( var i=0, ien=indexes.length ; i<ien ; i++ ) {
+		for ( const i=0, ien=indexes.length ; i<ien ; i++ ) {
 			data = settings[ o.prop ][ indexes[i] ];
 
 			if ( (selected === true && data._select_selected === true) ||
@@ -612,15 +612,15 @@ $.each( [
 } );
 
 DataTable.ext.selector.cell.push( function ( settings, opts, cells ) {
-	var selected = opts.selected;
-	var rowData;
-	var out = [];
+	const selected = opts.selected;
+	const rowData;
+	const out = [];
 
 	if ( selected === undefined ) {
 		return cells;
 	}
 
-	for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
+	for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
 		rowData = settings.aoData[ cells[i].row ];
 
 		if ( (selected === true && rowData._selected_cells && rowData._selected_cells[ cells[i].column ] === true) ||
@@ -643,8 +643,8 @@ DataTable.ext.selector.cell.push( function ( settings, opts, cells ) {
  */
 
 // Local variables to improve compression
-var apiRegister = DataTable.Api.register;
-var apiRegisterPlural = DataTable.Api.registerPlural;
+const apiRegister = DataTable.Api.register;
+const apiRegisterPlural = DataTable.Api.registerPlural;
 
 apiRegister( 'select()', function () {} );
 
@@ -696,7 +696,7 @@ apiRegister( 'select.style()', function ( style ) {
 
 		// Add / remove mouse event handlers. They aren't required when only
 		// API selection is available
-		var dt = new DataTable.Api( ctx );
+		const dt = new DataTable.Api( ctx );
 		disableMouseSelection( dt );
 		
 		if ( style !== 'api' ) {
@@ -726,7 +726,7 @@ apiRegister( 'select.selector()', function ( selector ) {
 
 
 apiRegisterPlural( 'rows().select()', 'row().select()', function ( select ) {
-	var api = this;
+	const api = this;
 
 	if ( select === false ) {
 		return this.deselect();
@@ -747,7 +747,7 @@ apiRegisterPlural( 'rows().select()', 'row().select()', function ( select ) {
 } );
 
 apiRegisterPlural( 'columns().select()', 'column().select()', function ( select ) {
-	var api = this;
+	const api = this;
 
 	if ( select === false ) {
 		return this.deselect();
@@ -758,7 +758,7 @@ apiRegisterPlural( 'columns().select()', 'column().select()', function ( select 
 
 		ctx.aoColumns[ idx ]._select_selected = true;
 
-		var column = new DataTable.Api( ctx ).column( idx );
+		const column = new DataTable.Api( ctx ).column( idx );
 
 		$( column.header() ).addClass( ctx._select.className );
 		$( column.footer() ).addClass( ctx._select.className );
@@ -774,7 +774,7 @@ apiRegisterPlural( 'columns().select()', 'column().select()', function ( select 
 } );
 
 apiRegisterPlural( 'cells().select()', 'cell().select()', function ( select ) {
-	var api = this;
+	const api = this;
 
 	if ( select === false ) {
 		return this.deselect();
@@ -783,7 +783,7 @@ apiRegisterPlural( 'cells().select()', 'cell().select()', function ( select ) {
 	this.iterator( 'cell', function ( ctx, rowIdx, colIdx ) {
 		clear( ctx );
 
-		var data = ctx.aoData[ rowIdx ];
+		const data = ctx.aoData[ rowIdx ];
 
 		if ( data._selected_cells === undefined ) {
 			data._selected_cells = [];
@@ -805,7 +805,7 @@ apiRegisterPlural( 'cells().select()', 'cell().select()', function ( select ) {
 
 
 apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
-	var api = this;
+	const api = this;
 
 	this.iterator( 'row', function ( ctx, idx ) {
 		ctx.aoData[ idx ]._select_selected = false;
@@ -820,13 +820,13 @@ apiRegisterPlural( 'rows().deselect()', 'row().deselect()', function () {
 } );
 
 apiRegisterPlural( 'columns().deselect()', 'column().deselect()', function () {
-	var api = this;
+	const api = this;
 
 	this.iterator( 'column', function ( ctx, idx ) {
 		ctx.aoColumns[ idx ]._select_selected = false;
 
-		var api = new DataTable.Api( ctx );
-		var column = api.column( idx );
+		const api = new DataTable.Api( ctx );
+		const column = api.column( idx );
 
 		$( column.header() ).removeClass( ctx._select.className );
 		$( column.footer() ).removeClass( ctx._select.className );
@@ -835,8 +835,8 @@ apiRegisterPlural( 'columns().deselect()', 'column().deselect()', function () {
 		// `column().nodes()` as cells which are individually selected should
 		// not have the `selected` class removed from them
 		api.cells( null, idx ).indexes().each( function (cellIdx) {
-			var data = ctx.aoData[ cellIdx.row ];
-			var cellSelected = data._selected_cells;
+			const data = ctx.aoData[ cellIdx.row ];
+			const cellSelected = data._selected_cells;
 
 			if ( data.anCells && (! cellSelected || ! cellSelected[ cellIdx.column ]) ) {
 				$( data.anCells[ cellIdx.column  ] ).removeClass( ctx._select.className );
@@ -852,10 +852,10 @@ apiRegisterPlural( 'columns().deselect()', 'column().deselect()', function () {
 } );
 
 apiRegisterPlural( 'cells().deselect()', 'cell().deselect()', function () {
-	var api = this;
+	const api = this;
 
 	this.iterator( 'cell', function ( ctx, rowIdx, colIdx ) {
-		var data = ctx.aoData[ rowIdx ];
+		const data = ctx.aoData[ rowIdx ];
 
 		data._selected_cells[ colIdx ] = false;
 
@@ -890,12 +890,12 @@ $.extend( DataTable.ext.buttons, {
 		text: i18n( 'selected', 'Selected' ),
 		className: 'buttons-selected',
 		init: function ( dt, button, config ) {
-			var that = this;
+			const that = this;
 
 			// .DT namespace listeners are removed by DataTables automatically
 			// on table destroy
 			dt.on( 'draw.dt.DT select.dt.DT deselect.dt.DT', function () {
-				var enable = that.rows( { selected: true } ).any() ||
+				const enable = that.rows( { selected: true } ).any() ||
 				             that.columns( { selected: true } ).any() ||
 				             that.cells( { selected: true } ).any();
 
@@ -909,10 +909,10 @@ $.extend( DataTable.ext.buttons, {
 		text: i18n( 'selectedSingle', 'Selected single' ),
 		className: 'buttons-selected-single',
 		init: function ( dt, button, config ) {
-			var that = this;
+			const that = this;
 
 			dt.on( 'draw.dt.DT select.dt.DT deselect.dt.DT', function () {
-				var count = dt.rows( { selected: true } ).flatten().length +
+				const count = dt.rows( { selected: true } ).flatten().length +
 				            dt.columns( { selected: true } ).flatten().length +
 				            dt.cells( { selected: true } ).flatten().length;
 
@@ -926,7 +926,7 @@ $.extend( DataTable.ext.buttons, {
 		text: i18n( 'selectAll', 'Select all' ),
 		className: 'buttons-select-all',
 		action: function () {
-			var items = this.select.items();
+			const items = this.select.items();
 			this[ items+'s' ]().select();
 		}
 	},
@@ -940,7 +940,7 @@ $.extend( DataTable.ext.buttons, {
 } );
 
 $.each( [ 'Row', 'Column', 'Cell' ], function ( i, item ) {
-	var lc = item.toLowerCase();
+	const lc = item.toLowerCase();
 
 	DataTable.ext.buttons[ 'select'+item+'s' ] = {
 		text: i18n( 'select'+item+'s', 'Select '+lc+'s' ),
@@ -949,7 +949,7 @@ $.each( [ 'Row', 'Column', 'Cell' ], function ( i, item ) {
 			this.select.items( lc );
 		},
 		init: function ( dt, button, config ) {
-			var that = this;
+			const that = this;
 
 			dt.on( 'selectItems.dt.DT', function ( e, ctx, items ) {
 				that.active( items === lc );
@@ -973,16 +973,16 @@ $(document).on( 'preInit.dt.dtSelect', function (e, ctx, json) {
 		return;
 	}
 
-	var opts = ctx.oInit.select || DataTable.defaults.select;
-	var dt = new DataTable.Api( ctx );
+	const opts = ctx.oInit.select || DataTable.defaults.select;
+	const dt = new DataTable.Api( ctx );
 
 	// Set defaults
-	var items = 'row';
-	var style = 'api';
-	var blurable = false;
-	var info = true;
-	var selector = 'td, th';
-	var className = 'selected';
+	const items = 'row';
+	const style = 'api';
+	const blurable = false;
+	const info = true;
+	const selector = 'td, th';
+	const className = 'selected';
 
 	ctx._select = {};
 

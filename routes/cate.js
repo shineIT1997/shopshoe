@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 
-var Sources = require('../models/sources.js');
+const Sources = require('../models/sources.js');
 const Cate = require('../models/cate.js')
 
 function bodauTV(str) {
@@ -62,7 +62,7 @@ router.post('/them-cate.html', isLoggedIn, (req, res, next) => {
 // router.post('/them-cate.html', isLoggedIn,  function(req, res, next) {
 //   console.log(req.body , 'cate');
   
-//   var source = new Sources({
+//   const source = new Sources({
 //     name   : req.body.name,
 //     address  : req.body.address,
 //     email  : req.body.email,

@@ -28,12 +28,12 @@ $(document).ready(function() {
             errorPlacement: function(label, element) { // render error placement for each input type   
                 console.log(label);
                 $('<span class="error"></span>').insertAfter(element).append(label)
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-success').addClass('has-error');
             },
 
             highlight: function(element) { // hightlight error inputs
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-success').addClass('has-error');
             },
 
@@ -42,7 +42,7 @@ $(document).ready(function() {
             },
 
             success: function(label, element) {
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-error').addClass('has-success');
             },
 
@@ -77,14 +77,14 @@ $(document).ready(function() {
             },
 
             errorPlacement: function(error, element) { // render error placement for each input type
-                var icon = $(element).parent().parent('.form-group').find('i');
-                var parent = $(element).parent().parent('.form-group');
+                const icon = $(element).parent().parent('.form-group').find('i');
+                const parent = $(element).parent().parent('.form-group');
                 icon.removeClass('fa fa-check').addClass('fa fa-times');
                 parent.removeClass('has-success').addClass('has-error');
             },
 
             highlight: function(element) { // hightlight error inputs
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-success').addClass('has-error');
             },
 
@@ -93,8 +93,8 @@ $(document).ready(function() {
             },
 
             success: function(label, element) {
-                var icon = $(element).parent().parent('.form-group').find('i');
-                var parent = $(element).parent().parent('.form-group');
+                const icon = $(element).parent().parent('.form-group').find('i');
+                const parent = $(element).parent().parent('.form-group');
                 icon.removeClass("fa fa-times").addClass('fa fa-check');
                 parent.removeClass('has-error').addClass('has-success');
             },
@@ -162,12 +162,12 @@ $(document).ready(function() {
             errorPlacement: function(label, element) { // render error placement for each input type   
                 console.log(label);
                 $('<span class="error"></span>').insertAfter(element).append(label)
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-success').addClass('has-error');
             },
 
             highlight: function(element) { // hightlight error inputs
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-success').addClass('has-error');
             },
 
@@ -176,7 +176,7 @@ $(document).ready(function() {
             },
 
             success: function(label, element) {
-                var parent = $(element).parent().parent('.form-group');
+                const parent = $(element).parent().parent('.form-group');
                 parent.removeClass('has-error').addClass('has-success');
             },
 
@@ -193,7 +193,7 @@ $(document).ready(function() {
 
 
         //Form Wizard Validations
-        var $validator = $("#commentForm").validate({
+        const $validator = $("#commentForm").validate({
             rules: {
                 txtFullName: {
                     required: true,
@@ -230,7 +230,7 @@ $(document).ready(function() {
             onNext: function(tab, navigation, index) {
                 console.log('onNext');
                 if ($.isFunction($.fn.validate)) {
-                    var $valid = $("#commentForm").valid();
+                    const $valid = $("#commentForm").valid();
                     if (!$valid) {
                         $validator.focusInvalid();
                         return false;
@@ -252,9 +252,9 @@ $(document).ready(function() {
             },
             onTabShow: function(tab, navigation, index) {
                 console.log('onTabShow');
-                var $total = navigation.find('li').length;
-                var $current = index + 1;
-                var $percent = ($current / $total) * 100;
+                const $total = navigation.find('li').length;
+                const $current = index + 1;
+                const $percent = ($current / $total) * 100;
                 $('#pills .progress-bar').css({
                     width: $percent + '%'
                 });

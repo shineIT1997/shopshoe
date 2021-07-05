@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Morris Chart
@@ -101,7 +101,7 @@ jQuery(function($) {
 
         /*Line Graph*/
         /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-        var day_data = [{
+        const day_data = [{
             "period": "2012-10-01",
             "licensed": 3407,
             "sorned": 660
@@ -193,7 +193,7 @@ jQuery(function($) {
 
         /*Negative Line Graph*/
 
-        var neg_data = [{
+        const neg_data = [{
             "period": "2011-08-12",
             "a": 100
         }, {
@@ -239,7 +239,7 @@ jQuery(function($) {
 
         /*No Grid Line Graph*/
         /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-        var day_data = [{
+        const day_data = [{
             "period": "2012-10-01",
             "licensed": 3407,
             "sorned": 660
@@ -297,7 +297,7 @@ jQuery(function($) {
 
         /*Non Continuous Line Graph*/
         /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-        var day_data = [{
+        const day_data = [{
             "period": "2012-10-01",
             "licensed": 3407
         }, {

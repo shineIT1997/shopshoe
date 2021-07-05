@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
 
 
@@ -19,7 +19,7 @@ jQuery(function($) {
          Window Based Layout
      --------------------------------*/
     CMPLTADMIN_SETTINGS.windowBasedLayout = function() {
-        var width = window.innerWidth;
+        const width = window.innerWidth;
         //console.log(width);
 
         if ($("body").hasClass("chat-open") || $("body").hasClass("sidebar-collapse")) {
@@ -68,11 +68,11 @@ jQuery(function($) {
 
 
         $('.page-topbar .toggle_chat').on('click', function() {
-            var chatarea = $(".page-chatapi");
-            var chatwindow = $(".chatapi-windows");
-            var topbar = $(".page-topbar");
-            var mainarea = $("#main-content");
-            var menuarea = $(".page-sidebar");
+            const chatarea = $(".page-chatapi");
+            const chatwindow = $(".chatapi-windows");
+            const topbar = $(".page-topbar");
+            const mainarea = $("#main-content");
+            const menuarea = $(".page-sidebar");
 
             if (chatarea.hasClass("hideit")) {
                 chatarea.addClass("showit").removeClass("hideit");
@@ -93,11 +93,11 @@ jQuery(function($) {
         });
 
         $('.page-topbar .sidebar_toggle').on('click', function() {
-            var chatarea = $(".page-chatapi");
-            var chatwindow = $(".chatapi-windows");
-            var topbar = $(".page-topbar");
-            var mainarea = $("#main-content");
-            var menuarea = $(".page-sidebar");
+            const chatarea = $(".page-chatapi");
+            const chatwindow = $(".chatapi-windows");
+            const topbar = $(".page-topbar");
+            const mainarea = $("#main-content");
+            const menuarea = $(".page-sidebar");
 
             if (menuarea.hasClass("collapseit") || menuarea.hasClass("chat_shift")) {
                 menuarea.addClass("expandit").removeClass("collapseit").removeClass("chat_shift");
@@ -122,8 +122,8 @@ jQuery(function($) {
      --------------------------------*/
     CMPLTADMIN_SETTINGS.chatApiScroll = function() {
 
-        var topsearch = $(".page-chatapi .search-bar").height();
-        var height = window.innerHeight - topsearch;
+        const topsearch = $(".page-chatapi .search-bar").height();
+        const height = window.innerHeight - topsearch;
         $('.chat-wrapper').height(height).perfectScrollbar({
             suppressScrollX: true
         });
@@ -135,14 +135,14 @@ jQuery(function($) {
      --------------------------------*/
     CMPLTADMIN_SETTINGS.chatApiWindow = function() {
 
-        var chatarea = $(".page-chatapi");
+        const chatarea = $(".page-chatapi");
 
         $('.page-chatapi .user-row').on('click', function() {
 
-            var name = $(this).find(".user-info h4 a").html();
-            var img = $(this).find(".user-img a img").attr("src");
-            var id = $(this).attr("data-user-id");
-            var status = $(this).find(".user-info .status").attr("data-status");
+            const name = $(this).find(".user-info h4 a").html();
+            const img = $(this).find(".user-img a img").attr("src");
+            const id = $(this).attr("data-user-id");
+            const status = $(this).find(".user-info .status").attr("data-status");
 
             if ($(this).hasClass("active")) {
                 $(this).toggleClass("active");
@@ -157,9 +157,9 @@ jQuery(function($) {
                     $(".chatapi-windows #user-window" + id).removeClass("minimizeit").show();
 
                 } else {
-                    var msg = chatformat_msg('Wow! What a Beautiful theme!', 'receive', name);
+                    const msg = chatformat_msg('Wow! What a Beautiful theme!', 'receive', name);
                     msg += chatformat_msg('Yes! Complete Admin Theme ;)', 'sent', 'You');
-                    var html = "<div class='user-window' id='user-window" + id + "' data-user-id='" + id + "'>";
+                    const html = "<div class='user-window' id='user-window" + id + "' data-user-id='" + id + "'>";
                     html += "<div class='controlbar'><img src='" + img + "' data-user-id='" + id + "' rel='tooltip' data-animate='animated fadeIn' data-toggle='tooltip' data-original-title='" + name + "' data-placement='top' data-color-class='primary'><span class='status " + status + "'><i class='fa fa-circle'></i></span><span class='name'>" + name + "</span><span class='opts'><i class='fa fa-times closeit' data-user-id='" + id + "'></i><i class='fa fa-minus minimizeit' data-user-id='" + id + "'></i></span></div>";
                     html += "<div class='chatarea'>" + msg + "</div>";
                     html += "<div class='typearea'><input type='text' data-user-id='" + id + "' placeholder='Type & Enter' class='form-control'></div>";
@@ -171,13 +171,13 @@ jQuery(function($) {
         });
 
         $(document).on('click', ".chatapi-windows .user-window .controlbar .closeit", function(e) {
-            var id = $(this).attr("data-user-id");
+            const id = $(this).attr("data-user-id");
             $(".chatapi-windows #user-window" + id).hide();
             $(".page-chatapi .user-row#chat_user_" + id).removeClass("active");
         });
 
         $(document).on('click', ".chatapi-windows .user-window .controlbar img, .chatapi-windows .user-window .controlbar .minimizeit", function(e) {
-            var id = $(this).attr("data-user-id");
+            const id = $(this).attr("data-user-id");
 
             if (!$(".chatapi-windows #user-window" + id).hasClass("minimizeit")) {
                 $(".chatapi-windows #user-window" + id).addClass("minimizeit");
@@ -190,8 +190,8 @@ jQuery(function($) {
 
         $(document).on('keypress', ".chatapi-windows .user-window .typearea input", function(e) {
             if (e.keyCode == 13) {
-                var id = $(this).attr("data-user-id");
-                var msg = $(this).val();
+                const id = $(this).attr("data-user-id");
+                const msg = $(this).val();
                 msg = chatformat_msg(msg, 'sent', 'You');
                 $(".chatapi-windows #user-window" + id + " .chatarea").append(msg);
                 $(this).val("");
@@ -205,9 +205,9 @@ jQuery(function($) {
     };
 
     function chatformat_msg(msg, type, name) {
-        var d = new Date();
-        var h = d.getHours();
-        var m = d.getMinutes();
+        const d = new Date();
+        const h = d.getHours();
+        const m = d.getMinutes();
         return "<div class='chatmsg msg_" + type + "'><span class='name'>" + name + "</span><span class='text'>" + msg + "</span><span class='ts'>" + h + ":" + m + "</span></div>";
     }
 
@@ -217,14 +217,14 @@ jQuery(function($) {
      --------------------------------*/
     CMPLTADMIN_SETTINGS.loginPage = function() {
 
-        var height = window.innerHeight;
-        var formheight = $("#login").height();
-        var newheight = (height - formheight) / 2;
+        const height = window.innerHeight;
+        const formheight = $("#login").height();
+        const newheight = (height - formheight) / 2;
         //console.log(height+" - "+ formheight + " / "+ newheight);
         $('#login').css('margin-top', +newheight + 'px');
 
         if ($('#login #user_login').length) {
-            var d = document.getElementById('user_login');
+            const d = document.getElementById('user_login');
             d.focus();
         }
 
@@ -240,7 +240,7 @@ jQuery(function($) {
         $('.search_data .tab-pane').perfectScrollbar({
             suppressScrollX: true
         });
-        var search = $(".search-page-input");
+        const search = $(".search-page-input");
         if (search.length) {
             search.focus();
         }
@@ -276,7 +276,7 @@ jQuery(function($) {
 
         // start count
         function count(options) {
-            var $this = $(this);
+            const $this = $(this);
             options = $.extend({}, options || {}, $this.data('countToOptions') || {});
             $this.countTo(options).addClass("counted");
         }
@@ -326,7 +326,7 @@ jQuery(function($) {
 
         $('section.box .actions .box_toggle').on('click', function() {
 
-            var content = $(this).parent().parent().parent().find(".content-body");
+            const content = $(this).parent().parent().parent().find(".content-body");
             if (content.hasClass("collapsed")) {
                 content.removeClass("collapsed").slideDown(500);
                 $(this).removeClass("fa-chevron-up").addClass("fa-chevron-down");
@@ -357,10 +357,10 @@ jQuery(function($) {
 
         //console.log("expand scroll menu");
 
-        var topbar = $(".page-topbar").height();
-        var projectinfo = $(".project-info").innerHeight();
+        const topbar = $(".page-topbar").height();
+        const projectinfo = $(".project-info").innerHeight();
 
-        var height = window.innerHeight - topbar - projectinfo;
+        const height = window.innerHeight - topbar - projectinfo;
 
         $('.fixedscroll #main-menu-wrapper').height(height).perfectScrollbar({
             suppressScrollX: true
@@ -383,12 +383,12 @@ jQuery(function($) {
 
         if ($(".page-sidebar.chat_shift #main-menu-wrapper").length > 0 || $(".page-sidebar.collapseit #main-menu-wrapper").length > 0) {
             //console.log("collapse menu");
-            var topbar = $(".page-topbar").height();
-            var windowheight = window.innerHeight;
-            var minheight = windowheight - topbar;
-            var fullheight = $(".page-container #main-content .wrapper").height();
+            const topbar = $(".page-topbar").height();
+            const windowheight = window.innerHeight;
+            const minheight = windowheight - topbar;
+            const fullheight = $(".page-container #main-content .wrapper").height();
 
-            var height = fullheight;
+            const height = fullheight;
 
             if (fullheight < minheight) {
                 height = minheight;
@@ -418,8 +418,8 @@ jQuery(function($) {
                 return;
             }
 
-            var parent = $(this).parent().parent();
-            var sub = $(this).next();
+            const parent = $(this).parent().parent();
+            const sub = $(this).next();
 
             parent.children('li.open').children('.sub-menu').slideUp(200);
             parent.children('li.open').children('a').children('.arrow').removeClass('open');
@@ -461,7 +461,7 @@ jQuery(function($) {
         });
 
         $('.mail_view_info .labels .cc').click(function(e) {
-            var ele = $(".mail_compose_cc");
+            const ele = $(".mail_compose_cc");
             if (ele.is(":visible")) {
                 ele.hide();
             } else {
@@ -470,7 +470,7 @@ jQuery(function($) {
         });
 
         $('.mail_view_info .labels .bcc').click(function(e) {
-            var ele = $(".mail_compose_bcc");
+            const ele = $(".mail_compose_bcc");
             if (ele.is(":visible")) {
                 ele.hide();
             } else {
@@ -527,13 +527,13 @@ jQuery(function($) {
 
         if ($.isFunction($.fn.jstree)) {
             $(function() {
-                var to = false;
+                const to = false;
                 $('#treedata_q').keyup(function() {
                     if (to) {
                         clearTimeout(to);
                     }
                     to = setTimeout(function() {
-                        var v = $('#treedata_q').val();
+                        const v = $('#treedata_q').val();
                         $('#jstree_treedata').jstree(true).search(v);
                     }, 250);
                 });
@@ -759,7 +759,7 @@ jQuery(function($) {
                 //@code_end
             }
 
-            var mapid = "";
+            const mapid = "";
             mapid = $('#europe_mill_en-map');
             if (mapid.length) {
                 mapid.vectorMap({
@@ -1613,8 +1613,8 @@ jQuery(function($) {
             $.extend($.fn.dataTableExt.oPagination, {
                 "bootstrap": {
                     "fnInit": function(oSettings, nPaging, fnDraw) {
-                        var oLang = oSettings.oLanguage.oPaginate;
-                        var fnClickHandler = function(e) {
+                        const oLang = oSettings.oLanguage.oPaginate;
+                        const fnClickHandler = function(e) {
                             e.preventDefault();
                             if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
                                 fnDraw(oSettings);
@@ -1627,7 +1627,7 @@ jQuery(function($) {
                             '<li class="next disabled"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>' +
                             '</ul>'
                         );
-                        var els = $('a', nPaging);
+                        const els = $('a', nPaging);
                         $(els[0]).bind('click.DT', {
                             action: "previous"
                         }, fnClickHandler);
@@ -1637,10 +1637,10 @@ jQuery(function($) {
                     },
 
                     "fnUpdate": function(oSettings, fnDraw) {
-                        var iListLength = 5;
-                        var oPaging = oSettings.oInstance.fnPagingInfo();
-                        var an = oSettings.aanFeatures.p;
-                        var i, ien, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
+                        const iListLength = 5;
+                        const oPaging = oSettings.oInstance.fnPagingInfo();
+                        const an = oSettings.aanFeatures.p;
+                        const i, ien, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
 
                         if (oPaging.iTotalPages < iListLength) {
                             iStart = 1;
@@ -1729,12 +1729,12 @@ jQuery(function($) {
 
             /* Table initialisation */
             $(document).ready(function() {
-                var responsiveHelper = undefined;
-                var breakpointDefinition = {
+                const responsiveHelper = undefined;
+                const breakpointDefinition = {
                     tablet: 1024,
                     phone: 480
                 };
-                var tableElement = $('#example');
+                const tableElement = $('#example');
 
                 tableElement.dataTable({
                     "sDom": "<'row'<'col-md-6'l T><'col-md-6'f>r>t<'row'<'col-md-12'p i>>",
@@ -1785,8 +1785,8 @@ jQuery(function($) {
                 /*
                  * Insert a 'details' column to the table
                  */
-                var nCloneTh = document.createElement('th');
-                var nCloneTd = document.createElement('td');
+                const nCloneTh = document.createElement('th');
+                const nCloneTd = document.createElement('td');
                 nCloneTd.innerHTML = '<i class="fa fa-plus-circle"></i>';
                 nCloneTd.className = "center";
 
@@ -1801,7 +1801,7 @@ jQuery(function($) {
                 /*
                  * Initialse DataTables, with no sorting on the 'details' column
                  */
-                var oTable = $('#example2').dataTable({
+                const oTable = $('#example2').dataTable({
                     "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'p i>>",
                     "aaSorting": [],
                     "oLanguage": {
@@ -1822,7 +1822,7 @@ jQuery(function($) {
                  * rather it is done here
                  */
                 $('#example2 tbody td i').on('click', function() {
-                    var nTr = $(this).parents('tr')[0];
+                    const nTr = $(this).parents('tr')[0];
                     if (oTable.fnIsOpen(nTr)) {
                         /* This row is already open - close it */
                         this.removeClass = "fa fa-plus-circle";
@@ -1838,8 +1838,8 @@ jQuery(function($) {
 
                     /* Formating function for row details */
                     function fnFormatDetails(oTable, nTr) {
-                        var aData = oTable.fnGetData(nTr);
-                        var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
+                        const aData = oTable.fnGetData(nTr);
+                        const sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
                         sOut += '<tr><td>Rendering engine:</td><td>' + aData[1] + ' ' + aData[4] + '</td></tr>';
                         sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
                         sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
@@ -1883,8 +1883,8 @@ jQuery(function($) {
     CMPLTADMIN_SETTINGS.isotopeGallery = function() {
         if ($.isFunction($.fn.isotope)) {
 
-            var $portfolio_selectors = $('.portfolio-filter >li>a');
-            var $portfolio = $('.portfolio-items');
+            const $portfolio_selectors = $('.portfolio-filter >li>a');
+            const $portfolio = $('.portfolio-items');
             $portfolio.isotope({
                 itemSelector: '.portfolio-item',
                 layoutMode: 'sloppyMasonry'
@@ -1893,7 +1893,7 @@ jQuery(function($) {
             $portfolio_selectors.on('click', function() {
                 $portfolio_selectors.removeClass('active');
                 $(this).addClass('active');
-                var selector = $(this).attr('data-filter');
+                const selector = $(this).attr('data-filter');
                 $portfolio.isotope({
                     filter: selector
                 });
@@ -1910,7 +1910,7 @@ jQuery(function($) {
      --------------------------------*/
     CMPLTADMIN_SETTINGS.tocifyScrollMenu = function() {
         if ($.isFunction($.fn.tocify)) {
-            var toc = $("#toc").tocify({
+            const toc = $("#toc").tocify({
                 selectors: "h2,h3,h4,h5",
                 context: ".tocify-content",
                 extendPage: false
@@ -1935,7 +1935,7 @@ jQuery(function($) {
 
                 // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
                 // it doesn't need to have a start or end
-                var eventObject = {
+                const eventObject = {
                     title: $.trim($(this).text()) // use the element's text as the event title
                 };
 
@@ -1955,10 +1955,10 @@ jQuery(function($) {
             /* initialize the calendar
              -----------------------------------------------------------------*/
 
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
+            const date = new Date();
+            const d = date.getDate();
+            const m = date.getMonth();
+            const y = date.getFullYear();
 
             $('#calendar').fullCalendar({
                 header: {
@@ -1972,10 +1972,10 @@ jQuery(function($) {
                 drop: function(date, allDay) { // this function is called when something is dropped
 
                     // retrieve the dropped element's stored Event Object
-                    var originalEventObject = $(this).data('eventObject');
+                    const originalEventObject = $(this).data('eventObject');
 
                     // we need to copy it, so that multiple events don't have a reference to the same object
-                    var copiedEventObject = $.extend({}, originalEventObject);
+                    const copiedEventObject = $.extend({}, originalEventObject);
 
                     // assign it the date that was reported
                     copiedEventObject.start = date;
@@ -2041,19 +2041,19 @@ jQuery(function($) {
             $("#add_event_form").on('submit', function(ev) {
                 ev.preventDefault();
 
-                var $event = $(this).find('.new-event-form'),
+                const $event = $(this).find('.new-event-form'),
                     event_name = $event.val();
 
                 if (event_name.length >= 3) {
 
-                    var newid = "new" + "" + Math.random().toString(36).substring(7);
+                    const newid = "new" + "" + Math.random().toString(36).substring(7);
                     // Create Event Entry
                     $("#external-events").append(
                         '<div id="' + newid + '" class="fc-event bg-accent">' + event_name + '</div>'
                     );
 
 
-                    var eventObject = {
+                    const eventObject = {
                         title: $.trim($("#" + newid).text()) // use the element's text as the event title
                     };
 
@@ -2088,7 +2088,7 @@ jQuery(function($) {
     CMPLTADMIN_SETTINGS.nestableList = function() {
 
         $("#nestableList-1").on('stop.uk.nestable', function(ev) {
-            var serialized = $(this).data('nestable').serialize(),
+            const serialized = $(this).data('nestable').serialize(),
                 str = '';
 
             str = nestableIterate(serialized, 0);
@@ -2098,7 +2098,7 @@ jQuery(function($) {
 
 
         function nestableIterate(items, depth) {
-            var str = '';
+            const str = '';
 
             if (!depth)
                 depth = 0;
@@ -2118,7 +2118,7 @@ jQuery(function($) {
         }
 
         function nestableRepeat(s, n) {
-            var a = [];
+            const a = [];
             while (a.length < n) {
                 a.push(s);
             }
@@ -2140,16 +2140,16 @@ jQuery(function($) {
     CMPLTADMIN_SETTINGS.tooltipsPopovers = function() {
 
         $('[rel="tooltip"]').each(function() {
-            var animate = $(this).attr("data-animate");
-            var colorclass = $(this).attr("data-color-class");
+            const animate = $(this).attr("data-animate");
+            const colorclass = $(this).attr("data-color-class");
             $(this).tooltip({
                 template: '<div class="tooltip ' + animate + ' ' + colorclass + '"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
             });
         });
 
         $('[rel="popover"]').each(function() {
-            var animate = $(this).attr("data-animate");
-            var colorclass = $(this).attr("data-color-class");
+            const animate = $(this).attr("data-animate");
+            const colorclass = $(this).attr("data-color-class");
             $(this).popover({
                 template: '<div class="popover ' + animate + ' ' + colorclass + '"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
             });
@@ -2178,8 +2178,8 @@ jQuery(function($) {
             });
 
 
-            var x;
-            var colors = ["-green", "-red", "-yellow", "-blue", "-aero", "-orange", "-grey", "-pink", "-purple","-white"];
+            const x;
+            const colors = ["-green", "-red", "-yellow", "-blue", "-aero", "-orange", "-grey", "-pink", "-purple","-white"];
 
             for (x = 0; x < colors.length; x++) {
 
@@ -2203,7 +2203,7 @@ jQuery(function($) {
 
 
                     $('input.skin-line').each(function() {
-                        var self = $(this),
+                        const self = $(this),
                             label = self.next(),
                             label_text = label.text();
 
@@ -2238,7 +2238,7 @@ jQuery(function($) {
 
 
                 $('input.skin-line' + colors[x]).each(function() {
-                    var self = $(this),
+                    const self = $(this),
                         label = self.next(),
                         label_text = label.text();
 
@@ -2304,7 +2304,7 @@ jQuery(function($) {
 
             // The "instanceCreated" event is fired for every editor instance created.
             CKEDITOR.on('instanceCreated', function(event) {
-                var editor = event.editor,
+                const editor = event.editor,
                     element = editor.element;
 
                 // Customize editors for headers and tag list.
@@ -2349,7 +2349,7 @@ jQuery(function($) {
 
         if ($.isFunction($.fn.dropzone)) {
 
-            var i = 1,
+            const i = 1,
                 $custom_droplist = $("#custom-droptable"),
                 example_dropzone = $("#customDZ").dropzone({
                     url: 'data/upload-file.php',
@@ -2360,10 +2360,10 @@ jQuery(function($) {
                             $custom_droplist.find('tbody').html('');
                         }
 
-                        var size = parseInt(file.size / 1024, 10);
+                        const size = parseInt(file.size / 1024, 10);
                         size = size < 1024 ? (size + " KB") : (parseInt(size / 1024, 10) + " MB");
 
-                        var $el = $('<tr>\
+                        const $el = $('<tr>\
                                                     <td class="text-center">' + (i++) + '</td>\
                                                     <td>' + file.name + '</td>\
                                                     <td><div class="progress"><div class="progress-bar progress-bar-warning"></div></div></td>\
@@ -2418,7 +2418,7 @@ jQuery(function($) {
         // Input Mask
         if ($.isFunction($.fn.inputmask)) {
             $("[data-mask]").each(function(i, el) {
-                var $this = $(el),
+                const $this = $(el),
                     mask = $this.data('mask').toString(),
                     opts = {
                         numericInput: getValue($this, 'numeric', false),
@@ -2455,7 +2455,7 @@ jQuery(function($) {
 
                 if (mask.toLowerCase() == "currency" || mask.toLowerCase() == "rcurrency") {
 
-                    var sign = getValue($this, 'sign', '$');;
+                    const sign = getValue($this, 'sign', '$');;
 
                     mask = "999,999,999.99";
                     if (mask.toLowerCase() == 'rcurrency') {
@@ -2492,7 +2492,7 @@ jQuery(function($) {
         // Slider
         if ($.isFunction($.fn.slider)) {
             $(".slider").each(function(i, el) {
-                var $this = $(el),
+                const $this = $(el),
                     $label_1 = $('<span class="ui-label"></span>'),
                     $label_2 = $label_1.clone(),
 
@@ -2526,7 +2526,7 @@ jQuery(function($) {
                         values: [min_val, max_val],
                         step: step,
                         slide: function(e, ui) {
-                            var min_val = (prefix ? prefix : '') + ui.values[0] + (postfix ? postfix : ''),
+                            const min_val = (prefix ? prefix : '') + ui.values[0] + (postfix ? postfix : ''),
                                 max_val = (prefix ? prefix : '') + ui.values[1] + (postfix ? postfix : '');
 
                             $label_1.html(min_val);
@@ -2539,7 +2539,7 @@ jQuery(function($) {
                         },
                         change: function(ev, ui) {
                             if (reps == 1) {
-                                var min_val = (prefix ? prefix : '') + ui.values[0] + (postfix ? postfix : ''),
+                                const min_val = (prefix ? prefix : '') + ui.values[0] + (postfix ? postfix : ''),
                                     max_val = (prefix ? prefix : '') + ui.values[1] + (postfix ? postfix : '');
 
                                 $label_1.html(min_val);
@@ -2553,7 +2553,7 @@ jQuery(function($) {
                         }
                     });
 
-                    var $handles = $this.find('.ui-slider-handle');
+                    const $handles = $this.find('.ui-slider-handle');
 
                     $label_1.html((prefix ? prefix : '') + min_val + (postfix ? postfix : ''));
                     $handles.first().append($label_1);
@@ -2572,7 +2572,7 @@ jQuery(function($) {
                         value: value,
                         step: step,
                         slide: function(ev, ui) {
-                            var val = (prefix ? prefix : '') + ui.value + (postfix ? postfix : '');
+                            const val = (prefix ? prefix : '') + ui.value + (postfix ? postfix : '');
 
                             $label_1.html(val);
 
@@ -2584,7 +2584,7 @@ jQuery(function($) {
                         },
                         change: function(ev, ui) {
                             if (reps == 1) {
-                                var val = (prefix ? prefix : '') + ui.value + (postfix ? postfix : '');
+                                const val = (prefix ? prefix : '') + ui.value + (postfix ? postfix : '');
 
                                 $label_1.html(val);
 
@@ -2596,7 +2596,7 @@ jQuery(function($) {
                         }
                     });
 
-                    var $handles = $this.find('.ui-slider-handle');
+                    const $handles = $this.find('.ui-slider-handle');
                     //$fill = $('<div class="ui-fill"></div>');
 
                     $label_1.html((prefix ? prefix : '') + value + (postfix ? postfix : ''));
@@ -2615,7 +2615,7 @@ jQuery(function($) {
         /*------------- Color Slider widget---------------*/
 
         function hexFromRGB(r, g, b) {
-            var hex = [
+            const hex = [
                 r.toString(16),
                 g.toString(16),
                 b.toString(16)
@@ -2629,7 +2629,7 @@ jQuery(function($) {
         }
 
         function refreshSwatch() {
-            var red = $("#slider-red").slider("value"),
+            const red = $("#slider-red").slider("value"),
                 green = $("#slider-green").slider("value"),
                 blue = $("#slider-blue").slider("value"),
                 hex = hexFromRGB(red, green, blue);
@@ -2693,7 +2693,7 @@ jQuery(function($) {
         if ($.isFunction($.fn.tagsinput)) {
 
             // categorize tags input
-            var i = -1,
+            const i = -1,
                 colors = ['primary', 'info', 'warning', 'success'];
 
             colors = shuffleArray(colors);
@@ -2718,9 +2718,9 @@ jQuery(function($) {
 
         // Just for demo purpose
         function shuffleArray(array) {
-            for (var i = array.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                var temp = array[i];
+            for (const i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = array[i];
                 array[i] = array[j];
                 array[j] = temp;
             }
@@ -2733,7 +2733,7 @@ jQuery(function($) {
         // datepicker
         if ($.isFunction($.fn.datepicker)) {
             $(".datepicker").each(function(i, e) {
-                var $this = $(e),
+                const $this = $(e),
                     options = {
                         minViewMode: getValue($this, 'minViewMode', 0),
                         format: getValue($this, 'format', 'mm/dd/yyyy'),
@@ -2775,7 +2775,7 @@ jQuery(function($) {
         if ($.isFunction($.fn.daterangepicker)) {
             $(".daterange").each(function(i, e) {
                 // Change the range as you desire
-                var ranges = {
+                const ranges = {
                     'Today': [moment(), moment()],
                     'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
                     'Last 7 Days': [moment().subtract('days', 6), moment()],
@@ -2784,7 +2784,7 @@ jQuery(function($) {
                     'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
                 };
 
-                var $this = $(e),
+                const $this = $(e),
                     options = {
                         format: getValue($this, 'format', 'MM/DD/YYYY'),
                         timePicker: getValue($this, 'timePicker', false),
@@ -2818,7 +2818,7 @@ jQuery(function($) {
 
 
                 $this.daterangepicker(options, function(start, end) {
-                    var drp = $this.data('daterangepicker');
+                    const drp = $this.data('daterangepicker');
 
                     if ($this.hasClass('daterange-text')) {
 //                        $this.find('span').html(start.format(drp.format) + drp.separator + end.format(drp.format));
@@ -2841,7 +2841,7 @@ jQuery(function($) {
         // Timepicker
         if ($.isFunction($.fn.timepicker)) {
             $(".timepicker").each(function(i, e) {
-                var $this = $(e),
+                const $this = $(e),
                     options = {
                         template: getValue($this, 'template', false),
                         showSeconds: getValue($this, 'showSeconds', false),
@@ -2952,7 +2952,7 @@ jQuery(function($) {
         // Colorpicker
         if ($.isFunction($.fn.colorpicker)) {
             $(".colorpicker").each(function(i, e) {
-                var $this = $(e),
+                const $this = $(e),
                     options = {},
                     $nxt = $this.next(),
                     $prv = $this.prev(),
@@ -3060,7 +3060,7 @@ jQuery(function($) {
                 selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
                 selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
                 afterInit: function(ms) {
-                    var that = this,
+                    const that = this,
                         $selectableSearch = that.$selectableUl.prev(),
                         $selectionSearch = that.$selectionUl.prev(),
                         selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
@@ -3110,9 +3110,9 @@ jQuery(function($) {
 
             // basic typeahead
 
-            var substringMatcher = function(strs) {
+            const substringMatcher = function(strs) {
                 return function findMatches(q, cb) {
-                    var matches, substrRegex;
+                    const matches, substrRegex;
 
                     // an array that will be populated with substring matches
                     matches = [];
@@ -3136,7 +3136,7 @@ jQuery(function($) {
                 };
             };
 
-            var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+            const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
                 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
                 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
                 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
@@ -3161,7 +3161,7 @@ jQuery(function($) {
 
             // prefetch typeahead
 
-            var names = new Bloodhound({
+            const names = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 limit: 10,
@@ -3189,7 +3189,7 @@ jQuery(function($) {
             // remote data
 
 
-            var name_randomizer = new Bloodhound({
+            const name_randomizer = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 // You can also prefetch suggestions
@@ -3211,7 +3211,7 @@ jQuery(function($) {
 
             // templating
 
-            var oscar_movies = new Bloodhound({
+            const oscar_movies = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: 'data/typeahead-hp-movies.php?q=%QUERY'
@@ -3256,7 +3256,7 @@ jQuery(function($) {
     CMPLTADMIN_SETTINGS.cmpltadminWidgets = function() {
 
         /*notification widget*/
-        var notif_widget = $(".notification-widget").height();
+        const notif_widget = $(".notification-widget").height();
         $('.notification-widget').height(notif_widget).perfectScrollbar({
             suppressScrollX: true
         });
@@ -3271,15 +3271,15 @@ jQuery(function($) {
     CMPLTADMIN_SETTINGS.cmpltadminWidgetWeather = function() {
 
         /*notification widget*/
-        /*var wid = $(".wid-weather");
-        var notif_widget = $(".notification-widget").height();
+        /*const wid = $(".wid-weather");
+        const notif_widget = $(".notification-widget").height();
         $('.notification-widget').height(notif_widget).perfectScrollbar({suppressScrollX: true});
 
         $('.wid-weather').each( function () {
-                var days = $(this).find(".weekdays");
-                var today = $(this).find(".today");
+                const days = $(this).find(".weekdays");
+                const today = $(this).find(".today");
 
-                var height = days.height();
+                const height = days.height();
                 if(days.height() < today.height()){
                     height = today.height();
                 }
@@ -3328,9 +3328,9 @@ jQuery(function($) {
 
         $(".wid-add-task input").on('keypress', function(e) {
             if (e.keyCode == 13) {
-                var i = Math.random().toString(36).substring(7);
-                var msg = $(this).val();
-                var msg = '<li><input type="checkbox" id="task-' + i + '" class="icheck-minimal-white todo-task"><label class="icheck-label form-label" for="task-' + i + '">' + msg + '</label></li>';
+                const i = Math.random().toString(36).substring(7);
+                const msg = $(this).val();
+                const msg = '<li><input type="checkbox" id="task-' + i + '" class="icheck-minimal-white todo-task"><label class="icheck-label form-label" for="task-' + i + '">' + msg + '</label></li>';
                 $(this).parent().parent().find(".wid-all-tasks ul").append(msg);
                 $(this).val("");
                 $(this).focus();
@@ -3528,8 +3528,8 @@ jQuery(function($) {
 
         if ($(".js-switch").length > 0) {
 
-                var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-                var defaults = {
+                const elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+                const defaults = {
                     color             : '#17a0d9'
                   , secondaryColor    : '#dfdfdf'
                   , jackColor         : '#fff'
@@ -3540,21 +3540,21 @@ jQuery(function($) {
                   , speed             : '0.5s'
                   , size              : 'large'
                 }
-                var count = 0;
-                var colors = ['#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4caf50','#8bc34a','#cddc39','#ffeb3b','#ffc107','#ff9800','#ff5722','#795548','#9e9e9e','#607d8b','#000000'];
+                const count = 0;
+                const colors = ['#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4caf50','#8bc34a','#cddc39','#ffeb3b','#ffc107','#ff9800','#ff5722','#795548','#9e9e9e','#607d8b','#000000'];
                 elems.forEach(function(html) {
                     count = count + 1;
-                    var size = 'default';
-                    var color = colors[count];
+                    const size = 'default';
+                    const color = colors[count];
                     if(count > 20){
-                        var size = 'large';
-                        var color = colors[count-20];
+                        const size = 'large';
+                        const color = colors[count-20];
                     }
                     if(count > 40){
-                        var size = 'small';
-                        var color = colors[count-40];
+                        const size = 'small';
+                        const color = colors[count-40];
                     }
-                     var defaults = {
+                     const defaults = {
                         color             : color
                       , secondaryColor    : '#dfdfdf'
                       , jackColor         : '#fff'
@@ -3566,7 +3566,7 @@ jQuery(function($) {
                       , size              : size
                     }
 
-                  var switchery = new Switchery(html,defaults);
+                  const switchery = new Switchery(html,defaults);
                 });
         }
  

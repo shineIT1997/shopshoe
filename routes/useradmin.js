@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var user = require('../models/user.js');
+const user = require('../models/user.js');
 
 
 
@@ -18,7 +18,7 @@ router.get('/danh-sach.html', isLoggedIn, function(req, res, next) {
 });
 
 router.get('/:id/sua-user.html', isLoggedIn, function(req, res, next) {
-    var id = req.params.id;
+    const id = req.params.id;
       user.findById(id).then(function(data){
         res.render('admin/user/sua-user', {dataa: data, layout: false});
    });
@@ -47,7 +47,7 @@ router.post('/:id/sua-user-by-user.html', isLoggedInWithoutAdmin,  function(req,
   
 });
 router.get('/:id/xoa-user.html', isLoggedIn, function(req, res, next) {
-    var id = req.params.id;
+    const id = req.params.id;
         user.findOneAndRemove({_id: id}, function(err, offer){
             req.flash('succsess_msg', 'Đã Xoá Thành Công');
         res.redirect('/admin/user/danh-sach.html'); 

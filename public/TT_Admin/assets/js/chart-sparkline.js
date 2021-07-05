@@ -9,7 +9,7 @@ jQuery(function($) {
 
     'use strict';
 
-    var CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
+    const CMPLTADMIN_SETTINGS = window.CMPLTADMIN_SETTINGS || {};
 
     /*--------------------------------
         Sparkline Chart
@@ -21,9 +21,9 @@ jQuery(function($) {
         if ($.isFunction($.fn.sparkline)) {
 
 
-            var myvalues = [10, 8, 5, 7, 4, 4, 7, 5, 2, 8, 3, 4, 5];
-            var sidebargraph1 = [7, 6, 4, 7, 5, 3, 5, 7, 3, 4];
-            var sidebargraph2 = [4, 7, 5, 5, 7, 3, 5, 7, 4, 2];
+            const myvalues = [10, 8, 5, 7, 4, 4, 7, 5, 2, 8, 3, 4, 5];
+            const sidebargraph1 = [7, 6, 4, 7, 5, 3, 5, 7, 3, 4];
+            const sidebargraph2 = [4, 7, 5, 5, 7, 3, 5, 7, 4, 2];
 
             $('.inlinesparkline').sparkline(myvalues, {
                 type: 'line',
@@ -39,7 +39,7 @@ jQuery(function($) {
 
 
 
-            var myvalues = [10,  5, 2, 8, 3, 8, 5, 7, 4, 4, 7,4, 5];
+            const myvalues = [10,  5, 2, 8, 3, 8, 5, 7, 4, 4, 7,4, 5];
 
             $('.inlinesparkline2').sparkline(myvalues, {
                 type: 'line',
@@ -54,7 +54,7 @@ jQuery(function($) {
             });
 
 
-            var myvalues = [1, 2, 13, 4, 5, 16, 7, 8, 19, 10, 11];
+            const myvalues = [1, 2, 13, 4, 5, 16, 7, 8, 19, 10, 11];
 
             $('.inlinesparkline3').sparkline(myvalues, {
                 type: 'line',

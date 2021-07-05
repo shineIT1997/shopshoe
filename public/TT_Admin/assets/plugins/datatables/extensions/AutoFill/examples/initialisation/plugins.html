@@ -40,10 +40,10 @@ $.fn.dataTable.AutoFill.actions.names = {
 
 	execute: function ( dt, cells, node ) {
 		// Modify the name and set the new values
-		var surname = cells[0][0].data.split(' ')[1];
+		const surname = cells[0][0].data.split(' ')[1];
 
-		for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-			var name = cells[i][0].data.split(' ');
+		for ( const i=0, ien=cells.length ; i<ien ; i++ ) {
+			const name = cells[i][0].data.split(' ');
 
 			cells[i][0].set = name[0]+' '+surname;
 		}
@@ -581,10 +581,10 @@ $(document).ready(function() {
 
 	execute: function ( dt, cells, node ) {
 		// Modify the name and set the new values
-		var surname = cells[0][0].data.split(' ')[1];
+		const surname = cells[0][0].data.split(' ')[1];
 
-		for ( var i=0, ien=cells.length ; i&lt;ien ; i++ ) {
-			var name = cells[i][0].data.split(' ');
+		for ( const i=0, ien=cells.length ; i&lt;ien ; i++ ) {
+			const name = cells[i][0].data.split(' ');
 
 			cells[i][0].set = name[0]+' '+surname;
 		}

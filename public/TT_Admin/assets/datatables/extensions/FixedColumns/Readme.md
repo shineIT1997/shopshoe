@@ -16,7 +16,7 @@ Example:
 
 ```js
 $(document).ready(function() {
-	var table = $('#example').DataTable( {
+	const table = $('#example').DataTable( {
 		scrollY:        "300px",
 		scrollX:        true,
 		scrollCollapse: true,

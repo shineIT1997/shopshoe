@@ -1,31 +1,31 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var expressHbs = require('express-handlebars');
-var mongodb = require('mongoose');
-var session = require('express-session');
-var passport = require('passport');
-var flash = require('connect-flash');
-var validator = require('express-validator');
-var MongoStore = require('connect-mongo')(session);
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const expressHbs = require('express-handlebars');
+const mongodb = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const validator = require('express-validator');
+const MongoStore = require('connect-mongo')(session);
 
-var indexRouter = require('./routes/index');
-var userRouters = require('./routes/user');
-var admin = require('./routes/admin');
-var product = require('./routes/product');
-var cart = require('./routes/cart');
-var user = require('./routes/useradmin');
-var cate = require('./routes/cate');
+const indexRouter = require('./routes/index');
+const userRouters = require('./routes/user');
+const admin = require('./routes/admin');
+const product = require('./routes/product');
+const cart = require('./routes/cart');
+const user = require('./routes/useradmin');
+const cate = require('./routes/cate');
 
-var app = express();
+const app = express();
 mongodb.connect('mongodb://localhost:27017/shopping', {useNewUrlParser: true});
 require('./config/passport');
 
 
-var hbs = expressHbs.create({ 
+const hbs = expressHbs.create({ 
   defaultLayout: 'layout',
   extname:'hbs',
   helpers: {
@@ -59,8 +59,7 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 //app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(validator());
 app.use(cookieParser());
 app.use(session({

@@ -25,7 +25,7 @@
     }
   }
 
-  var defaultSettings = {
+  const defaultSettings = {
     wheelSpeed: 1,
     wheelPropagation: false,
     swipePropagation: true,
@@ -40,11 +40,11 @@
     includePadding: false
   };
 
-  var incrementingId = 0;
-  var eventClassFactory = function () {
-    var id = incrementingId++;
+  const incrementingId = 0;
+  const eventClassFactory = function () {
+    const id = incrementingId++;
     return function (eventName) {
-      var className = '.perfect-scrollbar-' + id;
+      const className = '.perfect-scrollbar-' + id;
       if (typeof eventName === 'undefined') {
         return className;
       } else {
@@ -53,14 +53,14 @@
     };
   };
 
-  var isWebkit = 'WebkitAppearance' in document.documentElement.style;
+  const isWebkit = 'WebkitAppearance' in document.documentElement.style;
 
   $.fn.perfectScrollbar = function (suppliedSettings, option) {
 
     return this.each(function () {
-      var settings = $.extend(true, {}, defaultSettings);
-      var $this = $(this);
-      var isPluginAlive = function () { return !!$this; };
+      const settings = $.extend(true, {}, defaultSettings);
+      const $this = $(this);
+      const isPluginAlive = function () { return !!$this; };
 
       if (typeof suppliedSettings === "object") {
         // Override default settings with any supplied
@@ -94,42 +94,42 @@
 
       $this.addClass('ps-container');
 
-      var containerWidth;
-      var containerHeight;
-      var contentWidth;
-      var contentHeight;
+      const containerWidth;
+      const containerHeight;
+      const contentWidth;
+      const contentHeight;
 
-      var isRtl = $this.css('direction') === "rtl";
-      var eventClass = eventClassFactory();
-      var ownerDocument = this.ownerDocument || document;
+      const isRtl = $this.css('direction') === "rtl";
+      const eventClass = eventClassFactory();
+      const ownerDocument = this.ownerDocument || document;
 
-      var $scrollbarXRail = $("<div class='ps-scrollbar-x-rail'>").appendTo($this);
-      var $scrollbarX = $("<div class='ps-scrollbar-x'>").appendTo($scrollbarXRail);
-      var scrollbarXActive;
-      var scrollbarXWidth;
-      var scrollbarXLeft;
-      var scrollbarXBottom = getInt($scrollbarXRail.css('bottom'));
-      var isScrollbarXUsingBottom = scrollbarXBottom === scrollbarXBottom; // !isNaN
-      var scrollbarXTop = isScrollbarXUsingBottom ? null : getInt($scrollbarXRail.css('top'));
-      var railBorderXWidth = getInt($scrollbarXRail.css('borderLeftWidth')) + getInt($scrollbarXRail.css('borderRightWidth'));
-      var railXMarginWidth = getInt($scrollbarXRail.css('marginLeft')) + getInt($scrollbarXRail.css('marginRight'));
-      var railXWidth;
+      const $scrollbarXRail = $("<div class='ps-scrollbar-x-rail'>").appendTo($this);
+      const $scrollbarX = $("<div class='ps-scrollbar-x'>").appendTo($scrollbarXRail);
+      const scrollbarXActive;
+      const scrollbarXWidth;
+      const scrollbarXLeft;
+      const scrollbarXBottom = getInt($scrollbarXRail.css('bottom'));
+      const isScrollbarXUsingBottom = scrollbarXBottom === scrollbarXBottom; // !isNaN
+      const scrollbarXTop = isScrollbarXUsingBottom ? null : getInt($scrollbarXRail.css('top'));
+      const railBorderXWidth = getInt($scrollbarXRail.css('borderLeftWidth')) + getInt($scrollbarXRail.css('borderRightWidth'));
+      const railXMarginWidth = getInt($scrollbarXRail.css('marginLeft')) + getInt($scrollbarXRail.css('marginRight'));
+      const railXWidth;
 
-      var $scrollbarYRail = $("<div class='ps-scrollbar-y-rail'>").appendTo($this);
-      var $scrollbarY = $("<div class='ps-scrollbar-y'>").appendTo($scrollbarYRail);
-      var scrollbarYActive;
-      var scrollbarYHeight;
-      var scrollbarYTop;
-      var scrollbarYRight = getInt($scrollbarYRail.css('right'));
-      var isScrollbarYUsingRight = scrollbarYRight === scrollbarYRight; // !isNaN
-      var scrollbarYLeft = isScrollbarYUsingRight ? null : getInt($scrollbarYRail.css('left'));
-      var railBorderYWidth = getInt($scrollbarYRail.css('borderTopWidth')) + getInt($scrollbarYRail.css('borderBottomWidth'));
-      var railYMarginHeight = getInt($scrollbarYRail.css('marginTop')) + getInt($scrollbarYRail.css('marginBottom'));
-      var railYHeight;
+      const $scrollbarYRail = $("<div class='ps-scrollbar-y-rail'>").appendTo($this);
+      const $scrollbarY = $("<div class='ps-scrollbar-y'>").appendTo($scrollbarYRail);
+      const scrollbarYActive;
+      const scrollbarYHeight;
+      const scrollbarYTop;
+      const scrollbarYRight = getInt($scrollbarYRail.css('right'));
+      const isScrollbarYUsingRight = scrollbarYRight === scrollbarYRight; // !isNaN
+      const scrollbarYLeft = isScrollbarYUsingRight ? null : getInt($scrollbarYRail.css('left'));
+      const railBorderYWidth = getInt($scrollbarYRail.css('borderTopWidth')) + getInt($scrollbarYRail.css('borderBottomWidth'));
+      const railYMarginHeight = getInt($scrollbarYRail.css('marginTop')) + getInt($scrollbarYRail.css('marginBottom'));
+      const railYHeight;
 
       function updateScrollTop(currentTop, deltaY) {
-        var newTop = currentTop + deltaY;
-        var maxTop = containerHeight - scrollbarYHeight;
+        const newTop = currentTop + deltaY;
+        const maxTop = containerHeight - scrollbarYHeight;
 
         if (newTop < 0) {
           scrollbarYTop = 0;
@@ -139,13 +139,13 @@
           scrollbarYTop = newTop;
         }
 
-        var scrollTop = getInt(scrollbarYTop * (contentHeight - containerHeight) / (containerHeight - scrollbarYHeight));
+        const scrollTop = getInt(scrollbarYTop * (contentHeight - containerHeight) / (containerHeight - scrollbarYHeight));
         $this.scrollTop(scrollTop);
       }
 
       function updateScrollLeft(currentLeft, deltaX) {
-        var newLeft = currentLeft + deltaX;
-        var maxLeft = containerWidth - scrollbarXWidth;
+        const newLeft = currentLeft + deltaX;
+        const maxLeft = containerWidth - scrollbarXWidth;
 
         if (newLeft < 0) {
           scrollbarXLeft = 0;
@@ -155,7 +155,7 @@
           scrollbarXLeft = newLeft;
         }
 
-        var scrollLeft = getInt(scrollbarXLeft * (contentWidth - containerWidth) / (containerWidth - scrollbarXWidth));
+        const scrollLeft = getInt(scrollbarXLeft * (contentWidth - containerWidth) / (containerWidth - scrollbarXWidth));
         $this.scrollLeft(scrollLeft);
       }
 
@@ -170,7 +170,7 @@
       }
 
       function updateCss() {
-        var xRailOffset = {width: railXWidth};
+        const xRailOffset = {width: railXWidth};
         if (isRtl) {
           xRailOffset.left = $this.scrollLeft() + containerWidth - contentWidth;
         } else {
@@ -183,7 +183,7 @@
         }
         $scrollbarXRail.css(xRailOffset);
 
-        var railYOffset = {top: $this.scrollTop(), height: railYHeight};
+        const railYOffset = {top: $this.scrollTop(), height: railYHeight};
 
         if (isScrollbarYUsingRight) {
           if (isRtl) {
@@ -256,17 +256,17 @@
       }
 
       function bindMouseScrollXHandler() {
-        var currentLeft;
-        var currentPageX;
+        const currentLeft;
+        const currentPageX;
 
-        var mouseMoveHandler = function (e) {
+        const mouseMoveHandler = function (e) {
           updateScrollLeft(currentLeft, e.pageX - currentPageX);
           updateGeometry();
           e.stopPropagation();
           e.preventDefault();
         };
 
-        var mouseUpHandler = function (e) {
+        const mouseUpHandler = function (e) {
           $this.removeClass('ps-in-scrolling');
           $(ownerDocument).unbind(eventClass('mousemove'), mouseMoveHandler);
         };
@@ -288,17 +288,17 @@
       }
 
       function bindMouseScrollYHandler() {
-        var currentTop;
-        var currentPageY;
+        const currentTop;
+        const currentPageY;
 
-        var mouseMoveHandler = function (e) {
+        const mouseMoveHandler = function (e) {
           updateScrollTop(currentTop, e.pageY - currentPageY);
           updateGeometry();
           e.stopPropagation();
           e.preventDefault();
         };
 
-        var mouseUpHandler = function (e) {
+        const mouseUpHandler = function (e) {
           $this.removeClass('ps-in-scrolling');
           $(ownerDocument).unbind(eventClass('mousemove'), mouseMoveHandler);
         };
@@ -320,7 +320,7 @@
       }
 
       function shouldPreventWheel(deltaX, deltaY) {
-        var scrollTop = $this.scrollTop();
+        const scrollTop = $this.scrollTop();
         if (deltaX === 0) {
           if (!scrollbarYActive) {
             return false;
@@ -330,7 +330,7 @@
           }
         }
 
-        var scrollLeft = $this.scrollLeft();
+        const scrollLeft = $this.scrollLeft();
         if (deltaY === 0) {
           if (!scrollbarXActive) {
             return false;
@@ -343,10 +343,10 @@
       }
 
       function shouldPreventSwipe(deltaX, deltaY) {
-        var scrollTop = $this.scrollTop();
-        var scrollLeft = $this.scrollLeft();
-        var magnitudeX = Math.abs(deltaX);
-        var magnitudeY = Math.abs(deltaY);
+        const scrollTop = $this.scrollTop();
+        const scrollLeft = $this.scrollLeft();
+        const magnitudeX = Math.abs(deltaX);
+        const magnitudeY = Math.abs(deltaY);
 
         if (magnitudeY > magnitudeX) {
           // user is perhaps trying to swipe up/down the page
@@ -368,11 +368,11 @@
       }
 
       function bindMouseWheelHandler() {
-        var shouldPrevent = false;
+        const shouldPrevent = false;
 
         function getDeltaFromEvent(e) {
-          var deltaX = e.originalEvent.deltaX;
-          var deltaY = -1 * e.originalEvent.deltaY;
+          const deltaX = e.originalEvent.deltaX;
+          const deltaY = -1 * e.originalEvent.deltaY;
 
           if (typeof deltaX === "undefined" || typeof deltaY === "undefined") {
             // OS X Safari
@@ -403,10 +403,10 @@
             return;
           }
 
-          var delta = getDeltaFromEvent(e);
+          const delta = getDeltaFromEvent(e);
 
-          var deltaX = delta[0];
-          var deltaY = delta[1];
+          const deltaX = delta[0];
+          const deltaY = delta[1];
 
           shouldPrevent = false;
           if (!settings.useBothWheelAxes) {
@@ -451,7 +451,7 @@
       }
 
       function bindKeyboardHandler() {
-        var hovered = false;
+        const hovered = false;
         $this.bind(eventClass('mouseenter'), function (e) {
           hovered = true;
         });
@@ -459,7 +459,7 @@
           hovered = false;
         });
 
-        var shouldPrevent = false;
+        const shouldPrevent = false;
         $(ownerDocument).bind(eventClass('keydown'), function (e) {
           if (e.isDefaultPrevented && e.isDefaultPrevented()) {
             return;
@@ -469,7 +469,7 @@
             return;
           }
 
-          var activeElement = document.activeElement ? document.activeElement : ownerDocument.activeElement;
+          const activeElement = document.activeElement ? document.activeElement : ownerDocument.activeElement;
           // go deeper if element is a webcomponent
           while (activeElement.shadowRoot) {
             activeElement = activeElement.shadowRoot.activeElement;
@@ -478,8 +478,8 @@
             return;
           }
 
-          var deltaX = 0;
-          var deltaY = 0;
+          const deltaX = 0;
+          const deltaY = 0;
 
           switch (e.which) {
           case 37: // left
@@ -534,10 +534,10 @@
 
         $scrollbarY.bind(eventClass('click'), stopPropagation);
         $scrollbarYRail.bind(eventClass('click'), function (e) {
-          var halfOfScrollbarLength = getInt(scrollbarYHeight / 2);
-          var positionTop = e.pageY - $scrollbarYRail.offset().top - halfOfScrollbarLength;
-          var maxPositionTop = containerHeight - scrollbarYHeight;
-          var positionRatio = positionTop / maxPositionTop;
+          const halfOfScrollbarLength = getInt(scrollbarYHeight / 2);
+          const positionTop = e.pageY - $scrollbarYRail.offset().top - halfOfScrollbarLength;
+          const maxPositionTop = containerHeight - scrollbarYHeight;
+          const positionRatio = positionTop / maxPositionTop;
 
           if (positionRatio < 0) {
             positionRatio = 0;
@@ -550,10 +550,10 @@
 
         $scrollbarX.bind(eventClass('click'), stopPropagation);
         $scrollbarXRail.bind(eventClass('click'), function (e) {
-          var halfOfScrollbarLength = getInt(scrollbarXWidth / 2);
-          var positionLeft = e.pageX - $scrollbarXRail.offset().left - halfOfScrollbarLength;
-          var maxPositionLeft = containerWidth - scrollbarXWidth;
-          var positionRatio = positionLeft / maxPositionLeft;
+          const halfOfScrollbarLength = getInt(scrollbarXWidth / 2);
+          const positionLeft = e.pageX - $scrollbarXRail.offset().left - halfOfScrollbarLength;
+          const maxPositionLeft = containerWidth - scrollbarXWidth;
+          const positionRatio = positionLeft / maxPositionLeft;
 
           if (positionRatio < 0) {
             positionRatio = 0;
@@ -567,7 +567,7 @@
 
       function bindSelectionHandler() {
         function getRangeNode() {
-          var selection = window.getSelection ? window.getSelection() :
+          const selection = window.getSelection ? window.getSelection() :
                           document.getSlection ? document.getSlection() : {rangeCount: 0};
           if (selection.rangeCount === 0) {
             return null;
@@ -576,8 +576,8 @@
           }
         }
 
-        var scrollingLoop = null;
-        var scrollDiff = {top: 0, left: 0};
+        const scrollingLoop = null;
+        const scrollDiff = {top: 0, left: 0};
         function startScrolling() {
           if (!scrollingLoop) {
             scrollingLoop = setInterval(function () {
@@ -601,7 +601,7 @@
           $this.removeClass('ps-in-scrolling');
         }
 
-        var isSelected = false;
+        const isSelected = false;
         $(ownerDocument).bind(eventClass('selectionchange'), function (e) {
           if ($.contains($this[0], getRangeNode())) {
             isSelected = true;
@@ -619,9 +619,9 @@
 
         $(window).bind(eventClass('mousemove'), function (e) {
           if (isSelected) {
-            var mousePosition = {x: e.pageX, y: e.pageY};
-            var containerOffset = $this.offset();
-            var containerGeometry = {
+            const mousePosition = {x: e.pageX, y: e.pageY};
+            const containerOffset = $this.offset();
+            const containerGeometry = {
               left: containerOffset.left,
               right: containerOffset.left + $this.outerWidth(),
               top: containerOffset.top,
@@ -673,12 +673,12 @@
           updateGeometry();
         }
 
-        var startOffset = {};
-        var startTime = 0;
-        var speed = {};
-        var easingLoop = null;
-        var inGlobalTouch = false;
-        var inLocalTouch = false;
+        const startOffset = {};
+        const startTime = 0;
+        const speed = {};
+        const easingLoop = null;
+        const inGlobalTouch = false;
+        const inLocalTouch = false;
 
         function globalTouchStart(e) {
           inGlobalTouch = true;
@@ -696,7 +696,7 @@
           }
         }
         function shouldHandle(e) {
-          var event = e.originalEvent;
+          const event = e.originalEvent;
           if (event.targetTouches && event.targetTouches.length === 1) {
             return true;
           }
@@ -709,7 +709,7 @@
           if (shouldHandle(e)) {
             inLocalTouch = true;
 
-            var touch = getTouch(e);
+            const touch = getTouch(e);
 
             startOffset.pageX = touch.pageX;
             startOffset.pageY = touch.pageY;
@@ -725,19 +725,19 @@
         }
         function touchMove(e) {
           if (!inGlobalTouch && inLocalTouch && shouldHandle(e)) {
-            var touch = getTouch(e);
+            const touch = getTouch(e);
 
-            var currentOffset = {pageX: touch.pageX, pageY: touch.pageY};
+            const currentOffset = {pageX: touch.pageX, pageY: touch.pageY};
 
-            var differenceX = currentOffset.pageX - startOffset.pageX;
-            var differenceY = currentOffset.pageY - startOffset.pageY;
+            const differenceX = currentOffset.pageX - startOffset.pageX;
+            const differenceY = currentOffset.pageY - startOffset.pageY;
 
             applyTouchMove(differenceX, differenceY);
             startOffset = currentOffset;
 
-            var currentTime = (new Date()).getTime();
+            const currentTime = (new Date()).getTime();
 
-            var timeGap = currentTime - startTime;
+            const timeGap = currentTime - startTime;
             if (timeGap > 0) {
               speed.x = differenceX / timeGap;
               speed.y = differenceY / timeGap;
@@ -843,8 +843,8 @@
         eventClass = null;
       }
 
-      var supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
-      var supportsIePointer = window.navigator.msMaxTouchPoints !== null;
+      const supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+      const supportsIePointer = window.navigator.msMaxTouchPoints !== null;
 
       function initialize() {
         updateGeometry();
