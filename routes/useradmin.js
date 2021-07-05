@@ -38,12 +38,12 @@ router.post('/:id/sua-user-by-user.html', isLoggedInWithoutAdmin,  function(req,
     data.lastname  = req.body.ten;
     data.phone     = Number(req.body.sodienthoai)
     data.username  = req.body.tendangnhap
-    data.address   = req.body.address
-    data.city      = req.body.city
+    
      data.save();
       req.flash('succsess_msg', 'Đã Sửa Thành Công');
       res.redirect('/user/profile');
   });
+  console.log('ddasdas');
   
 });
 router.get('/:id/xoa-user.html', isLoggedIn, function(req, res, next) {
