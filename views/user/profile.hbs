@@ -12,6 +12,11 @@
 		<div class="container">
 			<div class="row">
         <div class="col-sm-6 col-sm-offset-3 ">
+						{{#if succsess_msg }}
+								<div class="alert alert-info">
+										<p>{{succsess_msg}}</p>
+								</div>
+						{{/if}}
             <div class="well">
                 <h3><span class="fa fa-user"></span>Tài khoản</h3>
 									<form action="/admin/user/{{user._id}}/sua-user-by-user.html" method="post">
@@ -28,6 +33,10 @@
 													<input class="form-control" style="border: none;" type="text" name="tendangnhap" id="tendangnhap" value="{{user.username}}"> <br>
 												<strong>Số điện thoại</strong>: 
 													<input class="form-control" style="border: none;" type="text" name="sodienthoai" id="sodienthoai" value="{{user.phone}}"><br>
+												<strong>Địa chỉ</strong>: 
+													<input class="form-control" style="border: none;" type="text" name="address" id="address" value="{{user.address}}"><br>
+												<strong>Thành phố</strong>: 
+													<input class="form-control" style="border: none;" type="text" name="city" id="city" value="{{user.city}}"><br>
 												<strong>Chức vụ</strong>: {{user.roles}}
                     </p>
 										<button class="btn btn-info" type="submit">Lưu</button>
